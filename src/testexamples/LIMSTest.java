@@ -5,8 +5,10 @@
  */
 package testexamples;
 
+import com.db.mongodb.ProcessDAO;
 import com.db.mongodb.SampleDAO;
 import com.db.mongodb.TemplateDAO;
+import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.UnitEnum;
@@ -16,6 +18,9 @@ import java.util.Date;
 import org.bson.Document;
 
 /**
+ * mongodump -h localhost -d LIMS -o C:\Users\admin1\Desktop\LIMS\
+ * mongorestore -h localhost  -d LIMS --dir /home/mongodump/itcast/
+ * 
  * Data Structure:
             Sample{
                     Active:1
@@ -52,16 +57,72 @@ import org.bson.Document;
                             "Comments: sdsdsdsdsdsd"
                             "User" : hover 
                         }
+                    }
+                    ***************************************************
+            Process{
+                    Active:1
+                    DateTime:2017-09-24 10:27:35.855
+                    SID:"CocaCola"    //key   
+                    TID:"template1"   //key
+                    Comments : "sdsdsdsds"
+                    User:"hover"
+                    Steps
+                        {
+                            Step1 : abc
+                            Step2 : sdsd
+                        }
+                    }
          */
 
 public class LIMSTest {
 
     public static void main(String args[]) {
         //testTemplateDAO();
-        testSampleDAO();
+        //testSampleDAO();
         //testGetTemplate();
+        testInsertProcess();
+        //testGetProcess();
     }
 
+    
+    private static void testGetProcess() {
+        
+        Document processDoc = new Document();
+        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
+        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
+
+        if (ProcessDAO.connProcessDAO()) {
+            ProcessDAO.setProcessCollection();
+            ArrayList fetchTemplate = ProcessDAO.fetchProcess(processDoc);
+            System.out.println(fetchTemplate.toString());
+        }
+        ProcessDAO.closeDBConn();
+        
+    }
+    
+    private static void testInsertProcess()
+    {
+        Document processDoc = new Document();
+        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
+        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
+        processDoc.append(ProcessKeyEnum.User.toString(), "hover");
+        processDoc.append(ProcessKeyEnum.Comments.toString(), "comments");
+        processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
+        
+        Document stepObj = new Document();
+        stepObj.append("STEP1", "1skdaskdas");
+        processDoc.append(ProcessKeyEnum.Steps.toString(), stepObj);
+        
+         if (ProcessDAO.connProcessDAO()) {
+            ProcessDAO.setProcessCollection();
+            ProcessDAO.addOrUpdateProcess(processDoc);
+        }
+        ProcessDAO.closeDBConn();
+        
+    }
+    
     private static void testGetTemplate() {
         Document templateDoc = new Document();
         templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
@@ -73,6 +134,7 @@ public class LIMSTest {
             ArrayList fetchTemplate = TemplateDAO.fetchTemplate(templateDoc);
             System.out.println(fetchTemplate.toString());
         }
+        TemplateDAO.closeDBConn();
 
     }
 
@@ -138,4 +200,5 @@ public class LIMSTest {
 
         }
     }
+
 }
