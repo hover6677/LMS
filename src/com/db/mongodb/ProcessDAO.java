@@ -40,6 +40,7 @@ public class ProcessDAO {
             System.out.println("DB connection is not availbale ");
             System.out.println("reconnecting...");
             ProcessDAO.DBConn.dbConnection();
+            processCollection = DBConn.getDb().getCollection(CollectionStr);
         }
     }
 

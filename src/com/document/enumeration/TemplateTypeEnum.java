@@ -9,8 +9,8 @@ package com.document.enumeration;
  *
  * @author admin1
  */
-public enum  TemplateKeyEnum {
-    Active,DateTime,User,Type,TID,Count,Tags;
+public enum  TemplateTypeEnum {
+    Receive,Process,Storage;
 }
 
 

@@ -29,7 +29,9 @@
  */
 package com.ui.user.mainframe;
 
-import UI.ReportUI;
+import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.helper.TemplateDAOHelper;
+import com.document.enumeration.*;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,14 +41,14 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import com.ui.user.mainapp.MainFrameApp;
+import com.ui.user.mainapp.UserMainFrameApp;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
-import javax.swing.table.TableColumn;
 
 public class UserMainFrame extends javax.swing.JFrame {
 
@@ -54,9 +56,9 @@ public class UserMainFrame extends javax.swing.JFrame {
      * Creates new form Antenna
      */
     public UserMainFrame() {
-        //MainFrameApp.MainFrameApp();
+        UserMainFrameApp.MainFrameApp();
         initComponents();
-        //MainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
+        UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
     /**
@@ -82,6 +84,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBoxTags1 = new javax.swing.JComboBox<>();
+        jComboBoxTags3 = new javax.swing.JComboBox<>();
+        jTextField4 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         addBtn2 = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
@@ -117,6 +124,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,6 +142,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         setLocation(new java.awt.Point(320, 200));
         setMinimumSize(new java.awt.Dimension(742, 356));
         setType(java.awt.Window.Type.UTILITY);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -163,7 +176,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel5.setText("Template");
         jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cola Template", "Blood Template", "Water Template" }));
+        jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList())  );
         jComboBoxTags.setMinimumSize(new java.awt.Dimension(120, 25));
         jComboBoxTags.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +190,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 630, Short.MAX_VALUE)
+            .add(0, 807, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -195,33 +208,83 @@ public class UserMainFrame extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("Quantity");
+        jLabel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel9.setText("Type");
+        jLabel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jComboBoxTags1.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
+        jComboBoxTags1.setMinimumSize(new java.awt.Dimension(120, 25));
+        jComboBoxTags1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTags1ActionPerformed(evt);
+            }
+        });
+
+        jComboBoxTags3.setModel(new javax.swing.DefaultComboBoxModel(ReceiveTypeEnum.names()));
+        jComboBoxTags3.setMinimumSize(new java.awt.Dimension(120, 25));
+        jComboBoxTags3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTags3ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField4.setMinimumSize(new java.awt.Dimension(6, 25));
+        jTextField4.setName("ID"); // NOI18N
+        jTextField4.setPreferredSize(new java.awt.Dimension(6, 25));
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(jSeparator2)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabel7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jScrollPane4))
-                    .add(jScrollPane1)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabel3)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jLabel3)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(191, 191, 191)
+                                        .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(18, 18, 18)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jPanel2Layout.createSequentialGroup()
+                                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                                .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                            .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jLabel7)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jScrollPane4))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 677, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(29, Short.MAX_VALUE))
+                    .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 677, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jPanel2Layout.createSequentialGroup()
-                                .add(191, 191, 191)
-                                .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jPanel2Layout.createSequentialGroup()
+                                        .add(300, 300, 300)
+                                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .add(302, 302, 302)
+                                        .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                 .add(18, 18, 18)
-                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(80, 80, 80)
-                                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(24, 24, 24)
-                                .add(jComboBoxTags, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 191, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .add(35, 35, 35))
+                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jComboBoxTags, 0, 166, Short.MAX_VALUE)
+                                    .add(jComboBoxTags3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .add(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -229,16 +292,29 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(21, 21, 21)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jComboBoxTags, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
-                .add(19, 19, 19)
-                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 177, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE, false)
+                                .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jComboBoxTags3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                                .add(jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                            .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .add(20, 20, 20))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +358,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel8.setText("Template");
         jLabel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cola Process", "Blood Process", "Water Process" }));
+        jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
         jComboBoxTags2.setMinimumSize(new java.awt.Dimension(120, 25));
         jComboBoxTags2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,6 +653,8 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
                             .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(67, 67, 67)
+                            .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 348, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 735, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -592,7 +670,8 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel10))
                 .add(19, 19, 19))
         );
 
@@ -612,8 +691,8 @@ public class UserMainFrame extends javax.swing.JFrame {
             if (isAllFilled()) {
                 addBtnActionPerformed();
             }
-            MainFrameApp.readyToSave(this.jTabbedPane1.getSelectedIndex());
-            MainFrameApp.saveFile(true);
+            UserMainFrameApp.readyToSave(this.jTabbedPane1.getSelectedIndex());
+            UserMainFrameApp.saveFile(true);
         } catch (IOException ex) {
             Logger.getLogger(UserMainFrame.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Close File Error");
@@ -622,7 +701,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
-        MainFrameApp.clearRecordListByTemplate(this.jTabbedPane1.getSelectedIndex());
+        UserMainFrameApp.clearRecordListByTemplate(this.jTabbedPane1.getSelectedIndex());
         clearCountLabel();
         resetBtnActionPerformed();
     }//GEN-LAST:event_clearBtnActionPerformed
@@ -631,6 +710,20 @@ public class UserMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //String dir = MainFrameApp.getDirList(this.jTabbedPane1.getSelectedIndex());
         //MainFrameApp.setDir(dir);
+        if (this.jTabbedPane1.getSelectedIndex() < 3) {
+            TemplateDAOHelper.getTemplateListByType("admin", TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+
+            switch (this.jTabbedPane1.getSelectedIndex()) {
+                case 0:
+                    this.jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
+                    break;
+                case 1:
+                    this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
+                    break;
+                default:
+                    break;
+            }
+        }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -695,6 +788,19 @@ public class UserMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jComboBoxTags1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTags1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTags1ActionPerformed
+
+    private void jComboBoxTags3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTags3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTags3ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        UserMainFrameApp.MainFrameAppClose();
+    }//GEN-LAST:event_formWindowClosing
+
     private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
         if (null != selectedCountLabel) {
@@ -730,7 +836,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         }
         if (isAllFilled(o)) {
-            int count = MainFrameApp.addRecord(o, selectedIndex);
+            int count = UserMainFrameApp.addRecord(o, selectedIndex);
             JLabel selectedCountLabel = getSelectedCountLabel();
             if (null != selectedCountLabel) {
                 selectedCountLabel.setText(Integer.toString(count));
@@ -887,18 +993,23 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBoxTags;
+    private javax.swing.JComboBox<String> jComboBoxTags1;
     private javax.swing.JComboBox<String> jComboBoxTags2;
+    private javax.swing.JComboBox<String> jComboBoxTags3;
     private javax.swing.JComboBox<String> jComboBoxTags7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -927,6 +1038,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton saveBtn;
     // End of variables declaration//GEN-END:variables
 

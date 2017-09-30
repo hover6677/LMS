@@ -5,7 +5,6 @@
  */
 package com.db.mongodb;
 
-import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 

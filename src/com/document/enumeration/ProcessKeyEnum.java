@@ -10,7 +10,7 @@ package com.document.enumeration;
  * @author admin1
  */
 public enum  ProcessKeyEnum {
-    Active,DateTime,User,SID,TID,Comments,Steps
+    Active,DateTime,User,SID,TID,Comments,Steps;
 }
 
 

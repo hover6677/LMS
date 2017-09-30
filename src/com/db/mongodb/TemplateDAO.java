@@ -141,5 +141,14 @@ public class TemplateDAO {
 
         return fetchTemplate(templateRequest);
     }
+    public static ArrayList fetchTemplate(String admin,String templateType)
+    {
+        Document templateRequest = new Document();
+        templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
+        templateRequest.append(TemplateKeyEnum.Active.toString(),1);
+        templateRequest.append(TemplateKeyEnum.User.toString(),admin);
+
+        return fetchTemplate(templateRequest);
+    }
 
 }
