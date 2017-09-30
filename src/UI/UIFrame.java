@@ -9,17 +9,32 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import com.ui.user.mainframe.UserMainFrame;
+
+import java.awt.Color;
+
 public class UIFrame extends JFrame{
 	public UIFrame() {
 		setTitle("LIMS");
 		setResizable(false);
 		setSize(765,475);
                 //setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
-                
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);        
 		getContentPane().setLayout(null);
-                JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 13, 688, 538);
-		getContentPane().add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255,255,204));
+		panel.setBounds(0, 0, 759, 440);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel label = new JLabel();
+		label.setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
+		label.setBounds(12, 13, 713, 42);
+		panel.add(label);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(12, 68, 735, 359);
+		panel.add(tabbedPane);
 		tabbedPane.addTab("Receiving", new ReceivingUI());
 		tabbedPane.addTab("Processing", new ProcessingUI());
 		tabbedPane.addTab("Storage", new StorageUI());
@@ -50,6 +65,8 @@ public class UIFrame extends JFrame{
 	}
 	public static void main(String args[])
 	{
+		java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
 		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -73,5 +90,8 @@ public class UIFrame extends JFrame{
 			e.printStackTrace();
 		}
 		
+	
+            }
+	});
 	}
-}	
+}

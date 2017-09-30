@@ -19,12 +19,12 @@ public class StorageUI extends JPanel {
 	public StorageUI() {
 		//System.out.println("Storageui");
 		//setTitle("Storage (Admin)");
-		setSize(620,330);
+		setSize(723,330);
 		//setResizable(false);
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 34, 609, 62);
+		panel.setBounds(6, 13, 701, 92);
 		add(panel);
 		panel.setBorder(BorderFactory.createRaisedBevelBorder());
 		panel.setLayout(null);
@@ -34,18 +34,18 @@ public class StorageUI extends JPanel {
 		flowLayout.setHgap(40);
 		flowLayout.setVgap(20);
 		flowLayout.setAlignment(FlowLayout.LEFT);
-		panel_1.setBounds(6, 108, 609, 193);
+		panel_1.setBounds(6, 105, 701, 212);
 		panel_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Storages"));
 		add(panel_1);
 		panel.setLayout(null);
 		
 		JLabel lblNoOfStorage = new JLabel("No. of Storage");
 		lblNoOfStorage.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNoOfStorage.setBounds(32, 15, 113, 20);
+		lblNoOfStorage.setBounds(123, 14, 113, 20);
 		panel.add(lblNoOfStorage);
 		
 		JComboBox<Integer> comboBox = new JComboBox<Integer>();
-		comboBox.setBounds(180, 14, 85, 27);
+		comboBox.setBounds(287, 13, 85, 27);
 		cbm = new DefaultComboBoxModel<Integer>();
 		setComboBoxModel();
 		comboBox.setModel(cbm);

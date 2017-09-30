@@ -22,13 +22,13 @@ public class ReportUI extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(12, 115, 597, 324);
+		panel_1.setBounds(12, 45, 673, 281);
 		
 		
 		JLabel lblReport = new JLabel("Report");
 		lblReport.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblReport.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReport.setBounds(12, 13, 115, 50);
+		lblReport.setBounds(12, 0, 115, 50);
 		add(lblReport);
 		
 		ReadLabels();
@@ -43,7 +43,7 @@ public class ReportUI extends JPanel {
 		add(panel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 573, 298);
+		scrollPane.setBounds(12, 13, 649, 255);
 		panel_1.add(scrollPane);
 		
 		JTable table = new JTable(dataArray, labelArray);

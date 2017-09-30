@@ -59,7 +59,7 @@ public abstract class AbstractUI extends JPanel{
 		label3 = l3;
 		button1 = b1;
 		//setTitle(title);
-		setSize(701,499);  
+		setSize(719,338);  
 		//getContentPane().setLayout(null);
 		setLayout(null);
 		
@@ -68,13 +68,13 @@ public abstract class AbstractUI extends JPanel{
 		
 		JPanel panel = new JPanel();
 		panel.setForeground(Color.GRAY);
-		panel.setBounds(6, 6, 683, 121);
+		panel.setBounds(6, 6, 701, 92);
 		panel.setBorder(BorderFactory.createRaisedBevelBorder());
 		add(panel);
 		panel.setLayout(null);
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(6, 139, 683, 298);
+		panel_1.setBounds(6, 111, 701, 189);
 		panel_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), label3));
 		add(panel_1);
 		panel_1.setLayout(null);
@@ -82,19 +82,19 @@ public abstract class AbstractUI extends JPanel{
 		
 		JLabel lblNewLabel = new JLabel(label1);
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		lblNewLabel.setBounds(123, 16, 123, 27);
+		lblNewLabel.setBounds(123, 13, 123, 27);
 		panel.add(lblNewLabel);
 		
 		JTextField textField = new JTextField();
 		lblNewLabel.setLabelFor(textField);
-		textField.setBounds(258, 18, 172, 26);
+		textField.setBounds(258, 15, 172, 26);
 		textField.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNoOfSteps = new JLabel(label2);
 		lblNoOfSteps.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		lblNoOfSteps.setBounds(123, 70, 123, 27);
+		lblNoOfSteps.setBounds(123, 53, 123, 27);
 		panel.add(lblNoOfSteps);
 		
 		getLabelTotNum();
@@ -102,7 +102,7 @@ public abstract class AbstractUI extends JPanel{
 		JSpinner spinner = new JSpinner();
 		lblNoOfSteps.setLabelFor(spinner);
 		spinner.setToolTipText("Select No. of Labels");
-		spinner.setBounds(258, 72, 89, 27);
+		spinner.setBounds(258, 55, 89, 27);
 		spinner.setModel(listModelLeft);
 		//spinner.get.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 		spinner.addChangeListener(new ChangeListener(){
@@ -120,7 +120,7 @@ public abstract class AbstractUI extends JPanel{
 		panel.add(spinner);
 		
 		JButton btnSave = new JButton(button1);
-		btnSave.setBounds(520, 446, 117, 29);
+		btnSave.setBounds(530, 300, 117, 25);
 		btnSave.addActionListener(new ActionListener(){
 
 			@Override
