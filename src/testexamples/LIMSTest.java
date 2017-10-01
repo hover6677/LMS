@@ -9,8 +9,10 @@ import com.db.mongodb.ProcessDAO;
 import com.db.mongodb.SampleDAO;
 import com.db.mongodb.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
+import com.document.enumeration.ReceiveTypeEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
+import com.document.enumeration.TemplateTypeEnum;
 import com.document.enumeration.UnitEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,19 +29,14 @@ import org.bson.Document;
                     DateTime:2017-09-24 10:27:35.855
                     SID:"CocaCola"  //unique key to link to Process
                     User:"hover"
+                    Quantity:20
+                    Unit:kg
+                    Type:Solution,Chemical,general supply - direct mtl,general supply - indirect mtl
+                    Comments: sdsdsdsdsdsd
                     Receive
                         {
-                            "water":
-                                    {
-                                        Quantity: 20
-                                        Unit: ml
-                                    }
-                            "sugar"
-                                    {
-                                        Quantity:12
-                                        Unit: mg
-                                    }
-                            "Comments: sdsdsdsdsdsd"
+                            vendor: asd
+                            value: 153
                         }
                     
                     Storage
@@ -82,6 +79,8 @@ public class LIMSTest {
         //testGetTemplate();
         //testInsertProcess();
         //testGetProcess();
+        //System.out.println(TemplateTypeEnum.values()[0].toString());
+        //System.out.println(ReceiveTypeEnum.names());
     }
 
     
@@ -186,9 +185,9 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
         templateDoc.append(TemplateKeyEnum.Count.toString(), 3);
         templateDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
-        templateDoc.append(TemplateKeyEnum.TID.toString(), "template3");
-        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("v3.2"));
-        templateDoc.append(TemplateKeyEnum.Type.toString(), "Receive");
+        templateDoc.append(TemplateKeyEnum.TID.toString(), "template2");
+        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("p1","p2"));
+        templateDoc.append(TemplateKeyEnum.Type.toString(), "Process");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
         TemplateDAO dao = new TemplateDAO();

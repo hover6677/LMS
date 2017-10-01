@@ -11,11 +11,11 @@ import java.util.Arrays;
  *
  * @author admin1
  */
-public enum  UnitEnum {
-    kg,g,mg,L,ml,pack;
+public enum  ReceiveTypeEnum {
+    Solution,Chemical,General_supply__direct_mtl,general_supply__indirect_mtl;
     
     public static String[] names() {
-    return Arrays.toString(UnitEnum.values()).replaceAll("^.|.$", "").split(", ");
+    return Arrays.toString(ReceiveTypeEnum.values()).replaceAll("^.|.$", "").replaceAll("__", " - ").replaceAll("_", " ").split(", ");
 }
 
 }

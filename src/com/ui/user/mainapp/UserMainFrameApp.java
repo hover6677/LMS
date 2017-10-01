@@ -5,6 +5,10 @@
  */
 package com.ui.user.mainapp;
 
+import com.db.mongodb.ProcessDAO;
+import com.db.mongodb.SampleDAO;
+import com.db.mongodb.TemplateDAO;
+import com.mongodb.client.MongoCollection;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,22 +22,25 @@ import org.json.JSONObject;
  *
  * @author admin1
  */
-public class MainFrameApp {
+public class UserMainFrameApp {
 
-    private static int tabCount = 2;
+    private static int tabCount = 4;
     private static ArrayList recordList;
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
-    private static final String targetDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
+    private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
+    public  static String AdminName = "admin";
+    public  static ArrayList labelList;
+    public  static ArrayList textFiledList;
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
 
     public static void MainFrameApp() {
-        MainFrameApp.fileRW = new FileRW();
-        if (dirExist(targetDir)) {
-            dirList = new ArrayList<String>(Arrays.asList(targetDir + "\\Mailing.txt",
-                    targetDir + "\\Identity.txt"));
+        UserMainFrameApp.fileRW = new FileRW();
+        /*if (dirExist(configDir)) {
+            dirList = new ArrayList<String>(Arrays.asList(configDir + "\\Mailing.txt",
+                    configDir + "\\Identity.txt"));
         } else {
             dirList = new ArrayList<String>(Arrays.asList(desktopPath + "\\Mailing.txt",
                     desktopPath + "\\Identity.txt"));
@@ -44,7 +51,28 @@ public class MainFrameApp {
 
         for (int i = 0; i < tabCount; i++) {
             templateList.add(new ArrayList());
+        }*/
+        if (ProcessDAO.connProcessDAO()) {
+            ProcessDAO.setProcessCollection();
         }
+        if (SampleDAO.connSampleDAO()) {
+            SampleDAO.setSampleCollection();
+        }
+        if (TemplateDAO.connTempDAO()) {
+            TemplateDAO.setTemplateCollection();
+        }
+        
+        labelList = new ArrayList();
+        textFiledList = new ArrayList();
+    }
+    
+    public static void MainFrameAppClose()
+    {
+        System.out.println("closing DB...");
+        ProcessDAO.closeDBConn();
+        SampleDAO.closeDBConn();
+        TemplateDAO.closeDBConn();
+        System.out.println("DB closed");
     }
 
     private static boolean dirExist(String dir) {
@@ -54,10 +82,10 @@ public class MainFrameApp {
     public static void readyToSave(int templateIndex) {
         if(null==templateList ||templateList.size()<=templateIndex)
             return;
-        MainFrameApp.dir = (String) MainFrameApp.dirList.get(templateIndex);
-        MainFrameApp.recordList.clear();
+        UserMainFrameApp.dir = (String) UserMainFrameApp.dirList.get(templateIndex);
+        UserMainFrameApp.recordList.clear();
         ArrayList formatRecords = applyTemplateFormater(templateIndex, (ArrayList) templateList.get(templateIndex));
-        MainFrameApp.recordList.addAll(formatRecords);
+        UserMainFrameApp.recordList.addAll(formatRecords);
     }
 
     private static ArrayList applyTemplateFormater(int templateIndex, ArrayList list) {
@@ -75,18 +103,18 @@ public class MainFrameApp {
         }
         if (null != recordList) {
             try {
-                MainFrameApp.fileRW.writeFile(dir);
+                UserMainFrameApp.fileRW.writeFile(dir);
                 for (int i = 0; i < recordList.size(); i++) {
-                    MainFrameApp.fileRW.getWriter().println(recordList.get(i).toString());
+                    UserMainFrameApp.fileRW.getWriter().println(recordList.get(i).toString());
                 }
                 return true;
 
             } catch (IOException ex) {
-                Logger.getLogger(MainFrameApp.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserMainFrameApp.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("file not found error");
                 return false;
             } finally {
-                MainFrameApp.fileRW.closeWriter();
+                UserMainFrameApp.fileRW.closeWriter();
                 clearRecordList();
             }
         } else {
@@ -103,7 +131,7 @@ public class MainFrameApp {
     }
 
     public static void setTemplateList(ArrayList<ArrayList> templateList) {
-        MainFrameApp.templateList = templateList;
+        UserMainFrameApp.templateList = templateList;
     }
 
     public static int getTabCount() {
@@ -111,7 +139,7 @@ public class MainFrameApp {
     }
 
     public static void setTabCount(int tabCount) {
-        MainFrameApp.tabCount = tabCount;
+        UserMainFrameApp.tabCount = tabCount;
     }
 
     public static FileRW getFileRW() {
@@ -119,7 +147,7 @@ public class MainFrameApp {
     }
 
     public static void setFileRW(FileRW fileRW) {
-        MainFrameApp.fileRW = fileRW;
+        UserMainFrameApp.fileRW = fileRW;
     }
 
     public static String getDir() {
@@ -127,7 +155,7 @@ public class MainFrameApp {
     }
 
     public static void setDir(String dir) {
-        MainFrameApp.dir = dir;
+        UserMainFrameApp.dir = dir;
     }
     private static final int MAX_COUNT = 1000;
 
@@ -136,21 +164,21 @@ public class MainFrameApp {
     }
 
     public static void setRecordList(ArrayList recordList) {
-        MainFrameApp.recordList = recordList;
+        UserMainFrameApp.recordList = recordList;
     }
 
     private static void clearRecordList() {
-        if (null != MainFrameApp.recordList) {
-            MainFrameApp.recordList.clear();
+        if (null != UserMainFrameApp.recordList) {
+            UserMainFrameApp.recordList.clear();
         }
     }
 
     public static void clearRecordListByTemplate(int index) {
-        if (null == MainFrameApp.templateList || MainFrameApp.templateList.size()<=index) {
+        if (null == UserMainFrameApp.templateList || UserMainFrameApp.templateList.size()<=index) {
             return;
         }
-        MainFrameApp.templateList.get(index).clear();
-        MainFrameApp.clearRecordList();
+        UserMainFrameApp.templateList.get(index).clear();
+        UserMainFrameApp.clearRecordList();
     }
 
     public static int addRecord(JSONObject o, int selectedIndex) {
