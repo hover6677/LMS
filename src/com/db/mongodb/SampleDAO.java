@@ -15,25 +15,29 @@ import org.bson.Document;
  *
  * @author admin1
  */
-public class SampleDAO {
+public class SampleDAO extends AbstractDAO {
 
     private static MongoCollection sampleCollection = null;
     private static final String CollectionStr = "Sample";
     private static DBConnection DBConn = new DBConnection();
 
+    
     public SampleDAO() {
         SampleDAO.DBConn.dbConnection();
     }
 
-    public static boolean connSampleDAO() {
+    @Override
+    public boolean connDAO() {
         return SampleDAO.DBConn.dbConnection();
     }
 
-    public static MongoCollection getSampleCollection() {
+    @Override
+    public  MongoCollection getCollection() {
         return sampleCollection;
     }
 
-    public static void setSampleCollection() {
+    @Override
+    public void setCollection() {
         if (null != DBConn.getDb()) {
             sampleCollection = DBConn.getDb().getCollection(CollectionStr);
         } else {
@@ -43,12 +47,13 @@ public class SampleDAO {
         }
     }
 
-    public static boolean addOrUpdateSample(Document sampleDoc) {
-        Document sampleFound = isSampleFound(sampleDoc);
+    @Override
+    public boolean addOrUpdate(Document sampleDoc) {
+        Document sampleFound = isFound(sampleDoc);
 
         try {
             if (null != sampleFound) {
-                updateSample(sampleFound, sampleDoc);
+                update(sampleFound, sampleDoc);
             } else {
                 SampleDAO.sampleCollection.insertOne(sampleDoc);
             }
@@ -60,7 +65,8 @@ public class SampleDAO {
         }
     }
 
-    public static Document isSampleFound(Document sampleDoc) {
+    @Override
+    public Document isFound(Document sampleDoc) {
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -80,7 +86,8 @@ public class SampleDAO {
         }
     }
 
-    public static boolean updateSample(Document sampleFound, Document sampleDoc) {
+    @Override
+    public boolean update(Document sampleFound, Document sampleDoc) {
 
         try {
             softDeleteSample(sampleFound);
@@ -100,7 +107,7 @@ public class SampleDAO {
         }
     }
 
-    private static boolean softDeleteSample(Document sampleFound) {
+    private boolean softDeleteSample(Document sampleFound) {
         try {
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 0);
@@ -115,7 +122,7 @@ public class SampleDAO {
         }
     }
 
-    private static boolean revertSoftDeletion(Document sampleFound) {
+    private boolean revertSoftDeletion(Document sampleFound) {
         try {
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 1);
@@ -131,15 +138,24 @@ public class SampleDAO {
 
     }
 
-    public static void closeDBConn() {
+    @Override
+    public void closeDBConn() {
         SampleDAO.DBConn.closeDB();
     }
     
-    public static ArrayList fetchSample(Document sampleRequest)
+    @Override
+    public ArrayList fetch(Document sampleRequest)
     {
         ArrayList finds = new ArrayList();
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
+    
+    public static AbstractDAO getInstance() {
+		// TODO Auto-generated method stub
+		if(DAO==null)
+			DAO = new SampleDAO();
+		return DAO;
+	}
 
 }

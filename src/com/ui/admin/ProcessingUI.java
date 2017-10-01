@@ -1,4 +1,4 @@
-package UI;
+package com.ui.admin;
 import java.awt.Frame;
 
 import javax.swing.*;
@@ -11,8 +11,15 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.bson.Document;
+
+import com.Action.admin.InsertAction;
+import com.document.enumeration.ProcessKeyEnum;
+import com.document.enumeration.TemplateKeyEnum;
+
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -44,13 +51,13 @@ public class ProcessingUI extends AbstractUI{
 	private int totNum;
 	private SpinnerListModel listModelLeft;
 	private JPanel panel_1;
-	private ArrayList<JTextField> arrayOfTxtBox;
+	
 	
 	
 
 	public ProcessingUI()
 	{
-		super("Process(Admin)","Process Name","No. of Steps","Labels","Save");
+		super("Process(Admin)","Process Name","No. of Steps","Labels","Save",false);
 		
 	}
 	
@@ -63,8 +70,34 @@ public class ProcessingUI extends AbstractUI{
 	
 	@Override
 	protected void buttonAction(){
-		
+		ArrayList<String> value = new ArrayList<String>();
+		for(int i =0 ; i<arrayOfTxtBox.size();i++) {
+			if((arrayOfTxtBox.get(i).getText()==null)) {
+				JOptionPane.showMessageDialog(null,"Please fill all textboxs Or remove unnecessary textboxs");
+				return;
+			}
+			value.add(arrayOfTxtBox.get(i).getText());
+			
+		}
+		Document processDoc = new Document();
+        processDoc.append(TemplateKeyEnum.Active.toString(), 1);
+        processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
+        processDoc.append(TemplateKeyEnum.User.toString(), super.user);
+        processDoc.append(TemplateKeyEnum.Type.toString(), "Process");
+        processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
+        processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
+        processDoc.append(TemplateKeyEnum.Tags.toString(), value);
+        InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
+        ia.action();
+        
+        
+        
+        
+        
+        
 	}
+	
+
 //	public static void main(String args[])
 //	{
 //		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();

@@ -29,7 +29,6 @@
  */
 package com.ui.user.mainframe;
 
-import UI.ReportUI;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +38,8 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.ui.admin.ReportUI;
 import com.ui.user.mainapp.MainFrameApp;
 import java.awt.Font;
 import javax.swing.JTable;

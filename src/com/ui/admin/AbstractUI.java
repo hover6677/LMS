@@ -1,4 +1,4 @@
-package UI;
+package com.ui.admin;
 import java.awt.Frame;
 
 import javax.swing.*;
@@ -41,15 +41,17 @@ public abstract class AbstractUI extends JPanel{
 	String label2;
 	String label3;
 	String button1;
+	public JTextField tidText;
+	public final String user = "Admin";
 	
 	private int totNum;
 	private SpinnerListModel listModelLeft;
 	private JPanel panel_1;
-	private ArrayList<JTextField> arrayOfTxtBox;
+	protected ArrayList<JTextField> arrayOfTxtBox;
 	
 	
 
-	public AbstractUI(String t,String l1, String l2,String l3, String b1)
+	public AbstractUI(String t,String l1, String l2,String l3, String b1, boolean isStorage)
 	{
 		//setResizable(false);
 		//super(title);
@@ -83,14 +85,19 @@ public abstract class AbstractUI extends JPanel{
 		JLabel lblNewLabel = new JLabel(label1);
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		lblNewLabel.setBounds(123, 13, 123, 27);
+		if(!isStorage)
 		panel.add(lblNewLabel);
 		
-		JTextField textField = new JTextField();
-		lblNewLabel.setLabelFor(textField);
-		textField.setBounds(258, 15, 172, 26);
-		textField.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
-		panel.add(textField);
-		textField.setColumns(10);
+		
+		
+		tidText = new JTextField();
+		lblNewLabel.setLabelFor(tidText);
+		tidText.setBounds(258, 15, 172, 26);
+		tidText.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
+		if(!isStorage)
+		panel.add(tidText);
+		tidText.setColumns(10);
+		
 		
 		JLabel lblNoOfSteps = new JLabel(label2);
 		lblNoOfSteps.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
@@ -159,6 +166,7 @@ public abstract class AbstractUI extends JPanel{
 
 	// this function is to get totNum from database
 	abstract protected int getTotNum();
+	
 	protected void addTxtBox(int numOfTxtBox){
 		int xinit = 12;
 		int yinit = 40;

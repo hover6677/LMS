@@ -15,25 +15,28 @@ import org.bson.Document;
  *
  * @author admin1
  */
-public class ProcessDAO {
+public class ProcessDAO extends AbstractDAO {
 
     private static MongoCollection processCollection = null;
     private static final String CollectionStr = "Process";
     private static DBConnection DBConn = new DBConnection();
-
-    public ProcessDAO() {
+    
+    private ProcessDAO() {
         ProcessDAO.DBConn.dbConnection();
     }
-
-    public static boolean connProcessDAO() {
+    
+    @Override
+    public boolean connDAO() {
         return ProcessDAO.DBConn.dbConnection();
     }
-
-    public static MongoCollection getProcessCollection() {
+    
+    @Override
+    public MongoCollection getCollection() {
         return processCollection;
     }
 
-    public static void setProcessCollection() {
+    @Override
+    public void setCollection() {
         if (null != DBConn.getDb()) {
             processCollection = DBConn.getDb().getCollection(CollectionStr);
         } else {
@@ -43,12 +46,13 @@ public class ProcessDAO {
         }
     }
 
-    public static boolean addOrUpdateProcess(Document processDoc) {
-        Document processFound = isProcessFound(processDoc);
+    @Override
+    public boolean addOrUpdate(Document processDoc) {
+        Document processFound = isFound(processDoc);
 
         try {
             if (null != processFound) {
-                updateProcess(processFound, processDoc);
+                update(processFound, processDoc);
             } else {
                 ProcessDAO.processCollection.insertOne(processDoc);
             }
@@ -60,7 +64,8 @@ public class ProcessDAO {
         }
     }
 
-    public static Document isProcessFound(Document processDoc) {
+    @Override
+    public Document isFound(Document processDoc) {
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -82,7 +87,8 @@ public class ProcessDAO {
         }
     }
 
-    public static boolean updateProcess(Document processFound, Document processDoc) {
+    @Override
+    public boolean update(Document processFound, Document processDoc) {
 
         try {
             softDeleteProcess(processFound);
@@ -96,7 +102,7 @@ public class ProcessDAO {
         }
     }
 
-    private static boolean softDeleteProcess(Document processFound) {
+    private boolean softDeleteProcess(Document processFound) {
         try {
             Document newObj = new Document();
             newObj.put(ProcessKeyEnum.Active.toString(), 0);
@@ -111,7 +117,7 @@ public class ProcessDAO {
         }
     }
 
-    private static boolean revertSoftDeletion(Document processFound) {
+    private boolean revertSoftDeletion(Document processFound) {
         try {
             Document newObj = new Document();
             newObj.put(ProcessKeyEnum.Active.toString(), 1);
@@ -127,15 +133,25 @@ public class ProcessDAO {
 
     }
 
-    public static void closeDBConn() {
+    @Override
+    public void closeDBConn() {
         ProcessDAO.DBConn.closeDB();
     }
     
-    public static ArrayList fetchProcess(Document processRequest)
+    @Override
+    public ArrayList fetch(Document processRequest)
     {
         ArrayList finds = new ArrayList();
         processCollection.find(processRequest).into(finds);
         return finds;
     }
+
+
+	public static AbstractDAO getInstance() {
+		// TODO Auto-generated method stub
+		if(DAO==null)
+			DAO = new ProcessDAO();
+		return DAO;
+	}
 
 }

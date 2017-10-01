@@ -1,4 +1,4 @@
-package UI;
+package com.ui.admin;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ public class UIFrame extends JFrame{
 		panel.add(tabbedPane);
 		tabbedPane.addTab("Receiving", new ReceivingUI());
 		tabbedPane.addTab("Processing", new ProcessingUI());
-		tabbedPane.addTab("Storage", new StorageUI());
+		tabbedPane.addTab("Storage", new StorageUI2());
 		tabbedPane.addTab("Report", new ReportUI());
 		
 		JPanel imagePanel = new JPanel();

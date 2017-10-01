@@ -16,7 +16,7 @@ import org.bson.Document;
  *
  * @author admin1
  */
-public class TemplateDAO {
+public class TemplateDAO extends AbstractDAO {
 
     private static MongoCollection templateCollection = null;
     private static final String CollectionStr = "Template";
@@ -26,15 +26,18 @@ public class TemplateDAO {
         TemplateDAO.DBConn.dbConnection();
     }
 
-    public static boolean connTempDAO() {
+    @Override
+    public boolean connDAO() {
         return TemplateDAO.DBConn.dbConnection();
     }
 
-    public static MongoCollection getTemplateCollection() {
+    @Override
+    public MongoCollection getCollection() {
         return templateCollection;
     }
 
-    public static void setTemplateCollection() {
+    @Override
+    public void setCollection() {
         if (null != DBConn.getDb()) {
             templateCollection = DBConn.getDb().getCollection(CollectionStr);
         } else {
@@ -44,8 +47,9 @@ public class TemplateDAO {
         }
     }
 
-    public static boolean addOrUpdateTemp(Document templateDoc) {
-        Document tempDefined = isTempDefined(templateDoc);
+    @Override
+    public boolean addOrUpdate(Document templateDoc) {
+        Document tempDefined = isFound(templateDoc);
 
         try {
             if (null != tempDefined) {
@@ -54,14 +58,15 @@ public class TemplateDAO {
             TemplateDAO.templateCollection.insertOne(templateDoc);
             return true;
         } catch (Exception e) {
-            revertSoftDelete(tempDefined);
+            revertSoftDeletion(tempDefined);
             System.out.println("insertion failed");
             System.out.println(e);
             return false;
         }
     }
 
-    public static boolean softDeleteTemplate(Document tempDefined) {
+    
+    public boolean softDeleteTemplate(Document tempDefined) {
 
         try {
             Document newObj = new Document();
@@ -80,7 +85,7 @@ public class TemplateDAO {
         }
     }
 
-    private static boolean revertSoftDelete(Document tempDefined) {
+    private boolean revertSoftDeletion(Document tempDefined) {
         try {
             Document newObj = new Document();
             newObj.put(TemplateKeyEnum.Active.toString(), 0);
@@ -98,7 +103,8 @@ public class TemplateDAO {
         }
     }
 
-    public static Document isTempDefined(Document templateDoc) {
+    @Override
+    public Document isFound(Document templateDoc) {
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -122,24 +128,41 @@ public class TemplateDAO {
         }
     }
 
-    public static void closeDBConn() {
+    @Override
+    public void closeDBConn() {
         TemplateDAO.DBConn.closeDB();
     }
     
-    public static ArrayList fetchTemplate(Document templateRequest)
+    @Override
+    public  ArrayList fetch(Document templateRequest)
     {
         ArrayList finds = new ArrayList();
         templateCollection.find(templateRequest).into(finds);
         return finds;
     }
     
-    public static ArrayList fetchTemplate(String templateType)
+    public ArrayList fetchTemplate(String templateType)
     {
         Document templateRequest = new Document();
         templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
         templateRequest.append(TemplateKeyEnum.Active.toString(),1);
 
-        return fetchTemplate(templateRequest);
+        return fetch(templateRequest);
     }
+
+	@Override
+	public boolean update(Document found, Document doc) {
+		// TODO Auto-generated method stub
+		try {
+			softDeleteTemplate(found);
+			TemplateDAO.templateCollection.insertOne(doc);
+            return true;
+        } catch (Exception e) {
+            revertSoftDeletion(found);
+            System.out.println("update template failed");
+            System.out.println(e);
+            return false;
+        }
+	}
 
 }
