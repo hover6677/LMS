@@ -52,14 +52,15 @@ public class UserMainFrameApp {
         for (int i = 0; i < tabCount; i++) {
             templateList.add(new ArrayList());
         }*/
-        if (ProcessDAO.connProcessDAO()) {
-            ProcessDAO.setProcessCollection();
+
+        if (ProcessDAO.getInstance().connDAO()) {
+            ProcessDAO.getInstance().setCollection();
         }
-        if (SampleDAO.connSampleDAO()) {
-            SampleDAO.setSampleCollection();
+        if (SampleDAO.getInstance().connDAO()) {
+            SampleDAO.getInstance().setCollection();
         }
-        if (TemplateDAO.connTempDAO()) {
-            TemplateDAO.setTemplateCollection();
+        if (TemplateDAO.getInstance().connDAO()) {
+            TemplateDAO.getInstance().setCollection();
         }
         
         labelList = new ArrayList();
@@ -69,9 +70,9 @@ public class UserMainFrameApp {
     public static void MainFrameAppClose()
     {
         System.out.println("closing DB...");
-        ProcessDAO.closeDBConn();
-        SampleDAO.closeDBConn();
-        TemplateDAO.closeDBConn();
+        ProcessDAO.getInstance().closeDBConn();
+        SampleDAO.getInstance().closeDBConn();
+        TemplateDAO.getInstance().closeDBConn();
         System.out.println("DB closed");
     }
 
