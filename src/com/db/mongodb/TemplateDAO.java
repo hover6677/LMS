@@ -21,8 +21,9 @@ public class TemplateDAO extends AbstractDAO {
     private static MongoCollection templateCollection = null;
     private static final String CollectionStr = "Template";
     private static DBConnection DBConn = new DBConnection();
-
-    public TemplateDAO() {
+    
+    
+    private TemplateDAO() {
         TemplateDAO.DBConn.dbConnection();
     }
 
@@ -149,14 +150,14 @@ public class TemplateDAO extends AbstractDAO {
 
         return fetch(templateRequest);
     }
-    public static ArrayList fetchTemplate(String admin,String templateType)
+    public ArrayList fetchTemplate(String admin,String templateType)
     {
         Document templateRequest = new Document();
         templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
         templateRequest.append(TemplateKeyEnum.Active.toString(),1);
         templateRequest.append(TemplateKeyEnum.User.toString(),admin);
 
-        return fetchTemplate(templateRequest);
+        return fetch(templateRequest);
     }
 
 	@Override
@@ -172,6 +173,11 @@ public class TemplateDAO extends AbstractDAO {
             System.out.println(e);
             return false;
         }
+	}
+	public static AbstractDAO getInstance() {
+		if(DAO==null)
+			DAO = new TemplateDAO();
+		return DAO;
 	}
 
 }

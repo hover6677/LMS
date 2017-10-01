@@ -27,7 +27,7 @@ public class InsertAction  {
         try {
 
         	
-        	Object instance = DAOClass.newInstance();
+        	Object instance = DAOClass.getMethod("getInstance").invoke(null);
         	
          if ((boolean) DAOClass.getMethod("connDAO" ).invoke(instance)) {
         	 DAOClass.getMethod("setCollection").invoke(instance);
@@ -50,10 +50,7 @@ public class InsertAction  {
 		} catch (SecurityException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
         
 	}
 	public void setDAOClass(String className) {
