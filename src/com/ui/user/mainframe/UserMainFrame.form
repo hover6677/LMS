@@ -233,26 +233,19 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Group type="103" alignment="3" groupAlignment="3" max="-2" attributes="0">
-                                          <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxTags3" alignment="3" pref="30" max="32767" attributes="0"/>
-                                          <Component id="jTextField4" alignment="3" pref="30" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel4" alignment="3" pref="30" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" max="-2" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxTags3" alignment="3" pref="30" max="32767" attributes="0"/>
+                                  <Component id="jTextField4" alignment="3" pref="30" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jComboBoxTags1" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel4" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jComboBoxTags1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="121" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="144" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" pref="30" max="-2" attributes="0"/>
@@ -263,7 +256,7 @@
                                   <Component id="jScrollPane4" min="-2" pref="57" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -326,10 +319,15 @@
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList())  " type="code"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="select a Template"/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[120, 25]"/>
                     </Property>
                   </Properties>
+                  <AccessibilityProperties>
+                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Select a Template"/>
+                    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Select a Template"/>
+                  </AccessibilityProperties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxTagsActionPerformed"/>
                   </Events>
@@ -349,12 +347,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="807" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="977" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="215" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -665,7 +663,7 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="214" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>

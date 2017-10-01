@@ -29,7 +29,9 @@ public class UserMainFrameApp {
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
     private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
-    private static String AdminName = "admin";
+    public  static String AdminName = "admin";
+    public  static ArrayList labelList;
+    public  static ArrayList textFiledList;
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
@@ -60,6 +62,8 @@ public class UserMainFrameApp {
             TemplateDAO.setTemplateCollection();
         }
         
+        labelList = new ArrayList();
+        textFiledList = new ArrayList();
     }
     
     public static void MainFrameAppClose()
