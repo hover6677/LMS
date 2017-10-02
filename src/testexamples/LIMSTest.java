@@ -185,9 +185,9 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
         templateDoc.append(TemplateKeyEnum.Count.toString(), 3);
         templateDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
-        templateDoc.append(TemplateKeyEnum.TID.toString(), "template2");
-        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("p1","p2"));
-        templateDoc.append(TemplateKeyEnum.Type.toString(), "Process");
+        templateDoc.append(TemplateKeyEnum.TID.toString(), "Storage");
+        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("Fridge","LAB1","Storage Room"));
+        templateDoc.append(TemplateKeyEnum.Type.toString(), "Storage");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
         if (TemplateDAO.connTempDAO()) {

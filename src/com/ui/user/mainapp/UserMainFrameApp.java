@@ -32,6 +32,7 @@ public class UserMainFrameApp {
     public  static String AdminName = "admin";
     public  static ArrayList labelList;
     public  static ArrayList textFiledList;
+    public  static ArrayList dropDownList;
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
@@ -64,6 +65,7 @@ public class UserMainFrameApp {
         
         labelList = new ArrayList();
         textFiledList = new ArrayList();
+        dropDownList = new ArrayList();
     }
     
     public static void MainFrameAppClose()
