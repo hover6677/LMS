@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import org.bson.Document;
 
 import com.Action.admin.InsertAction;
+import com.db.mongodb.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
 
 public class StorageUI2 extends AbstractUI {
@@ -44,7 +45,7 @@ public class StorageUI2 extends AbstractUI {
         processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
         processDoc.append(TemplateKeyEnum.Tags.toString(), value);
         InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
-        ia.action();
+        ia.action(TemplateDAO.getInstance());
 	}
 
 }
