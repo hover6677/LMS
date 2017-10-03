@@ -29,6 +29,7 @@
  */
 package com.ui.user.mainframe;
 
+import com.db.mongodb.SampleDAO;
 import com.db.mongodb.TemplateDAO;
 import com.db.mongodb.helper.SampleDAOHelper;
 import com.db.mongodb.helper.TemplateDAOHelper;
@@ -125,7 +126,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        msgLabel = new javax.swing.JLabel();
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -585,7 +586,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.png"))); // NOI18N
 
-        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
+        msgLabel.setForeground(new java.awt.Color(255, 0, 0));
 
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -599,7 +600,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
                             .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(22, 22, 22)
-                            .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 446, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(msgLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 446, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 735, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -615,14 +616,14 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                     .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(msgLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(19, 19, 19))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Templates");
         saveBtn.getAccessibleContext().setAccessibleParent(jTabbedPane1);
-        jLabel11.getAccessibleContext().setAccessibleName("msgLabel");
+        msgLabel.getAccessibleContext().setAccessibleName("msgLabel");
 
         getContentPane().add(jPanel7, java.awt.BorderLayout.LINE_START);
 
@@ -633,21 +634,29 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
-            // TODO add your handling code here:
-            if (isAllFilled()) {
-                addBtnActionPerformed();
+
+            this.msgLabel.setText("");
+            if (!isAllFilled()) {
+                this.msgLabel.setText(MessageEnum.NotAllFilled.getMsg());
+                return;
+            } else if (!isAllSelected()) {
+                this.msgLabel.setText(MessageEnum.NotAllSelected.getMsg());
+                return;
+            } else {
+                Document readyToSave = readyToSave();
+                SampleDAO.addOrUpdateSample(readyToSave);
+                resetBtnActionPerformed();
+                this.msgLabel.setText(MessageEnum.RecordSaved.getMsg());
             }
-            UserMainFrameApp.readyToSave(this.jTabbedPane1.getSelectedIndex());
-            UserMainFrameApp.saveFile(true);
-        } catch (IOException ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(UserMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Close File Error");
+            System.out.println("Save Error");
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
-        //UserMainFrameApp.clearRecordListByTemplate(this.jTabbedPane1.getSelectedIndex());
         resetBtnActionPerformed();
     }//GEN-LAST:event_clearBtnActionPerformed
 
@@ -756,7 +765,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.jTextField10.setText("");
                     break;
                 default:
-                    this.jLabel11.setText("");
+                    this.msgLabel.setText("");
                     break;
             }
         }
@@ -769,7 +778,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        this.jLabel11.setText("");
+        this.msgLabel.setText("");
         String sampleID = this.jTextField10.getText().replaceAll(" ", "");
 
         if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
@@ -777,7 +786,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 this.jPanel9.removeAll();
                 this.jPanel9.updateUI();
             }
-            this.jLabel11.setText(UserMainFrameApp.SampleNotFound);
+            this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
 
         } else {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
@@ -803,11 +812,10 @@ public class UserMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxTags2ActionPerformed
 
     private void searchBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtn2ActionPerformed
-        //addBtnActionPerformed();
-        this.jLabel11.setText("");
+        this.msgLabel.setText("");
         String sampleID = this.jTextField3.getText().replaceAll(" ", "");
         if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
-            this.jLabel11.setText(UserMainFrameApp.SampleNotFound);
+            this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
             if (this.jPanel8.getComponentCount() > 0) {
                 this.jPanel8.removeAll();
                 this.jPanel8.updateUI();
@@ -996,6 +1004,16 @@ public class UserMainFrame extends javax.swing.JFrame {
         return true;
     }
 
+    private boolean isAllSelected() {
+        ArrayList<JComboBox> allDListOnTab = getAllDListOnTab();
+        for (int i = 0; i < allDListOnTab.size(); i++) {
+            if (((JComboBox) allDListOnTab.get(i)).getSelectedIndex() < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean isAllEmpty() {
         ArrayList selectedJTextField = getAllJTextFieldOnTab();
 
@@ -1087,7 +1105,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxTags3;
     private javax.swing.JComboBox<String> jComboBoxTags4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -1122,8 +1139,56 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel msgLabel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton searchBtn2;
     // End of variables declaration//GEN-END:variables
+
+    private Document readyToSave() {
+        Document doc = null;
+        this.msgLabel.setText("");
+        switch (this.jTabbedPane1.getSelectedIndex()) {
+            case 0:
+                doc = prepareReceiveDoc();
+                break;
+            case 1:
+                this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
+                this.jComboBoxTags2.setSelectedIndex(-1);
+                break;
+            case 2:
+                this.jRadioButton1.setSelected(true);
+                this.jTextField10.setText("");
+                break;
+            default:
+                this.msgLabel.setText("");
+                break;
+        }
+        return doc;
+    }
+
+    private Document prepareReceiveDoc() {
+        String sid = this.jTextField1.getText().replaceAll(" ", "");
+        Double quantity = 0.0;
+        try {
+            quantity = Double.parseDouble(this.jTextField4.getText().replaceAll(" ", ""));
+        } catch (NumberFormatException numberFormatException) {
+            this.msgLabel.setText(MessageEnum.NumberRequired.getMsg());
+            this.jTextField4.setText("");
+            return null;
+        }
+        String remarks = this.jTextArea1.getText();
+        String unit = this.jComboBoxTags1.getSelectedItem().toString();
+        String tid = this.jComboBoxTags.getSelectedItem().toString();
+        String type = this.jComboBoxTags3.getSelectedItem().toString();
+
+        Document objR = new Document();
+        for (int i = 0; i < UserMainFrameApp.labelList.size() && i < UserMainFrameApp.textFiledList.size(); i++) {
+            objR.append(((JLabel) UserMainFrameApp.labelList.get(i)).getText().trim(),
+                    ((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim());
+        }
+        SampleDAOHelper.prepareReceivedSample(sid, quantity, tid, unit, type, remarks, objR);
+
+        return SampleDAOHelper.getSample();
+    }
 
 }

@@ -81,7 +81,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="clearBtn" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="jLabel11" min="-2" pref="446" max="-2" attributes="0"/>
+                              <Component id="msgLabel" min="-2" pref="446" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="saveBtn" min="-2" pref="120" max="-2" attributes="0"/>
                           </Group>
@@ -102,7 +102,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="clearBtn" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="2" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="msgLabel" alignment="2" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="saveBtn" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -952,7 +952,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="msgLabel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
