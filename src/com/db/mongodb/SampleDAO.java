@@ -79,6 +79,22 @@ public class SampleDAO {
             return docFetched;
         }
     }
+    public static Document isSampleFound(String sid) {
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+            searchQuery.put(SampleKeyEnum.Active.toString(), 1);
+            searchQuery.put(SampleKeyEnum.SID.toString(), sid);
+
+            docFetched = (Document) sampleCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
+    }
 
     public static boolean updateSample(Document sampleFound, Document sampleDoc) {
 

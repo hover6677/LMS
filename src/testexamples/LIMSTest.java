@@ -31,7 +31,7 @@ import org.bson.Document;
                     User:"hover"
                     Quantity:20
                     Unit:kg
-                    Type:Solution,Chemical,general supply - direct mtl,general supply - indirect mtl
+                    Type:Solution
                     Comments: sdsdsdsdsdsd
                     Receive
                         {

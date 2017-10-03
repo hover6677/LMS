@@ -29,10 +29,15 @@ public class UserMainFrameApp {
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
     private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
+    
     public  static String AdminName = "admin";
     public  static ArrayList labelList;
     public  static ArrayList textFiledList;
     public  static ArrayList dropDownList;
+    
+    public  static final String SampleNotFound = "Sample Not Found, Please check with admin.";
+    public  static final String SleepError = "Please try again later.";
+    
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;

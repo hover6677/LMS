@@ -30,6 +30,7 @@
 package com.ui.user.mainframe;
 
 import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.helper.SampleDAOHelper;
 import com.db.mongodb.helper.TemplateDAOHelper;
 import com.document.enumeration.*;
 import java.awt.Component;
@@ -43,6 +44,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.ui.user.mainapp.UserMainFrameApp;
 import java.awt.Font;
+import static java.lang.Thread.sleep;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -64,6 +66,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     public UserMainFrame() {
         UserMainFrameApp.MainFrameApp();
         initComponents();
+        this.setLocationRelativeTo(null);
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
@@ -96,7 +99,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags3 = new javax.swing.JComboBox<>();
         jTextField4 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        addBtn2 = new javax.swing.JButton();
+        searchBtn2 = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
@@ -122,7 +125,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -291,7 +294,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(21, 21, 21)
+                .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                     .add(jLabel3)
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -304,7 +307,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -314,7 +317,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(103, 103, 103))
+                .add(109, 109, 109))
         );
 
         jComboBoxTags.getAccessibleContext().setAccessibleName("Select a Template");
@@ -327,13 +330,13 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel4.setMaximumSize(new java.awt.Dimension(480, 203));
 
-        addBtn2.setText("Search");
-        addBtn2.setMaximumSize(new java.awt.Dimension(66, 25));
-        addBtn2.setMinimumSize(new java.awt.Dimension(66, 25));
-        addBtn2.setPreferredSize(new java.awt.Dimension(66, 25));
-        addBtn2.addActionListener(new java.awt.event.ActionListener() {
+        searchBtn2.setText("Search");
+        searchBtn2.setMaximumSize(new java.awt.Dimension(66, 25));
+        searchBtn2.setMinimumSize(new java.awt.Dimension(66, 25));
+        searchBtn2.setPreferredSize(new java.awt.Dimension(66, 25));
+        searchBtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtn2ActionPerformed(evt);
+                searchBtn2ActionPerformed(evt);
             }
         });
 
@@ -404,7 +407,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 136, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(addBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(searchBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(36, 36, 36)
                         .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
@@ -425,16 +428,13 @@ public class UserMainFrame extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .add(filler2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .add(21, 21, 21)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
-                    .add(addBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(1, 1, 1)
-                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
-                            .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jComboBoxTags2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(jComboBoxTags2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(searchBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -447,7 +447,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Processing", jPanel4);
 
         jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -539,7 +539,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .add(22, 22, 22)
+                .add(19, 19, 19)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                     .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -557,7 +557,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel3Layout.createSequentialGroup()
                     .add(166, 166, 166)
                     .add(jComboBoxTags4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(149, Short.MAX_VALUE)))
+                    .addContainerGap(146, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Storage", jPanel3);
@@ -585,41 +585,44 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.png"))); // NOI18N
 
+        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
+
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel7Layout.createSequentialGroup()
-                .add(37, 37, 37)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 771, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7Layout.createSequentialGroup()
                             .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(67, 67, 67)
-                            .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 348, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(22, 22, 22)
+                            .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 446, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 735, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 19, Short.MAX_VALUE)
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 396, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                     .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel10))
+                    .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(19, 19, 19))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Templates");
         saveBtn.getAccessibleContext().setAccessibleParent(jTabbedPane1);
+        jLabel11.getAccessibleContext().setAccessibleName("msgLabel");
 
         getContentPane().add(jPanel7, java.awt.BorderLayout.LINE_START);
 
@@ -753,6 +756,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.jTextField10.setText("");
                     break;
                 default:
+                    this.jLabel11.setText("");
                     break;
             }
         }
@@ -764,8 +768,17 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (1 < 1) {
-            this.jPanel9.removeAll();
+
+        this.jLabel11.setText("");
+        String sampleID = this.jTextField10.getText().replaceAll(" ", "");
+
+        if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
+            if (this.jPanel9.getComponentCount() > 0) {
+                this.jPanel9.removeAll();
+                this.jPanel9.updateUI();
+            }
+            this.jLabel11.setText(UserMainFrameApp.SampleNotFound);
+
         } else {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = TemplateDAOHelper.fetchTagListByTID(0);
@@ -789,9 +802,20 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxTags2ActionPerformed
 
-    private void addBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtn2ActionPerformed
-        addBtnActionPerformed();
-    }//GEN-LAST:event_addBtn2ActionPerformed
+    private void searchBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtn2ActionPerformed
+        //addBtnActionPerformed();
+        this.jLabel11.setText("");
+        String sampleID = this.jTextField3.getText().replaceAll(" ", "");
+        if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
+            this.jLabel11.setText(UserMainFrameApp.SampleNotFound);
+            if (this.jPanel8.getComponentCount() > 0) {
+                this.jPanel8.removeAll();
+                this.jPanel8.updateUI();
+            }
+        } else {
+            this.jComboBoxTags2.setEnabled(true);
+        }
+    }//GEN-LAST:event_searchBtn2ActionPerformed
 
     private void jComboBoxTags3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTags3ActionPerformed
         // TODO add your handling code here:
@@ -905,6 +929,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 break;
             case 1:
                 this.jTextArea2.setText("");
+                this.jComboBoxTags2.setEnabled(false);
                 break;
             case 2:
                 this.jTextArea3.setText("");
@@ -1051,7 +1076,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
     private javax.swing.Box.Filler filler1;
@@ -1063,7 +1087,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxTags3;
     private javax.swing.JComboBox<String> jComboBoxTags4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -1099,6 +1123,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JButton searchBtn2;
     // End of variables declaration//GEN-END:variables
 
 }
