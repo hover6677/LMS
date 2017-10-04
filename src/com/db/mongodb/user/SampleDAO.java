@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.user;
 
 import com.document.enumeration.SampleKeyEnum;
 import com.mongodb.BasicDBObject;
@@ -106,6 +106,7 @@ public class SampleDAO {
             if (!sampleDoc.containsKey(SampleKeyEnum.Storage.toString())) {
                 sampleDoc.put(SampleKeyEnum.Storage.toString(), sampleFound.get(SampleKeyEnum.Storage.toString()));
             }
+            sampleDoc.remove("_id");
             SampleDAO.sampleCollection.insertOne(sampleDoc);
             return true;
         } catch (Exception e) {
@@ -133,10 +134,12 @@ public class SampleDAO {
 
     private static boolean revertSoftDeletion(Document sampleFound) {
         try {
+            sampleFound.put(SampleKeyEnum.Active.toString(),0);
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 1);
             Document updateObj = new Document();
             updateObj.put("$set", newObj);
+            
             sampleCollection.updateOne(sampleFound, updateObj);
             return true;
         } catch (Exception e) {

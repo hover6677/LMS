@@ -5,9 +5,9 @@
  */
 package testexamples;
 
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.user.ProcessDAO;
+import com.db.mongodb.user.SampleDAO;
+import com.db.mongodb.user.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.ReceiveTypeEnum;
 import com.document.enumeration.SampleKeyEnum;

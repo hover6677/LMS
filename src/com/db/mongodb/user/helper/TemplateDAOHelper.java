@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb.helper;
+package com.db.mongodb.user.helper;
 
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.user.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 import java.util.ArrayList;

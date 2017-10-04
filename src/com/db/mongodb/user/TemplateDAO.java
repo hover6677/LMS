@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.user;
 
 import com.document.enumeration.TemplateKeyEnum;
 import com.mongodb.Block;

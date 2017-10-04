@@ -29,10 +29,12 @@
  */
 package com.ui.user.mainframe;
 
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
-import com.db.mongodb.helper.SampleDAOHelper;
-import com.db.mongodb.helper.TemplateDAOHelper;
+import com.db.mongodb.user.ProcessDAO;
+import com.db.mongodb.user.SampleDAO;
+import com.db.mongodb.user.TemplateDAO;
+import com.db.mongodb.user.helper.ProcessDAOHelper;
+import com.db.mongodb.user.helper.SampleDAOHelper;
+import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.*;
 import java.awt.Component;
 import java.io.IOException;
@@ -122,7 +124,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBoxTags4 = new javax.swing.JComboBox<>();
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -500,14 +501,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText(" OUT");
 
-        jComboBoxTags4.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
-        jComboBoxTags4.setMinimumSize(new java.awt.Dimension(120, 25));
-        jComboBoxTags4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxTags4ActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -531,11 +524,6 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(jScrollPane6)))
                 .add(55, 55, 55))
-            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(jPanel3Layout.createSequentialGroup()
-                    .add(337, 337, 337)
-                    .add(jComboBoxTags4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(342, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -554,11 +542,6 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(19, 19, 19))
-            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(jPanel3Layout.createSequentialGroup()
-                    .add(166, 166, 166)
-                    .add(jComboBoxTags4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(146, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Storage", jPanel3);
@@ -643,8 +626,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 this.msgLabel.setText(MessageEnum.NotAllSelected.getMsg());
                 return;
             } else {
-                Document readyToSave = readyToSave();
-                SampleDAO.addOrUpdateSample(readyToSave);
+                Document readyToSave = saveRecord();
                 resetBtnActionPerformed();
                 this.msgLabel.setText(MessageEnum.RecordSaved.getMsg());
             }
@@ -660,7 +642,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         resetBtnActionPerformed();
     }//GEN-LAST:event_clearBtnActionPerformed
 
-    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags) {
+    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages) {
         int xinit = 80;
         int yinit = 20;
         int xoffset = 160;
@@ -683,17 +665,24 @@ public class UserMainFrame extends javax.swing.JFrame {
 
             jRadioButton.setText(tags.get(i).toString());
             jRadioButton.setBounds(x, y + i * yoffset, labelWidth, height);
-            jPanel.add(jRadioButton);
 
             x += xoffset;
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
-            jPanel.add(jTextFieldD);
 
             x += xoffset2;
             jComboBox.setBounds(x, y + i * yoffset, textWidth, height);
             jComboBox.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
             jComboBox.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
+
+            if (storages.containsKey(jRadioButton.getText())) {
+                jRadioButton.setSelected(true);
+                jTextFieldD.setText(((Document) storages.get(jRadioButton.getText())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
+                jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText())).get(SampleKeyEnum.Unit.toString()));
+            }
+
+            jPanel.add(jRadioButton);
+            jPanel.add(jTextFieldD);
             jPanel.add(jComboBox);
 
             UserMainFrameApp.labelList.add(jRadioButton);
@@ -749,7 +738,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         //MainFrameApp.setDir(dir);
         if (this.jTabbedPane1.getSelectedIndex() < 3) {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-
+            resetBtnActionPerformed();
             switch (this.jTabbedPane1.getSelectedIndex()) {
                 case 0:
                     this.jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
@@ -792,7 +781,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = TemplateDAOHelper.fetchTagListByTID(0);
             if (null != tags) {
-                drawCheckBoxTextDlist(jPanel9, tags);
+                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages());
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -816,10 +805,12 @@ public class UserMainFrame extends javax.swing.JFrame {
         String sampleID = this.jTextField3.getText().replaceAll(" ", "");
         if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
             this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
-            if (this.jPanel8.getComponentCount() > 0) {
+            this.jComboBoxTags2.setSelectedIndex(-1);
+            this.jComboBoxTags2.setEnabled(false);
+            /*if (this.jPanel8.getComponentCount() > 0) {
                 this.jPanel8.removeAll();
                 this.jPanel8.updateUI();
-            }
+            }*/
         } else {
             this.jComboBoxTags2.setEnabled(true);
         }
@@ -846,10 +837,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jComboBoxTagsActionPerformed
-
-    private void jComboBoxTags4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTags4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxTags4ActionPerformed
 
     private void jComboBoxTagsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTagsItemStateChanged
         // TODO add your handling code here:
@@ -885,6 +872,8 @@ public class UserMainFrame extends javax.swing.JFrame {
             allDListOnTab.get(i).setSelectedIndex(-1);
         }
         resetOthersOnTab();
+        this.msgLabel.setText("");
+        UserMainFrameApp.clearArrayList();
 
     }
 
@@ -950,17 +939,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     }
 
-    private void reDrawPanelOnTab() {
-        switch (this.jTabbedPane1.getSelectedIndex()) {
-            case 0:
-                this.jPanel6.removeAll();
-                break;
-            default:
-                break;
-        }
-
-    }
-
+    
     private ArrayList<JComboBox> getAllDListOnTab() {
         ArrayList<JComboBox> list = new ArrayList();
         int selectedIndex = this.jTabbedPane1.getSelectedIndex();
@@ -1103,7 +1082,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxTags1;
     private javax.swing.JComboBox<String> jComboBoxTags2;
     private javax.swing.JComboBox<String> jComboBoxTags3;
-    private javax.swing.JComboBox<String> jComboBoxTags4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -1144,20 +1122,21 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton searchBtn2;
     // End of variables declaration//GEN-END:variables
 
-    private Document readyToSave() {
+    private Document saveRecord() {
         Document doc = null;
         this.msgLabel.setText("");
         switch (this.jTabbedPane1.getSelectedIndex()) {
             case 0:
                 doc = prepareReceiveDoc();
+                SampleDAO.addOrUpdateSample(doc);
                 break;
             case 1:
-                this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
-                this.jComboBoxTags2.setSelectedIndex(-1);
+                doc = prepareProcessDoc();
+                ProcessDAO.addOrUpdateProcess(doc);
                 break;
             case 2:
-                this.jRadioButton1.setSelected(true);
-                this.jTextField10.setText("");
+                doc = prepareStorageDoc();
+                SampleDAO.addOrUpdateSample(doc);
                 break;
             default:
                 this.msgLabel.setText("");
@@ -1188,6 +1167,46 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
         SampleDAOHelper.prepareReceivedSample(sid, quantity, tid, unit, type, remarks, objR);
 
+        return SampleDAOHelper.getSample();
+    }
+
+    private Document prepareProcessDoc() {
+        String sid = this.jTextField3.getText().replaceAll(" ", "");
+
+        String remarks = this.jTextArea2.getText();
+        String tid = this.jComboBoxTags2.getSelectedItem().toString();
+
+        Document objP = new Document();
+        for (int i = 0; i < UserMainFrameApp.labelList.size() && i < UserMainFrameApp.textFiledList.size(); i++) {
+            objP.append(((JLabel) UserMainFrameApp.labelList.get(i)).getText().trim(),
+                    ((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim());
+        }
+        ProcessDAOHelper.prepareReceivedProcess(sid, tid, remarks, objP);
+
+        return ProcessDAOHelper.getProcessDoc();
+
+    }
+
+    private Document prepareStorageDoc() {
+        String sid = this.jTextField10.getText().replaceAll(" ", "");
+        String remarks = this.jTextArea3.getText();
+        boolean inFlag = (this.jRadioButton1.getSelectedObjects() != null) ? true : false;
+
+        Document objS = new Document();
+        for (int i = 0; i < UserMainFrameApp.labelList.size()
+                && i < UserMainFrameApp.textFiledList.size()
+                && i < UserMainFrameApp.dropDownList.size(); i++) {
+
+            if (null != ((JRadioButton) UserMainFrameApp.labelList.get(i)).getSelectedObjects()) {
+                Document subObj = new Document();
+                subObj.append(SampleKeyEnum.Quantity.toString(), UserMainFrameApp.getDoubleFromString(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim()));
+                subObj.append(SampleKeyEnum.Unit.toString(), ((JComboBox) UserMainFrameApp.dropDownList.get(i)).getSelectedItem().toString());
+
+                objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
+            }
+        }
+        MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS, inFlag);
+        this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
     }
 

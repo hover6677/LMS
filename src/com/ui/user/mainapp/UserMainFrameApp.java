@@ -5,9 +5,10 @@
  */
 package com.ui.user.mainapp;
 
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.user.ProcessDAO;
+import com.db.mongodb.user.SampleDAO;
+import com.db.mongodb.user.TemplateDAO;
+import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
 import java.io.File;
 import java.io.IOException;
@@ -192,5 +193,20 @@ public class UserMainFrameApp {
         templateList.get(selectedIndex).add(o);
         return templateList.get(selectedIndex).size();
     }
-
+    
+    public static Double getDoubleFromString(String a) {
+        Double quantity = 0.0;
+        try {
+            quantity = Double.parseDouble(a);
+        } catch (NumberFormatException numberFormatException) {
+            return 0.0;
+        }
+        return quantity;
+    }
+    public static void clearArrayList()
+    {
+        dropDownList.clear();
+        labelList.clear();
+        textFiledList.clear();
+    }
 }
