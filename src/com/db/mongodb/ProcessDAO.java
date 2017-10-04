@@ -9,6 +9,8 @@ import com.document.enumeration.ProcessKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.bson.Document;
 
 /**
@@ -78,7 +80,8 @@ public class ProcessDAO extends AbstractDAO {
             searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
             searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 
-            docFetched = (Document) processCollection.find(searchQuery).first();
+            BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
+            docFetched = (Document) processCollection.find(searchQuery).sort(sortObject).limit(1);
 
         } catch (Exception e) {
             System.out.println("fetch error");

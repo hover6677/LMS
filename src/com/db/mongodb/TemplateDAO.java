@@ -6,6 +6,7 @@
 package com.db.mongodb;
 
 import com.document.enumeration.TemplateKeyEnum;
+import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -119,7 +120,8 @@ public class TemplateDAO extends AbstractDAO {
             searchQuery.put(TemplateKeyEnum.Type.toString(), type);
             searchQuery.put(TemplateKeyEnum.TID.toString(), tid);
 
-            docFetched = (Document) templateCollection.find(searchQuery).first();
+            BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
+            docFetched = (Document) templateCollection.find(searchQuery).sort(sortObject).limit(1);
 
         } catch (Exception e) {
             System.out.println("fetch error");

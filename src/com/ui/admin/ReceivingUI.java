@@ -10,6 +10,7 @@ import org.bson.Document;
 import com.Action.admin.InsertAction;
 import com.db.mongodb.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
+import com.document.enumeration.TemplateTypeEnum;
 
 public class ReceivingUI extends AbstractUI {
 	protected ProcessingUI puiToBeDecorated;
@@ -40,7 +41,7 @@ public class ReceivingUI extends AbstractUI {
         processDoc.append(TemplateKeyEnum.Active.toString(), 1);
         processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
         processDoc.append(TemplateKeyEnum.User.toString(), super.user);
-        processDoc.append(TemplateKeyEnum.Type.toString(), "Receiving");
+        processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Receive.toString());
         processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
         processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
         processDoc.append(TemplateKeyEnum.Tags.toString(), value);

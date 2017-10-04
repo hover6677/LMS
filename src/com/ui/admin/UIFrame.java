@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.ui.user.mainframe.UserMainFrame;
 
@@ -35,10 +37,21 @@ public class UIFrame extends JFrame{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(12, 68, 735, 359);
 		panel.add(tabbedPane);
+		final ReportUI rpUI = new ReportUI();
 		tabbedPane.addTab("Receiving", new ReceivingUI());
 		tabbedPane.addTab("Processing", new ProcessingUI());
 		tabbedPane.addTab("Storage", new StorageUI2());
-		tabbedPane.addTab("Report", new ReportUI());
+		tabbedPane.addTab("Report", rpUI);
+		tabbedPane.addChangeListener(new ChangeListener() {
+		        public void stateChanged(ChangeEvent e) {
+		        	JTabbedPane me =(JTabbedPane)e.getSource();
+		        	if(me.getSelectedIndex()==3) {
+		        		rpUI.upda();
+		        	}
+		        }
+
+
+		    });
 		
 		JPanel imagePanel = new JPanel();
 		imagePanel.setBounds(712, 13, 207, 538);

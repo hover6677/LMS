@@ -114,7 +114,6 @@ public abstract class AbstractUI extends JPanel{
 		//spinner.get.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 		spinner.addChangeListener(new ChangeListener(){
 
-			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				JSpinner sp =(JSpinner)e.getSource();
@@ -130,7 +129,6 @@ public abstract class AbstractUI extends JPanel{
 		btnSave.setBounds(530, 300, 117, 25);
 		btnSave.addActionListener(new ActionListener(){
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				buttonAction();

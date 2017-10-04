@@ -190,7 +190,7 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Type.toString(), "Process");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
-        TemplateDAO dao = new TemplateDAO();
+        TemplateDAO dao = (TemplateDAO) TemplateDAO.getInstance();
         if (dao.connDAO()) {
         	dao.setCollection();
 
