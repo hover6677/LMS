@@ -42,7 +42,7 @@ public class StorageUI2 extends AbstractUI {
         processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
         processDoc.append(TemplateKeyEnum.User.toString(), super.user);
         processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Storage.toString());
-        processDoc.append(TemplateKeyEnum.TID.toString(), "NULL");
+        processDoc.append(TemplateKeyEnum.TID.toString(), TemplateTypeEnum.Storage.toString());
         processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
         processDoc.append(TemplateKeyEnum.Tags.toString(), value);
         InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
