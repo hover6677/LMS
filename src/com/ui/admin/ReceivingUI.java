@@ -30,8 +30,8 @@ public class ReceivingUI extends AbstractUI {
 		// TODO Auto-generated method stub
 		ArrayList<String> value = new ArrayList<String>();
 		for(int i =0 ; i<arrayOfTxtBox.size();i++) {
-			if((arrayOfTxtBox.get(i).getText()==null)) {
-				JOptionPane.showMessageDialog(null,"Please fill all textboxs Or remove unnecessary textboxs");
+			if((arrayOfTxtBox.get(i).getText()==null||arrayOfTxtBox.get(i).getText().equals(""))) {
+				JOptionPane.showMessageDialog(this,"Please fill all textboxs Or remove unnecessary textboxs");
 				return;
 			}
 			value.add(arrayOfTxtBox.get(i).getText());
@@ -46,6 +46,7 @@ public class ReceivingUI extends AbstractUI {
         processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
         processDoc.append(TemplateKeyEnum.Tags.toString(), value);
         InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
-        ia.action(TemplateDAO.getInstance());
+        ia.action(TemplateDAO.getInstance(),this);
+        cleanAll(arrayOfTxtBox);
 	}
 }

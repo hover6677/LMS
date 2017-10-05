@@ -6,6 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
 
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+
 import org.bson.Document;
 
 import com.db.mongodb.AbstractDAO;
@@ -22,7 +25,7 @@ public class InsertAction  {
 		setDocument(d);
 	}
 	
-	public void action(AbstractDAO dao) {
+	public void action(AbstractDAO dao, JComponent parent) {
 		// TODO Auto-generated method stub
         
 //        try {
@@ -54,8 +57,10 @@ public class InsertAction  {
 //		} 
 		if (dao.connDAO()) {
        	 dao.setCollection();
-       	 if(dao.addOrUpdate(document))
+       	 if(dao.addOrUpdate(document)) {
        		dao.closeDBConn();
+       		JOptionPane.showMessageDialog(parent, "Save Successful!");
+       	 }
 			
         }
 	}

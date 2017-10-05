@@ -205,6 +205,16 @@ public abstract class AbstractUI extends JPanel{
 		return;
 	}
 	abstract void buttonAction();
+	protected void cleanAll(ArrayList<JTextField> arrBox)
+	{
+		for(int i =0; i<arrBox.size();i++)
+		{
+			arrBox.get(i).setText("");
+		}
+		tidText.setText("");
+		
+		
+	}
 }
 
 
