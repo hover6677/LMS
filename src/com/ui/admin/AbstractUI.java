@@ -42,7 +42,7 @@ public abstract class AbstractUI extends JPanel{
 	String label3;
 	String button1;
 	public JTextField tidText;
-	public final String user = "Admin";
+	public final String user = "admin";
 	
 	private int totNum;
 	private SpinnerListModel listModelLeft;
