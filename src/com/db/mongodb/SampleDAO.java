@@ -151,6 +151,13 @@ public class SampleDAO extends AbstractDAO {
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
+
+    public ArrayList fetch(BasicDBObject sampleRequest)
+    {
+        ArrayList finds = new ArrayList();
+        sampleCollection.find(sampleRequest).into(finds);
+        return finds;
+    }
     
     public static AbstractDAO getInstance() {
 		// TODO Auto-generated method stub

@@ -151,6 +151,12 @@ public class ProcessDAO extends AbstractDAO {
         return finds;
     }
 
+    public ArrayList fetch(BasicDBObject processRequest)
+    {
+        ArrayList finds = new ArrayList();
+        processCollection.find(processRequest).into(finds);
+        return finds;
+    }
 
 	public static AbstractDAO getInstance() {
 		// TODO Auto-generated method stub

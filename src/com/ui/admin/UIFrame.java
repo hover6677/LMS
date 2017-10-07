@@ -11,31 +11,36 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 public class UIFrame extends JFrame{
+	/**
+	 * 
+	 */
 	public UIFrame() {
 		setTitle("LIMS");
-		setResizable(false);
-		setSize(765,475);
+		setSize(740,600);
+		setMinimumSize(new Dimension(740,600));
                 //setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);        
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);       
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255,255,204));
-		panel.setBounds(0, 0, 759, 440);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		//panel.setBounds(0, 0, 710, 540);
+		panel.setPreferredSize(new Dimension(740,600));
+		setContentPane(panel);
+		panel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel label = new JLabel();
 		label.setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
-		label.setBounds(12, 13, 713, 42);
-		panel.add(label);
+		panel.add(label,BorderLayout.NORTH);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 68, 735, 359);
-		panel.add(tabbedPane);
+
+		panel.add(tabbedPane,BorderLayout.CENTER);
 		final ReportUI rpUI = new ReportUI();
 		tabbedPane.addTab("Receiving", new ReceivingUI());
 		tabbedPane.addTab("Processing", new ProcessingUI());
@@ -45,7 +50,7 @@ public class UIFrame extends JFrame{
 		        public void stateChanged(ChangeEvent e) {
 		        	JTabbedPane me =(JTabbedPane)e.getSource();
 		        	if(me.getSelectedIndex()==3) {
-		        		rpUI.upda();
+		        		//rpUI.upda();
 		        	}
 		        }
 
