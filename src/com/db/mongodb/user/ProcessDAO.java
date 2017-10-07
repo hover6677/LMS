@@ -24,6 +24,24 @@ public class ProcessDAO {
     public ProcessDAO() {
         ProcessDAO.DBConn.dbConnection();
     }
+    
+    public static boolean isDBConneced() {
+        return ProcessDAO.DBConn.isDBConnected();
+    }
+
+    public static boolean connTempDAO() {
+        if (!isDBConneced()) {
+            return ProcessDAO.DBConn.dbConnection();
+        } else {
+            return true;
+        }
+    }
+    
+    private static void connectToCollection()
+    {
+        connTempDAO();
+        setProcessCollection();
+    }
 
     public static boolean connProcessDAO() {
         return ProcessDAO.DBConn.dbConnection();
@@ -46,7 +64,7 @@ public class ProcessDAO {
 
     public static boolean addOrUpdateProcess(Document processDoc) {
         Document processFound = isProcessFound(processDoc);
-
+        connectToCollection();
         try {
             if (null != processFound) {
                 updateProcess(processFound, processDoc);
@@ -62,6 +80,7 @@ public class ProcessDAO {
     }
 
     public static Document isProcessFound(Document processDoc) {
+        connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -84,6 +103,7 @@ public class ProcessDAO {
     }
 
     public static boolean updateProcess(Document processFound, Document processDoc) {
+        connectToCollection();
 
         try {
             softDeleteProcess(processFound);
@@ -98,6 +118,7 @@ public class ProcessDAO {
     }
 
     private static boolean softDeleteProcess(Document processFound) {
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(ProcessKeyEnum.Active.toString(), 0);
@@ -113,6 +134,7 @@ public class ProcessDAO {
     }
 
     private static boolean revertSoftDeletion(Document processFound) {
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(ProcessKeyEnum.Active.toString(), 1);
@@ -134,6 +156,7 @@ public class ProcessDAO {
     
     public static ArrayList fetchProcess(Document processRequest)
     {
+        connectToCollection();
         ArrayList finds = new ArrayList();
         processCollection.find(processRequest).into(finds);
         return finds;

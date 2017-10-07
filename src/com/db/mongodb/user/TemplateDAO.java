@@ -26,8 +26,22 @@ public class TemplateDAO {
         TemplateDAO.DBConn.dbConnection();
     }
 
+    public static boolean isDBConneced() {
+        return TemplateDAO.DBConn.isDBConnected();
+    }
+
     public static boolean connTempDAO() {
-        return TemplateDAO.DBConn.dbConnection();
+        if (!isDBConneced()) {
+            return TemplateDAO.DBConn.dbConnection();
+        } else {
+            return true;
+        }
+    }
+    
+    private static void connectToCollection()
+    {
+        connTempDAO();
+        setTemplateCollection();
     }
 
     public static MongoCollection getTemplateCollection() {
@@ -40,11 +54,13 @@ public class TemplateDAO {
         } else {
             System.out.println("DB connection is not availbale ");
             System.out.println("reconnecting...");
-            TemplateDAO.DBConn.dbConnection();
+            connTempDAO();
+            templateCollection = DBConn.getDb().getCollection(CollectionStr);
         }
     }
 
     public static boolean addOrUpdateTemp(Document templateDoc) {
+        connectToCollection();
         Document tempDefined = isTempDefined(templateDoc);
 
         try {
@@ -62,7 +78,7 @@ public class TemplateDAO {
     }
 
     public static boolean softDeleteTemplate(Document tempDefined) {
-
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(TemplateKeyEnum.Active.toString(), 0);
@@ -81,6 +97,7 @@ public class TemplateDAO {
     }
 
     private static boolean revertSoftDelete(Document tempDefined) {
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(TemplateKeyEnum.Active.toString(), 0);
@@ -99,6 +116,7 @@ public class TemplateDAO {
     }
 
     public static Document isTempDefined(Document templateDoc) {
+        connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -125,29 +143,31 @@ public class TemplateDAO {
     public static void closeDBConn() {
         TemplateDAO.DBConn.closeDB();
     }
-    
-    public static ArrayList fetchTemplate(Document templateRequest)
-    {
+
+    public static ArrayList fetchTemplate(Document templateRequest) {
+        connectToCollection();
         ArrayList finds = new ArrayList();
-        templateCollection.find(templateRequest).into(finds);
+        if (null != templateCollection) {
+            templateCollection.find(templateRequest).into(finds);
+        }
         return finds;
     }
-    
-    public static ArrayList fetchTemplate(String templateType)
-    {
+
+    public static ArrayList fetchTemplate(String templateType) {
+        connectToCollection();
         Document templateRequest = new Document();
-        templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
-        templateRequest.append(TemplateKeyEnum.Active.toString(),1);
+        templateRequest.append(TemplateKeyEnum.Type.toString(), templateType);
+        templateRequest.append(TemplateKeyEnum.Active.toString(), 1);
 
         return fetchTemplate(templateRequest);
     }
-    public static ArrayList fetchTemplate(String admin,String templateType)
-    {
-        Document templateRequest = new Document();
-        templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
-        templateRequest.append(TemplateKeyEnum.Active.toString(),1);
-        templateRequest.append(TemplateKeyEnum.User.toString(),admin);
 
+    public static ArrayList fetchTemplate(String admin, String templateType) {
+        connectToCollection();
+        Document templateRequest = new Document();
+        templateRequest.append(TemplateKeyEnum.Type.toString(), templateType);
+        templateRequest.append(TemplateKeyEnum.Active.toString(), 1);
+        templateRequest.append(TemplateKeyEnum.User.toString(), admin);
         return fetchTemplate(templateRequest);
     }
 

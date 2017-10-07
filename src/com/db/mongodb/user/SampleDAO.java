@@ -25,6 +25,23 @@ public class SampleDAO {
         SampleDAO.DBConn.dbConnection();
     }
 
+    public static boolean isDBConneced() {
+        return SampleDAO.DBConn.isDBConnected();
+    }
+
+    public static boolean connTempDAO() {
+        if (!isDBConneced()) {
+            return SampleDAO.DBConn.dbConnection();
+        } else {
+            return true;
+        }
+    }
+
+    private static void connectToCollection() {
+        connTempDAO();
+        setSampleCollection();
+    }
+
     public static boolean connSampleDAO() {
         return SampleDAO.DBConn.dbConnection();
     }
@@ -40,12 +57,14 @@ public class SampleDAO {
             System.out.println("DB connection is not availbale ");
             System.out.println("reconnecting...");
             SampleDAO.DBConn.dbConnection();
+            sampleCollection = DBConn.getDb().getCollection(CollectionStr);
+
         }
     }
 
     public static boolean addOrUpdateSample(Document sampleDoc) {
         Document sampleFound = isSampleFound(sampleDoc);
-
+        connectToCollection();
         try {
             if (null != sampleFound) {
                 updateSample(sampleFound, sampleDoc);
@@ -61,6 +80,7 @@ public class SampleDAO {
     }
 
     public static Document isSampleFound(Document sampleDoc) {
+        connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -79,7 +99,9 @@ public class SampleDAO {
             return docFetched;
         }
     }
+
     public static Document isSampleFound(String sid) {
+        connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -97,7 +119,7 @@ public class SampleDAO {
     }
 
     public static boolean updateSample(Document sampleFound, Document sampleDoc) {
-
+        connectToCollection();
         try {
             softDeleteSample(sampleFound);
             if (!sampleDoc.containsKey(SampleKeyEnum.Receive.toString())) {
@@ -118,6 +140,7 @@ public class SampleDAO {
     }
 
     private static boolean softDeleteSample(Document sampleFound) {
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 0);
@@ -133,13 +156,14 @@ public class SampleDAO {
     }
 
     private static boolean revertSoftDeletion(Document sampleFound) {
+        connectToCollection();
         try {
-            sampleFound.put(SampleKeyEnum.Active.toString(),0);
+            sampleFound.put(SampleKeyEnum.Active.toString(), 0);
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 1);
             Document updateObj = new Document();
             updateObj.put("$set", newObj);
-            
+
             sampleCollection.updateOne(sampleFound, updateObj);
             return true;
         } catch (Exception e) {
@@ -153,9 +177,9 @@ public class SampleDAO {
     public static void closeDBConn() {
         SampleDAO.DBConn.closeDB();
     }
-    
-    public static ArrayList fetchSample(Document sampleRequest)
-    {
+
+    public static ArrayList fetchSample(Document sampleRequest) {
+        connectToCollection();
         ArrayList finds = new ArrayList();
         sampleCollection.find(sampleRequest).into(finds);
         return finds;

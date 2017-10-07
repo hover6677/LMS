@@ -7,6 +7,8 @@ package com.db.mongodb.user;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import java.util.Map;
+import org.bson.Document;
 
 /**
  *
@@ -83,15 +85,25 @@ public class DBConnection {
             return false;
         }
     }
-    
-    public boolean closeDB()
-    {
+
+    public boolean closeDB() {
         if (null != mongoClient) {
             this.mongoClient.close();
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean isDBConnected() {
+        try {
+            this.mongoClient.getAddress();
+        } catch (Exception e) {
+            System.out.println("Mongo is down");
+            this.mongoClient.close();
+            return false;
+        }
+        return true;
     }
 
 }
