@@ -1,4 +1,5 @@
 package com.ui.admin;
+
 import java.awt.Frame;
 
 import javax.swing.*;
@@ -30,13 +31,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 
+public class ProcessingUI extends AbstractUI {
 
-public class ProcessingUI extends AbstractUI{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 //	private JLabel lblNewLabel;
 //	private JTextField textField;
 //	private JLabel lblNoOfSteps;
@@ -44,65 +44,62 @@ public class ProcessingUI extends AbstractUI{
 //	private JScrollBar scrollBar;
 //	private JPanel panel;
 //	private JPanel panel_1;
-	String title;
-	String label1;
-	String label2;
-	String label3;
-	String button1;
-	
-	private int totNum;
-	private SpinnerListModel listModelLeft;
-	private JPanel panel_1;
-	
-	
-	
+    String title;
+    String label1;
+    String label2;
+    String label3;
+    String button1;
 
-	public ProcessingUI()
-	{
-		super("Process(Admin)","Process Name","No. of Steps","Labels","Save",false);
-		
-	}
-	
+    private int totNum;
+    private SpinnerListModel listModelLeft;
+    private JPanel panel_1;
 
-	// this function is to get totNum from database
-	@Override
-	protected int getTotNum(){
-		return 12;
-	}
-	
-	@Override
-	protected void buttonAction(){
-		ArrayList<String> value = new ArrayList<String>();
-		System.out.println(arrayOfTxtBox.get(0).getText());
-		for(int i =0 ; i<arrayOfTxtBox.size();i++) {
-			if(arrayOfTxtBox.get(i).getText()==null||arrayOfTxtBox.get(i).getText().equals("")) {
-				JOptionPane.showMessageDialog(this,"Please fill all textboxs Or remove unnecessary textboxs");
-				return;
-			}
-			value.add(arrayOfTxtBox.get(i).getText());
-			
-		}
-		Document processDoc = new Document();
-        processDoc.append(TemplateKeyEnum.Active.toString(), 1);
-        processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
-        processDoc.append(TemplateKeyEnum.User.toString(), super.user);
-        processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
-        processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
-        processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
-        processDoc.append(TemplateKeyEnum.Tags.toString(), value);
-        InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
-        ia.action(TemplateDAO.getInstance(),this);
-        cleanAll(arrayOfTxtBox);
-        
-        
-        
-        
-        
-        
-        
-        
-	}
-	
+    public ProcessingUI() {
+        super("Process(Admin)", "Process Name", "No. of Steps", "Labels", "Save", false);
+
+    }
+
+    // this function is to get totNum from database
+    @Override
+    protected int getTotNum() {
+        return 12;
+    }
+
+    @Override
+    protected void buttonAction() {
+
+        if (null == super.tidText.getText() || "".equals(super.tidText.getText())) {
+            JOptionPane.showMessageDialog(this, "Please fill in the template id or name");
+            return;
+        } else if (null == arrayOfTxtBox || arrayOfTxtBox.size() < 1) {
+            JOptionPane.showMessageDialog(this, "Please define the Steps");
+            return;
+        } else {
+
+            ArrayList<String> value = new ArrayList<String>();
+            System.out.println(arrayOfTxtBox.get(0).getText());
+            for (int i = 0; i < arrayOfTxtBox.size(); i++) {
+                if (arrayOfTxtBox.get(i).getText() == null || arrayOfTxtBox.get(i).getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Please fill all textboxs Or remove unnecessary textboxs");
+                    return;
+                }
+                value.add(arrayOfTxtBox.get(i).getText());
+
+            }
+            Document processDoc = new Document();
+            processDoc.append(TemplateKeyEnum.Active.toString(), 1);
+            processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
+            processDoc.append(TemplateKeyEnum.User.toString(), super.user);
+            processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
+            processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
+            processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
+            processDoc.append(TemplateKeyEnum.Tags.toString(), value);
+            InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
+            ia.action(TemplateDAO.getInstance(), this);
+            cleanAll(arrayOfTxtBox);
+        }
+
+    }
 
 //	public static void main(String args[])
 //	{
@@ -135,5 +132,3 @@ public class ProcessingUI extends AbstractUI{
 //		
 //	}
 }
-
-
