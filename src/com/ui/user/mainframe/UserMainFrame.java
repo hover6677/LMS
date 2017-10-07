@@ -40,7 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ui.admin.ReportUI;
-import com.ui.user.mainapp.MainFrameApp;
+import com.ui.user.mainapp.UserMainFrameApp;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -55,9 +55,9 @@ public class UserMainFrame extends javax.swing.JFrame {
      * Creates new form Antenna
      */
     public UserMainFrame() {
-        //MainFrameApp.MainFrameApp();
+        //UserMainFrameApp.UserMainFrameApp();
         initComponents();
-        //MainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
+        //UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
     /**
@@ -613,8 +613,8 @@ public class UserMainFrame extends javax.swing.JFrame {
             if (isAllFilled()) {
                 addBtnActionPerformed();
             }
-            MainFrameApp.readyToSave(this.jTabbedPane1.getSelectedIndex());
-            MainFrameApp.saveFile(true);
+            UserMainFrameApp.readyToSave(this.jTabbedPane1.getSelectedIndex());
+            UserMainFrameApp.saveFile(true);
         } catch (IOException ex) {
             Logger.getLogger(UserMainFrame.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Close File Error");
@@ -623,15 +623,15 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
-        MainFrameApp.clearRecordListByTemplate(this.jTabbedPane1.getSelectedIndex());
+        UserMainFrameApp.clearRecordListByTemplate(this.jTabbedPane1.getSelectedIndex());
         clearCountLabel();
         resetBtnActionPerformed();
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
-        //String dir = MainFrameApp.getDirList(this.jTabbedPane1.getSelectedIndex());
-        //MainFrameApp.setDir(dir);
+        //String dir = UserMainFrameApp.getDirList(this.jTabbedPane1.getSelectedIndex());
+        //UserMainFrameApp.setDir(dir);
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -731,7 +731,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         }
         if (isAllFilled(o)) {
-            int count = MainFrameApp.addRecord(o, selectedIndex);
+            int count = UserMainFrameApp.addRecord(o, selectedIndex);
             JLabel selectedCountLabel = getSelectedCountLabel();
             if (null != selectedCountLabel) {
                 selectedCountLabel.setText(Integer.toString(count));
