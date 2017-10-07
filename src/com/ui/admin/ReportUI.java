@@ -238,10 +238,13 @@ public class ReportUI extends JPanel {
 		  //sampleDoc.append(SampleKeyEnum.SID.toString(), textField.getText());
 		  Date fromDate = (Date) datePicker.getModel().getValue();
 		  Date toDate = (Date) datePicker2.getModel().getValue();
-		  System.out.println(fromDate.getTime());
-		  System.out.println(toDate.getTime());
+
+		  fromDate = resetDate(fromDate);
+		  toDate = resetDate(toDate);
+		  System.out.println(fromDate);
+		  System.out.println(toDate);
 		  BasicDBObject query = new BasicDBObject();
-		  query.put(SampleKeyEnum.DateTime.toString(), new BasicDBObject("$gte", fromDate).append("$lt", toDate));
+		  query.put(SampleKeyEnum.DateTime.toString(), new BasicDBObject("$gt", fromDate).append("$lt", toDate));
 		  query.put(SampleKeyEnum.Active.toString(), 1);
 		  
 		  
@@ -496,10 +499,22 @@ public class ReportUI extends JPanel {
       }
       return null;
 	}
+	private Date resetDate(Date d)
+	{
+		  Calendar cal = Calendar.getInstance();
+		  cal.setTime(d);
+	      cal.set(Calendar.HOUR_OF_DAY, 0);  
+	      cal.set(Calendar.MINUTE, 0);  
+	      cal.set(Calendar.SECOND, 0);  
+	      cal.set(Calendar.MILLISECOND, 0);  
+	      return cal.getTime(); 
+
+		  
+	}
 }
 class DateLabelFormatter extends AbstractFormatter {
 
-    private String datePattern = "yyyy-MM-dd  HH:mm:ss.SSS";
+    private String datePattern = "yyyy-MM-dd";
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
     @Override
