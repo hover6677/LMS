@@ -172,6 +172,10 @@ public class ReportUI extends JPanel {
 		  Document sampleDoc = new Document();
 		  sampleDoc.append(SampleKeyEnum.Active.toString(), 1);
 		  sampleDoc.append(SampleKeyEnum.SID.toString(), textField.getText());
+		  if(textField.getText()==null||textField.getText().equals("")) {
+			  JOptionPane.showMessageDialog(this, "Please enter a SID");
+			  return;
+		  }
 	      if (SampleDAO.getInstance().connDAO()) {
 	    	  SampleDAO.getInstance().setCollection();
 	          fetchTemplate = SampleDAO.getInstance().fetch(sampleDoc);
@@ -238,9 +242,16 @@ public class ReportUI extends JPanel {
 		  //sampleDoc.append(SampleKeyEnum.SID.toString(), textField.getText());
 		  Date fromDate = (Date) datePicker.getModel().getValue();
 		  Date toDate = (Date) datePicker2.getModel().getValue();
-
+		  if(fromDate==null ||toDate == null )return;
 		  fromDate = resetDate(fromDate);
 		  toDate = resetDate(toDate);
+
+		  if(fromDate.compareTo(toDate)==0)
+			  toDate = AddOneDay(toDate);
+		  else if(fromDate.compareTo(toDate)>0) {
+			  JOptionPane.showMessageDialog(this, "From date must be before To date");
+			  return;
+		  }
 		  System.out.println(fromDate);
 		  System.out.println(toDate);
 		  BasicDBObject query = new BasicDBObject();
@@ -438,6 +449,7 @@ public class ReportUI extends JPanel {
 	{
 	
 		getSampleData(resultList,labelList);
+		if(resultList.size()==0||labelList.size()==0)return;
 		getProcessData(resultList,labelList);
 		
 	
@@ -451,6 +463,7 @@ public class ReportUI extends JPanel {
 		Hashtable<String, ArrayList<String>> resultTable = new Hashtable<String, ArrayList<String>>();
 		Hashtable<String, ArrayList<String>> labelTable = new Hashtable<String, ArrayList<String>>();
 		getSampleData(resultTable,labelTable);
+		if(resultTable.size()==0||labelTable.size()==0)return;
 		getProcessData(resultTable,labelTable);
 		Set<String> set = resultTable.keySet();
 		for(String s:set) {
@@ -507,6 +520,18 @@ public class ReportUI extends JPanel {
 	      cal.set(Calendar.MINUTE, 0);  
 	      cal.set(Calendar.SECOND, 0);  
 	      cal.set(Calendar.MILLISECOND, 0);  
+	      return cal.getTime(); 
+
+		  
+	}
+	private Date AddOneDay(Date d)
+	{
+		  Calendar cal = Calendar.getInstance();
+		  cal.setTime(d);
+	      cal.set(Calendar.HOUR_OF_DAY, 23);  
+	      cal.set(Calendar.MINUTE, 59);  
+	      cal.set(Calendar.SECOND, 59);  
+	      cal.set(Calendar.MILLISECOND, 999);  
 	      return cal.getTime(); 
 
 		  
