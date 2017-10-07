@@ -100,7 +100,6 @@ public class DBConnection {
             this.mongoClient.getAddress();
         } catch (Exception e) {
             System.out.println("Mongo is down");
-            this.mongoClient.close();
             return false;
         }
         return true;
