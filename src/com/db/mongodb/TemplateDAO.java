@@ -19,6 +19,7 @@ import org.bson.Document;
  */
 public class TemplateDAO extends AbstractDAO {
 
+	protected static TemplateDAO DAO ;
     private static MongoCollection templateCollection = null;
     private static final String CollectionStr = "Template";
     private static DBConnection DBConn = new DBConnection();
@@ -121,7 +122,7 @@ public class TemplateDAO extends AbstractDAO {
             searchQuery.put(TemplateKeyEnum.TID.toString(), tid);
 
             BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
-            docFetched = (Document) templateCollection.find(searchQuery).sort(sortObject).limit(1);
+            docFetched = (Document) templateCollection.find(searchQuery).sort(new Document("_id", -1)).limit(1);
 
         } catch (Exception e) {
             System.out.println("fetch error");
@@ -140,7 +141,7 @@ public class TemplateDAO extends AbstractDAO {
     public  ArrayList fetch(Document templateRequest)
     {
         ArrayList finds = new ArrayList();
-        templateCollection.find(templateRequest).into(finds);
+        templateCollection.find(templateRequest).sort(new Document("_id", -1)).limit(1).into(finds);
         return finds;
     }
     

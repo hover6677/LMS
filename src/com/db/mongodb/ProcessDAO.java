@@ -19,6 +19,7 @@ import org.bson.Document;
  */
 public class ProcessDAO extends AbstractDAO {
 
+	protected static ProcessDAO DAO ;
     private static MongoCollection processCollection = null;
     private static final String CollectionStr = "Process";
     private static DBConnection DBConn = new DBConnection();

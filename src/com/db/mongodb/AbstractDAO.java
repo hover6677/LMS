@@ -7,7 +7,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 
 public abstract class AbstractDAO {
-	protected static AbstractDAO DAO ;
+	
 	protected AbstractDAO() {
 		
 	}

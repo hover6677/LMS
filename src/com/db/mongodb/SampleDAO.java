@@ -17,6 +17,7 @@ import org.bson.Document;
  */
 public class SampleDAO extends AbstractDAO {
 
+	protected static SampleDAO DAO ;
     private static MongoCollection sampleCollection = null;
     private static final String CollectionStr = "Sample";
     private static DBConnection DBConn = new DBConnection();
