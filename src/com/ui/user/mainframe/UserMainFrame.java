@@ -176,6 +176,11 @@ public class UserMainFrame extends javax.swing.JFrame {
                 jComboBoxTagsItemStateChanged(evt);
             }
         });
+        jComboBoxTags.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jComboBoxTagsFocusGained(evt);
+            }
+        });
         jComboBoxTags.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTagsActionPerformed(evt);
@@ -354,6 +359,11 @@ public class UserMainFrame extends javax.swing.JFrame {
                 jComboBoxTags2ItemStateChanged(evt);
             }
         });
+        jComboBoxTags2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jComboBoxTags2FocusGained(evt);
+            }
+        });
         jComboBoxTags2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTags2ActionPerformed(evt);
@@ -431,8 +441,8 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(30, 30, 30)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(83, 83, 83))
+                    .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(94, 94, 94))
         );
 
         jTabbedPane1.addTab("Processing", jPanel4);
@@ -516,10 +526,10 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(jRadioButton2))
                     .add(jScrollPane3)
-                    .add(jPanel3Layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 562, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jScrollPane6)))
                 .add(55, 55, 55))
         );
         jPanel3Layout.setVerticalGroup(
@@ -858,6 +868,16 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
+
+    private void jComboBoxTagsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTagsFocusGained
+        // TODO add your handling code here:
+        TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+    }//GEN-LAST:event_jComboBoxTagsFocusGained
+
+    private void jComboBoxTags2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTags2FocusGained
+        // TODO add your handling code here:
+        TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+    }//GEN-LAST:event_jComboBoxTags2FocusGained
 
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
