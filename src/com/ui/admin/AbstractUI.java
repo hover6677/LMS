@@ -101,7 +101,10 @@ public abstract class AbstractUI extends JPanel{
 		
 		JLabel lblNoOfSteps = new JLabel(label2);
 		lblNoOfSteps.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		if(!isStorage)
 		lblNoOfSteps.setBounds(123, 53, 123, 27);
+		else 
+			lblNoOfSteps.setBounds(123, 33, 123, 27);
 		panel.add(lblNoOfSteps);
 		
 		getLabelTotNum();
@@ -109,7 +112,10 @@ public abstract class AbstractUI extends JPanel{
 		JSpinner spinner = new JSpinner();
 		lblNoOfSteps.setLabelFor(spinner);
 		spinner.setToolTipText("Select No. of Labels");
-		spinner.setBounds(258, 55, 89, 27);
+		if(!isStorage)
+			spinner.setBounds(258, 55, 89, 27);
+		else 
+			spinner.setBounds(258, 33, 89, 27);
 		spinner.setModel(listModelLeft);
 		//spinner.get.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 		spinner.addChangeListener(new ChangeListener(){

@@ -21,8 +21,9 @@ public class UIFrame extends JFrame{
 	 * 
 	 */
 	public UIFrame() {
+		setResizable(false);
 		setTitle("LIMS");
-		setSize(740,600);
+		setSize(759,612);
 		setMinimumSize(new Dimension(740,600));
                 //setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);       
@@ -33,14 +34,16 @@ public class UIFrame extends JFrame{
 		//panel.setBounds(0, 0, 710, 540);
 		panel.setPreferredSize(new Dimension(740,600));
 		setContentPane(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		panel.setLayout(null);
 		
 		JLabel label = new JLabel();
+		label.setBounds(12, 13, 710, 40);
+		label.setHorizontalAlignment(SwingConstants.LEFT);
 		label.setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
-		panel.add(label,BorderLayout.NORTH);
+		panel.add(label);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-
-		panel.add(tabbedPane,BorderLayout.CENTER);
+		tabbedPane.setBounds(12, 66, 729, 469);
+		panel.add(tabbedPane);
 		final ReportUI rpUI = new ReportUI();
 		tabbedPane.addTab("Receiving", new ReceivingUI());
 		tabbedPane.addTab("Processing", new ProcessingUI());

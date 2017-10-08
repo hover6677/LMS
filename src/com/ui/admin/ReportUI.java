@@ -34,6 +34,7 @@ import com.document.enumeration.TemplateTypeEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -55,10 +56,10 @@ public class ReportUI extends JPanel {
 		labels = new ArrayList<String>();
 		data = new ArrayList<ArrayList<String>>();
 		setLayout(null);
-		
+		setSize(740,400);
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(12, 227, 716, 348);
+		panel_1.setBounds(12, 195, 693, 180);
 		
 		
 		JLabel lblReport = new JLabel("Report");
@@ -67,35 +68,14 @@ public class ReportUI extends JPanel {
 		lblReport.setBounds(12, 0, 115, 50);
 		add(lblReport);
 		
-		//ReadLabels();
-		//ReadData();
-//		ArrayList<String> processlabelArray = null;
-//		processlabelArray = ReadLabels(TemplateTypeEnum.Process.toString());
-//		ArrayList<String> receivelabelArray = null;
-//		receivelabelArray = ReadLabels(TemplateTypeEnum.Receive.toString());
-//		ArrayList<String> storagelabelArray = null;
-//		storagelabelArray = ReadLabels(TemplateTypeEnum.Storage.toString());
-//		ArrayList<String> finalArray = new ArrayList<String>();
-//		if(processlabelArray!=null)
-//			finalArray.addAll(processlabelArray);
-//		if(receivelabelArray!=null)
-//			finalArray.addAll(receivelabelArray);
-//		if(storagelabelArray!=null)
-//			finalArray.addAll(storagelabelArray);
 
-//		String[][] dataArray= {
-//				{"Tom","1313","36","36"},
-//				{"Allen","2351","37.5","36"},
-//				{"Allen","2351","37.5","36"},
-//				{"Allen","2351","37.5","36"}
-//		};
-		panel_1.setLayout(null);
+		panel_1.setLayout(new BorderLayout());
 		
 		add(panel_1);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 692, 324);
-		panel_1.add(scrollPane);
+		//scrollPane.setBounds(12, 13, 671, 122);
+		panel_1.add(scrollPane,BorderLayout.CENTER);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -104,7 +84,7 @@ public class ReportUI extends JPanel {
 		table.setBorder(new EmptyBorder(1, 1, 0, 0));
 		
 		JButton button = new JButton("Search");
-		button.setBounds(421, 40, 90, 25);
+		button.setBounds(421, 40, 115, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -117,7 +97,7 @@ public class ReportUI extends JPanel {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(203, 41, 116, 22);
+		textField.setBounds(203, 41, 182, 30);
 		add(textField);
 		
 		JLabel label = new JLabel("SID");
@@ -125,7 +105,7 @@ public class ReportUI extends JPanel {
 		add(label);
 		
 		JLabel lblFrom = new JLabel("From");
-		lblFrom.setBounds(160, 79, 34, 16);
+		lblFrom.setBounds(160, 98, 34, 16);
 		add(lblFrom);
 		
 		Properties p = new Properties();
@@ -135,12 +115,12 @@ public class ReportUI extends JPanel {
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		datePicker.setBounds(203, 76, 213, 22);
+		datePicker.setBounds(203, 95, 213, 30);
 		add(datePicker);
 		
-		JButton button_1 = new JButton("Search");
-		button_1.setBounds(421, 104, 90, 25);
-		button_1.addActionListener(new ActionListener() {
+		JButton btnFilterByDate = new JButton("Filter By Date");
+		btnFilterByDate.setBounds(421, 141, 115, 30);
+		btnFilterByDate.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -148,17 +128,17 @@ public class ReportUI extends JPanel {
 			}
 			
 		});
-		add(button_1);
+		add(btnFilterByDate);
 		
 		JLabel lblTo = new JLabel("To");
-		lblTo.setBounds(160, 108, 34, 16);
+		lblTo.setBounds(160, 138, 34, 16);
 		add(lblTo);
 		
 		
 		UtilDateModel model2 = new UtilDateModel();
 		JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p);
 		datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
-		datePicker2.setBounds(203, 111, 213, 22);
+		datePicker2.setBounds(203, 141, 213, 30);
 		add(datePicker2);
 			
 		
@@ -406,14 +386,7 @@ public class ReportUI extends JPanel {
 		Object[] labelArray =  labelList.toArray();
 		
 
-//		String[][] dataArray= {
-//				{"Tom","1313","36","36"},
-//				{"Allen","2351","37.5","36"},
-//				{"Allen","2351","37.5","36"},
-//				{"Allen","2351","37.5","36"}
-//		};
-
-
+		if(checkEmpty(dataArray,labelArray))return;
 		
 		table = new JTable(dataArray, labelArray);
 		table.updateUI();
@@ -426,8 +399,11 @@ public class ReportUI extends JPanel {
 		ArrayList<ArrayList<String>> resultList = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<String>>labelList = new ArrayList<ArrayList<String>>();
 		ReadDataFromDate(resultList,labelList);
-		if(resultList==null||labelList==null||resultList.size()<=0||labelList.size()<=0)
+		if(resultList==null||labelList==null||resultList.size()<=0||labelList.size()<=0) {
+			checkEmpty(null,null);
 			return;
+		}
+			
 		int size1 = resultList.size();
 		int size2 = labelList.get(0).size();
 		Object[][] dataArray = new Object[size1][size2];
@@ -436,15 +412,28 @@ public class ReportUI extends JPanel {
 			dataArray[i]=resultList.get(i).toArray();
 		}
 		Object[] labelArray = labelList.get(0).toArray();
+		if(checkEmpty(dataArray,labelArray))return;
 		table= new JTable(dataArray, labelArray);
 		table.updateUI();
 		scrollPane.setViewportView(table);
 		scrollPane.updateUI();
-
+	
 		this.updateUI();
 		
 		
 	}
+
+	private boolean checkEmpty(Object[][] dataArray, Object[] labelArray) {
+		// TODO Auto-generated method stub
+		if(labelArray==null||dataArray == null||labelArray.length==0||dataArray.length==0)
+		{
+			JOptionPane.showMessageDialog(this, "There are no results that match your search");
+			return true;
+		}
+		return false;
+		
+	}
+
 	public void ReadData(ArrayList<String> resultList,ArrayList<String> labelList)
 	{
 	
