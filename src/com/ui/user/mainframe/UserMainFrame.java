@@ -516,10 +516,10 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(jRadioButton2))
                     .add(jScrollPane3)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3Layout.createSequentialGroup()
+                    .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(jScrollPane6)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 562, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(55, 55, 55))
         );
         jPanel3Layout.setVerticalGroup(
@@ -694,7 +694,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
             jPanel.add(jTextFieldD);
-
+            
             UserMainFrameApp.labelList.add(jLabelD);
             UserMainFrameApp.textFiledList.add(jTextFieldD);
         }
