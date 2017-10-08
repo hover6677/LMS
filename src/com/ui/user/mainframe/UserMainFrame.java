@@ -36,6 +36,7 @@ import com.db.mongodb.user.helper.ProcessDAOHelper;
 import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.*;
+import com.mongodb.BasicDBObject;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,10 +47,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.ui.user.mainapp.UserMainFrameApp;
+import java.awt.Color;
 import java.awt.Font;
 import static java.lang.Thread.sleep;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,6 +63,8 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,6 +132,17 @@ public class UserMainFrame extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -285,7 +304,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(18, 18, 18)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jScrollPane4)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE))))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))))
                 .add(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
@@ -379,7 +398,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 695, Short.MAX_VALUE)
+            .add(0, 761, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -407,7 +426,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(jLabel6)
                         .add(18, 18, 18)
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2)
                             .add(jPanel4Layout.createSequentialGroup()
                                 .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(18, 18, 18)
@@ -478,7 +497,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 649, Short.MAX_VALUE)
+            .add(0, 810, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -552,10 +571,158 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(19, 19, 19))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(89, Short.MAX_VALUE))))
+                        .addContainerGap(116, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Storage", jPanel3);
+
+        jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+
+        jLabel11.setText("Sample ID");
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("From");
+
+        jLabel14.setText("To");
+
+        jButton4.setText("Filter By Date");
+        jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane7.setBackground(java.awt.SystemColor.controlHighlight);
+        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        jTable1.setBackground(java.awt.SystemColor.controlHighlight);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "SID", "Type", "User", "Receive Date", "Quantity Received", "Unit", "Comments", "Receive", "Storage", "Storage_User", "Storage_Comments", "Process_TID", "Process_Date", "Process_User", "Process_Comments", "Process_Steps"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.setDragEnabled(true);
+        jTable1.setGridColor(new java.awt.Color(51, 51, 51));
+        jTable1.setRowHeight(20);
+        jScrollPane7.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(200);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(400);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(400);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(120);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(400);
+            jTable1.getColumnModel().getColumn(9).setResizable(false);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(10).setResizable(false);
+            jTable1.getColumnModel().getColumn(10).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(11).setResizable(false);
+            jTable1.getColumnModel().getColumn(11).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(12).setResizable(false);
+            jTable1.getColumnModel().getColumn(12).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(13).setResizable(false);
+            jTable1.getColumnModel().getColumn(13).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(14).setMinWidth(160);
+            jTable1.getColumnModel().getColumn(14).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(14).setMaxWidth(400);
+            jTable1.getColumnModel().getColumn(15).setMinWidth(160);
+            jTable1.getColumnModel().getColumn(15).setPreferredWidth(160);
+            jTable1.getColumnModel().getColumn(15).setMaxWidth(400);
+        }
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(153, 153, 153)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
+                .add(24, 24, 24)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField2))
+                .add(18, 18, 18)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton4))
+                .add(369, 369, 369))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane7)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel11)
+                    .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel14)
+                    .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);
+
+        jPanel1Layout.linkSize(new java.awt.Component[] {jButton4, jLabel14, jXDatePicker2}, org.jdesktop.layout.GroupLayout.VERTICAL);
+
+        jPanel1Layout.linkSize(new java.awt.Component[] {jLabel12, jXDatePicker1}, org.jdesktop.layout.GroupLayout.VERTICAL);
+
+        jTabbedPane1.addTab("Report", jPanel1);
 
         clearBtn.setText("Reset All");
         clearBtn.setMaximumSize(new java.awt.Dimension(75, 30));
@@ -604,10 +771,10 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
-                .add(19, 19, 19)
+                .addContainerGap()
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 474, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 501, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
@@ -704,7 +871,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
             jPanel.add(jTextFieldD);
-            
+
             UserMainFrameApp.labelList.add(jLabelD);
             UserMainFrameApp.textFiledList.add(jTextFieldD);
         }
@@ -752,21 +919,21 @@ public class UserMainFrame extends javax.swing.JFrame {
             resetBtnActionPerformed();
             switch (this.jTabbedPane1.getSelectedIndex()) {
                 case 0:
-                this.jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
-                this.jComboBoxTags.setSelectedIndex(-1);
-                this.jComboBoxTags3.setSelectedIndex(-1);
-                break;
+                    this.jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
+                    this.jComboBoxTags.setSelectedIndex(-1);
+                    this.jComboBoxTags3.setSelectedIndex(-1);
+                    break;
                 case 1:
-                this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
-                this.jComboBoxTags2.setSelectedIndex(-1);
-                break;
+                    this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
+                    this.jComboBoxTags2.setSelectedIndex(-1);
+                    break;
                 case 2:
-                this.jRadioButton1.setSelected(true);
-                this.jTextField10.setText("");
-                break;
+                    this.jRadioButton1.setSelected(true);
+                    this.jTextField10.setText("");
+                    break;
                 default:
-                this.msgLabel.setText("");
-                break;
+                    this.msgLabel.setText("");
+                    break;
             }
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -879,6 +1046,36 @@ public class UserMainFrame extends javax.swing.JFrame {
         TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
     }//GEN-LAST:event_jComboBoxTags2FocusGained
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+         if (this.jXDatePicker1.getDate() == null || this.jXDatePicker2.getDate() == null 
+                 ||  this.jXDatePicker2.getDate().before(this.jXDatePicker1.getDate())) 
+         {
+            JOptionPane.showMessageDialog(this, "Please select a valid date range");
+            return;
+        }
+
+        if (!SampleDAOHelper.fetchSampleBySID(this.jTextField2.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "SID Not Fount");
+            return;
+        }
+        updateSingleRow();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (this.jTextField2.getText().trim() == null || this.jTextField2.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter a SID");
+            return;
+        }
+
+        if (!SampleDAOHelper.fetchSampleBySID(this.jTextField2.getText().replaceAll(" ", ""))) {
+            JOptionPane.showMessageDialog(this, "SID Not Fount");
+            return;
+        }
+        updateSingleRow();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
         if (null != selectedCountLabel) {
@@ -964,7 +1161,6 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     }
 
-    
     private ArrayList<JComboBox> getAllDListOnTab() {
         ArrayList<JComboBox> list = new ArrayList();
         int selectedIndex = this.jTabbedPane1.getSelectedIndex();
@@ -1103,13 +1299,18 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBoxTags;
     private javax.swing.JComboBox<String> jComboBoxTags1;
     private javax.swing.JComboBox<String> jComboBoxTags2;
     private javax.swing.JComboBox<String> jComboBoxTags3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1119,6 +1320,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1134,14 +1336,19 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JLabel msgLabel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton searchBtn2;
@@ -1233,6 +1440,164 @@ public class UserMainFrame extends javax.swing.JFrame {
         MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS, inFlag);
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
+    }
+
+    /**
+     * ****************
+     */
+    public void updateSingleRow() {
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        jTable1.setGridColor(Color.BLACK);
+        ArrayList<String> resultList = new ArrayList<String>();
+        ArrayList<String> labelList = new ArrayList<String>();
+        ReadData(resultList, labelList);
+        Object[] rArray =  resultList.toArray();
+        model.insertRow(0, rArray);
+        this.jTable1.updateUI();
+    }
+
+    public void ReadData(ArrayList<String> resultList, ArrayList<String> labelList) {
+
+        getSampleData(resultList, labelList);
+        if (resultList.isEmpty() || labelList.isEmpty()) {
+            return;
+        }
+
+        getProcessData(resultList, labelList);
+
+        if (resultList.size() != labelList.size()) {
+            JOptionPane.showMessageDialog(this, "Records Display could be error");
+        }
+    }
+
+    private void ReadDataFromDate(ArrayList<ArrayList<String>> resultList, ArrayList<ArrayList<String>> labelList) {
+        // TODO Auto-generated method stub
+        Hashtable<String, ArrayList<String>> resultTable = new Hashtable<String, ArrayList<String>>();
+        Hashtable<String, ArrayList<String>> labelTable = new Hashtable<String, ArrayList<String>>();
+        //getSampleData(resultTable, labelTable);
+        if (resultTable.size() == 0 || labelTable.size() == 0) {
+            return;
+        }
+        //getProcessData(resultTable, labelTable);
+        Set<String> set = resultTable.keySet();
+        for (String s : set) {
+            resultList.add(resultTable.get(s));
+            labelList.add(labelTable.get(s));
+        }
+    }
+
+    public void getSampleData(ArrayList<String> resultList, ArrayList<String> labelList) {
+        
+        labelList.add(SampleKeyEnum.SID.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.SID.toString()));
+        labelList.add(SampleKeyEnum.Type.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Type.toString()));
+        labelList.add(SampleKeyEnum.User.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.User.toString()));
+        labelList.add(SampleKeyEnum.DateTime.toString());
+        resultList.add(SampleDAOHelper.getSample().getDate(SampleKeyEnum.DateTime.toString()).toString());
+        labelList.add(SampleKeyEnum.Quantity.toString());
+        resultList.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
+        labelList.add(SampleKeyEnum.Unit.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
+        labelList.add(SampleKeyEnum.Comments.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
+
+        labelList.add(SampleKeyEnum.Receive.toString());
+        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
+            Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
+            String strRecv = printTagsToString(doc);
+            resultList.add(strRecv);
+        } else {
+            resultList.add(" ");
+        }
+
+        labelList.add(SampleKeyEnum.Storage.toString());
+        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString());
+        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString() + "_" + SampleKeyEnum.Comments.toString());
+
+        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Storage.toString())) {
+            Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Storage.toString());
+            String strStorg = printStorageToString(doc);
+            resultList.add(strStorg);
+            resultList.add(doc.getString(SampleKeyEnum.User.toString()));
+            resultList.add(doc.getString(SampleKeyEnum.Comments.toString()));
+        } else {
+            resultList.add(" ");
+            resultList.add(" ");
+            resultList.add(" ");
+        }
+        return;
+    }
+
+    private String printTagsToString(Document doc) {
+        String tagsStr = "";
+        if (null == doc || doc.isEmpty()) {
+
+        } else {
+            Iterator<String> it = doc.keySet().iterator();
+            while (it.hasNext()) {
+                String tag = it.next().toString();
+                tagsStr += tag;
+                tagsStr += " : ";
+                tagsStr += doc.getString(tag);
+                tagsStr += it.hasNext() ? " | " : "";
+            }
+        }
+
+        return tagsStr;
+    }
+
+    private String printStorageToString(Document doc) {
+        String storageStr = "";
+        if (null == doc || doc.isEmpty()) {
+
+        } else {
+            Iterator<String> it = doc.keySet().iterator();
+            while (it.hasNext()) {
+                String place = it.next().toString();
+                if (place.equals(SampleKeyEnum.Comments.toString()) || place.equals(SampleKeyEnum.User.toString())) {
+                    continue;
+                }
+                Document unit = (Document) doc.get(place);
+                storageStr += place;
+                storageStr += " : ";
+                storageStr += unit.getDouble(SampleKeyEnum.Quantity.toString());
+                storageStr += " ";
+                storageStr += unit.getString(SampleKeyEnum.Unit.toString());
+                storageStr += " | ";
+            }
+
+        }
+
+        return storageStr;
+    }
+
+    public void getProcessData(ArrayList<String> resultList, ArrayList<String> labelList) {
+
+        if (!ProcessDAOHelper.fetchProcessBySID(this.jTextField2.getText().trim())) {
+            return;
+        }
+
+        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.TID.toString());
+        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.TID.toString()));
+        labelList.add(SampleKeyEnum.Process.toString() + " " + ProcessKeyEnum.User.toString());
+        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.User.toString()));
+        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.DateTime.toString());
+        resultList.add(ProcessDAOHelper.getProcessDoc().getDate(ProcessKeyEnum.DateTime.toString()).toString());
+        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Comments.toString());
+        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.Comments.toString()));
+
+        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Steps.toString());
+        if (ProcessDAOHelper.getProcessDoc().containsKey(ProcessKeyEnum.Steps.toString())) {
+            Document doc = (Document) ProcessDAOHelper.getProcessDoc().get(ProcessKeyEnum.Steps.toString());
+            String stepsRecv = printTagsToString(doc);
+            resultList.add(stepsRecv);
+        } else {
+            resultList.add(" ");
+        }
     }
 
 }

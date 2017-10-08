@@ -5,6 +5,7 @@
  */
 package com.db.mongodb.user.helper;
 
+import com.db.mongodb.user.ProcessDAO;
 import com.db.mongodb.user.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
@@ -36,12 +37,19 @@ public class ProcessDAOHelper {
         processDoc = new Document();
         processDoc.append(ProcessKeyEnum.Active.toString(), 1);
         processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
-        processDoc.append(ProcessKeyEnum.TID.toString(), sid);
+        processDoc.append(ProcessKeyEnum.SID.toString(), sid);
+        processDoc.append(ProcessKeyEnum.TID.toString(), tid);
         processDoc.append(ProcessKeyEnum.User.toString(), UserMainFrameApp.userName);
         processDoc.append(ProcessKeyEnum.Comments.toString(), remarks);
         processDoc.append(ProcessKeyEnum.Steps.toString(), objP);
         return true;
         
+    }
+    
+    public static boolean fetchProcessBySID(String sid)
+    {
+        processDoc =  ProcessDAO.isProcessFound(sid);
+        return (null!=processDoc);
     }
     
         

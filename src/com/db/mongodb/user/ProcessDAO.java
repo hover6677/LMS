@@ -64,7 +64,6 @@ public class ProcessDAO {
 
     public static boolean addOrUpdateProcess(Document processDoc) {
         Document processFound = isProcessFound(processDoc);
-        connectToCollection();
         try {
             if (null != processFound) {
                 updateProcess(processFound, processDoc);
@@ -78,6 +77,25 @@ public class ProcessDAO {
             return false;
         }
     }
+    
+    public static Document isProcessFound(String sid) {
+        connectToCollection();
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+
+            searchQuery.put(ProcessKeyEnum.Active.toString(), 1);
+            searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
+
+            docFetched = (Document) processCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
+    }
 
     public static Document isProcessFound(Document processDoc) {
         connectToCollection();
@@ -86,11 +104,11 @@ public class ProcessDAO {
         try {
             int active = processDoc.getInteger(ProcessKeyEnum.Active.toString(), 1);
             String sid = processDoc.getString(ProcessKeyEnum.SID.toString());
-            String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
+            //String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
 
             searchQuery.put(ProcessKeyEnum.Active.toString(), active);
             searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
-            searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
+            //searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 
             docFetched = (Document) processCollection.find(searchQuery).first();
 
@@ -104,7 +122,6 @@ public class ProcessDAO {
 
     public static boolean updateProcess(Document processFound, Document processDoc) {
         connectToCollection();
-
         try {
             softDeleteProcess(processFound);
             ProcessDAO.processCollection.insertOne(processDoc);
