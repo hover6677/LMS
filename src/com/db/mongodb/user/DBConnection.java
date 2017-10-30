@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.user;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import java.util.Map;
+import org.bson.Document;
 
 /**
  *
@@ -83,15 +85,24 @@ public class DBConnection {
             return false;
         }
     }
-    
-    public boolean closeDB()
-    {
+
+    public boolean closeDB() {
         if (null != mongoClient) {
             this.mongoClient.close();
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean isDBConnected() {
+        try {
+            this.mongoClient.getAddress();
+        } catch (Exception e) {
+            System.out.println("Mongo is down");
+            return false;
+        }
+        return true;
     }
 
 }

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.user;
 
-import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.SampleKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
@@ -16,46 +15,59 @@ import org.bson.Document;
  *
  * @author admin1
  */
-public class SampleDAO extends AbstractDAO {
+public class SampleDAO {
 
-	protected static SampleDAO DAO ;
     private static MongoCollection sampleCollection = null;
     private static final String CollectionStr = "Sample";
     private static DBConnection DBConn = new DBConnection();
 
-    
     public SampleDAO() {
         SampleDAO.DBConn.dbConnection();
     }
 
-    @Override
-    public boolean connDAO() {
+    public static boolean isDBConneced() {
+        return SampleDAO.DBConn.isDBConnected();
+    }
+
+    public static boolean connTempDAO() {
+        if (!isDBConneced()) {
+            return SampleDAO.DBConn.dbConnection();
+        } else {
+            return true;
+        }
+    }
+
+    private static void connectToCollection() {
+        connTempDAO();
+        setSampleCollection();
+    }
+
+    public static boolean connSampleDAO() {
         return SampleDAO.DBConn.dbConnection();
     }
 
-    @Override
-    public  MongoCollection getCollection() {
+    public static MongoCollection getSampleCollection() {
         return sampleCollection;
     }
 
-    @Override
-    public void setCollection() {
+    public static void setSampleCollection() {
         if (null != DBConn.getDb()) {
             sampleCollection = DBConn.getDb().getCollection(CollectionStr);
         } else {
             System.out.println("DB connection is not availbale ");
             System.out.println("reconnecting...");
             SampleDAO.DBConn.dbConnection();
+            sampleCollection = DBConn.getDb().getCollection(CollectionStr);
+
         }
     }
 
-    @Override
-    public boolean addOrUpdate(Document sampleDoc) {
-        Document sampleFound = isFound(sampleDoc);
-
+    public static boolean addOrUpdateSample(Document sampleDoc) {
+        Document sampleFound = isSampleFound(sampleDoc);
+        connectToCollection();
         try {
             if (null != sampleFound) {
-                update(sampleFound, sampleDoc);
+                updateSample(sampleFound, sampleDoc);
             } else {
                 SampleDAO.sampleCollection.insertOne(sampleDoc);
             }
@@ -67,8 +79,8 @@ public class SampleDAO extends AbstractDAO {
         }
     }
 
-    @Override
-    public Document isFound(Document sampleDoc) {
+    public static Document isSampleFound(Document sampleDoc) {
+        connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
@@ -88,9 +100,26 @@ public class SampleDAO extends AbstractDAO {
         }
     }
 
-    @Override
-    public boolean update(Document sampleFound, Document sampleDoc) {
+    public static Document isSampleFound(String sid) {
+        connectToCollection();
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+            searchQuery.put(SampleKeyEnum.Active.toString(), 1);
+            searchQuery.put(SampleKeyEnum.SID.toString(), sid);
 
+            docFetched = (Document) sampleCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
+    }
+
+    public static boolean updateSample(Document sampleFound, Document sampleDoc) {
+        connectToCollection();
         try {
             softDeleteSample(sampleFound);
             if (!sampleDoc.containsKey(SampleKeyEnum.Receive.toString())) {
@@ -99,6 +128,7 @@ public class SampleDAO extends AbstractDAO {
             if (!sampleDoc.containsKey(SampleKeyEnum.Storage.toString())) {
                 sampleDoc.put(SampleKeyEnum.Storage.toString(), sampleFound.get(SampleKeyEnum.Storage.toString()));
             }
+            sampleDoc.remove("_id");
             SampleDAO.sampleCollection.insertOne(sampleDoc);
             return true;
         } catch (Exception e) {
@@ -109,7 +139,8 @@ public class SampleDAO extends AbstractDAO {
         }
     }
 
-    private boolean softDeleteSample(Document sampleFound) {
+    private static boolean softDeleteSample(Document sampleFound) {
+        connectToCollection();
         try {
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 0);
@@ -124,12 +155,15 @@ public class SampleDAO extends AbstractDAO {
         }
     }
 
-    private boolean revertSoftDeletion(Document sampleFound) {
+    private static boolean revertSoftDeletion(Document sampleFound) {
+        connectToCollection();
         try {
+            sampleFound.put(SampleKeyEnum.Active.toString(), 0);
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 1);
             Document updateObj = new Document();
             updateObj.put("$set", newObj);
+
             sampleCollection.updateOne(sampleFound, updateObj);
             return true;
         } catch (Exception e) {
@@ -140,31 +174,15 @@ public class SampleDAO extends AbstractDAO {
 
     }
 
-    @Override
-    public void closeDBConn() {
+    public static void closeDBConn() {
         SampleDAO.DBConn.closeDB();
     }
-    
-    @Override
-    public ArrayList fetch(Document sampleRequest)
-    {
-        ArrayList finds = new ArrayList();
-        sampleCollection.find(sampleRequest).into(finds);
-        return finds;
-    }
 
-    public ArrayList fetch(BasicDBObject sampleRequest)
-    {
+    public static ArrayList fetchSample(Document sampleRequest) {
+        connectToCollection();
         ArrayList finds = new ArrayList();
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
-    
-    public static AbstractDAO getInstance() {
-		// TODO Auto-generated method stub
-		if(DAO==null)
-			DAO = new SampleDAO();
-		return DAO;
-	}
 
 }

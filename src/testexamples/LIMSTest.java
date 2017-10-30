@@ -5,9 +5,10 @@
  */
 package testexamples;
 
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.user.ProcessDAO;
+import com.db.mongodb.user.SampleDAO;
+import com.db.mongodb.user.TemplateDAO;
+import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.ReceiveTypeEnum;
 import com.document.enumeration.SampleKeyEnum;
@@ -17,6 +18,7 @@ import com.document.enumeration.UnitEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import org.bson.Document;
 
 /**
@@ -31,7 +33,7 @@ import org.bson.Document;
                     User:"hover"
                     Quantity:20
                     Unit:kg
-                    Type:Solution,Chemical,general supply - direct mtl,general supply - indirect mtl
+                    Type:Solution
                     Comments: sdsdsdsdsdsd
                     Receive
                         {
@@ -74,13 +76,19 @@ import org.bson.Document;
 public class LIMSTest {
 
     public static void main(String args[]) {
-        testTemplateDAO();
+        //testTemplateDAO();
         //testSampleDAO();
         //testGetTemplate();
         //testInsertProcess();
         //testGetProcess();
         //System.out.println(TemplateTypeEnum.values()[0].toString());
         //System.out.println(ReceiveTypeEnum.names());
+        SampleDAOHelper.fetchSampleBySID("greentea");
+        System.out.println(SampleDAOHelper.getSample().toString());
+        Document store = (Document) SampleDAOHelper.getSample().get("Storage");
+        System.out.println(printStorageToString(store));
+        //Document{{Fridge=Document{{Quantity=10.0, Unit=mg},sds=Document{}}
+        
     }
 
     
@@ -185,9 +193,9 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
         templateDoc.append(TemplateKeyEnum.Count.toString(), 3);
         templateDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
-        templateDoc.append(TemplateKeyEnum.TID.toString(), "template2");
-        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("p1","p2"));
-        templateDoc.append(TemplateKeyEnum.Type.toString(), "Process");
+        templateDoc.append(TemplateKeyEnum.TID.toString(), "Storage");
+        templateDoc.append(TemplateKeyEnum.Tags.toString(), Arrays.asList("Fridge","LAB1","Storage Room"));
+        templateDoc.append(TemplateKeyEnum.Type.toString(), "Storage");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
         TemplateDAO dao = (TemplateDAO) TemplateDAO.getInstance();
@@ -199,6 +207,31 @@ public class LIMSTest {
             }
 
         }
+    }
+    
+    private static String printStorageToString(Document doc) {
+        String storageStr = "";
+        if (null == doc || doc.isEmpty()) {
+
+        } else {
+            Iterator<String> it = doc.keySet().iterator();
+            while(it.hasNext())
+            {
+                String place = it.next().toString();
+                if(place.equals(SampleKeyEnum.Comments.toString()) || place.equals(SampleKeyEnum.User.toString()))
+                    continue;
+                Document unit = (Document) doc.get(place);
+                storageStr += place;
+                storageStr += " : ";
+                storageStr += unit.getDouble(SampleKeyEnum.Quantity.toString());
+                storageStr += " ";
+                storageStr += unit.getString(SampleKeyEnum.Unit.toString());
+                storageStr += " | ";
+            }
+            
+        }
+
+        return storageStr;
     }
 
 }

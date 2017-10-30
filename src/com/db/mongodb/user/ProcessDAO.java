@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.user;
 
-import com.db.mongodb.user.DBConnection;
+import com.db.mongodb.AbstractDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
@@ -68,6 +68,25 @@ public class ProcessDAO extends AbstractDAO {
             return false;
         }
     }
+    
+    public static Document isProcessFound(String sid) {
+        connectToCollection();
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+
+            searchQuery.put(ProcessKeyEnum.Active.toString(), 1);
+            searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
+
+            docFetched = (Document) processCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
+    }
 
     @Override
     public Document isFound(Document processDoc) {
@@ -76,11 +95,11 @@ public class ProcessDAO extends AbstractDAO {
         try {
             int active = processDoc.getInteger(ProcessKeyEnum.Active.toString(), 1);
             String sid = processDoc.getString(ProcessKeyEnum.SID.toString());
-            String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
+            //String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
 
             searchQuery.put(ProcessKeyEnum.Active.toString(), active);
             searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
-            searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
+            //searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 
             BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
             docFetched = (Document) processCollection.find(searchQuery).sort(sortObject).limit(1);
@@ -147,6 +166,7 @@ public class ProcessDAO extends AbstractDAO {
     @Override
     public ArrayList fetch(Document processRequest)
     {
+        connectToCollection();
         ArrayList finds = new ArrayList();
         processCollection.find(processRequest).into(finds);
         return finds;

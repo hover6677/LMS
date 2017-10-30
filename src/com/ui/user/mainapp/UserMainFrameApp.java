@@ -8,6 +8,7 @@ package com.ui.user.mainapp;
 import com.db.mongodb.ProcessDAO;
 import com.db.mongodb.SampleDAO;
 import com.db.mongodb.TemplateDAO;
+import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +30,15 @@ public class UserMainFrameApp {
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
     private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
-    public  static String AdminName = "admin";
+    
+    public  static final String AdminName = "admin";
+    public  static final String userName = "user";
     public  static ArrayList labelList;
     public  static ArrayList textFiledList;
+    public  static ArrayList dropDownList;
+    
+
+    
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
@@ -65,6 +72,7 @@ public class UserMainFrameApp {
         
         labelList = new ArrayList();
         textFiledList = new ArrayList();
+        dropDownList = new ArrayList();
     }
     
     public static void MainFrameAppClose()
@@ -186,5 +194,20 @@ public class UserMainFrameApp {
         templateList.get(selectedIndex).add(o);
         return templateList.get(selectedIndex).size();
     }
-
+    
+    public static Double getDoubleFromString(String a) {
+        Double quantity = 0.0;
+        try {
+            quantity = Double.parseDouble(a);
+        } catch (NumberFormatException numberFormatException) {
+            return 0.0;
+        }
+        return quantity;
+    }
+    public static void clearArrayList()
+    {
+        dropDownList.clear();
+        labelList.clear();
+        textFiledList.clear();
+    }
 }
