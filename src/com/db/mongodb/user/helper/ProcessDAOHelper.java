@@ -48,7 +48,7 @@ public class ProcessDAOHelper {
     
     public static boolean fetchProcessBySID(String sid)
     {
-        processDoc =  ProcessDAO.isProcessFound(sid);
+        processDoc =  ProcessDAO.getInstance().isProcessFound(sid);
         return (null!=processDoc);
     }
     

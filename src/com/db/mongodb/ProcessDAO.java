@@ -20,7 +20,7 @@ import org.bson.Document;
  */
 public class ProcessDAO extends AbstractDAO {
 
-	protected static ProcessDAO DAO ;
+    protected static ProcessDAO DAO ;
     private static MongoCollection processCollection = null;
     private static final String CollectionStr = "Process";
     private static DBConnection DBConn = new DBConnection();
@@ -165,5 +165,10 @@ public class ProcessDAO extends AbstractDAO {
 			DAO = new ProcessDAO();
 		return DAO;
 	}
+
+    @Override
+    public Document isProcessFound(String sid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

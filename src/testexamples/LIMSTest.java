@@ -92,101 +92,101 @@ public class LIMSTest {
     }
 
     
-//    private static void testGetProcess() {
-//        
-//        Document processDoc = new Document();
-//        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
-//        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
-//        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
-//
-//        if (ProcessDAO.connProcessDAO()) {
-//            ProcessDAO.setProcessCollection();
-//            ArrayList fetchTemplate = ProcessDAO.fetchProcess(processDoc);
-//            System.out.println(fetchTemplate.toString());
-//        }
-//        ProcessDAO.closeDBConn();
-//        
-//    }
-//    
-//    private static void testInsertProcess()
-//    {
-//        Document processDoc = new Document();
-//        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
-//        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
-//        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
-//        processDoc.append(ProcessKeyEnum.User.toString(), "hover");
-//        processDoc.append(ProcessKeyEnum.Comments.toString(), "comments");
-//        processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
-//        
-//        Document stepObj = new Document();
-//        stepObj.append("STEP1", "1skdaskdas");
-//        processDoc.append(ProcessKeyEnum.Steps.toString(), stepObj);
-//        
-//         if (ProcessDAO.connProcessDAO()) {
-//            ProcessDAO.setProcessCollection();
-//            ProcessDAO.addOrUpdateProcess(processDoc);
-//        }
-//        ProcessDAO.closeDBConn();
-//        
-//    }
-//    
-//    private static void testGetTemplate() {
-//        Document templateDoc = new Document();
-//        templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
-//        templateDoc.append(TemplateKeyEnum.Type.toString(), "Receive");
-//        templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
-//
-//        if (TemplateDAO.connDAO()) {
-//            TemplateDAO.setCollection();
-//            ArrayList fetchTemplate = TemplateDAO.fetchTemplate(templateDoc);
-//            System.out.println(fetchTemplate.toString());
-//        }
-//        TemplateDAO.closeDBConn();
-//
-//    }
-//
-//    private static void testSampleDAO() {
-//        
-//
-//        Document templateDoc = new Document();
-//        templateDoc.append(SampleKeyEnum.Active.toString(), 1);
-//        templateDoc.append(SampleKeyEnum.DateTime.toString(), new Date());
-//        templateDoc.append(SampleKeyEnum.SID.toString(), "CocaCola");
-//        templateDoc.append(SampleKeyEnum.User.toString(), "hover");
-//
-//        Document objR = new Document();
-//        Document subObjR1 = new Document();
-//        subObjR1.append(SampleKeyEnum.Quantity.toString(), 20);
-//        subObjR1.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
-//        objR.append("water", subObjR1);
-//
-//        Document subObjR2 = new Document();
-//        subObjR2.append(SampleKeyEnum.Quantity.toString(), 120);
-//        subObjR2.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
-//        objR.append("sugar", subObjR2);
-//        objR.append(SampleKeyEnum.Comments.toString(), "Red");
-//        
-//        templateDoc.append(SampleKeyEnum.Receive.toString(), objR);
-//
-//        Document objS = new Document();
-//        objS.append(SampleKeyEnum.Comments.toString(), "blue");
-//        objS.append(SampleKeyEnum.User.toString(), "hover");
-//        Document subObjS1 = new Document();
-//        subObjS1.append(SampleKeyEnum.Quantity.toString(), 120);
-//        subObjS1.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
-//        objS.append("Storage1", subObjS1);
-//
-//        templateDoc.append(SampleKeyEnum.Storage.toString(), objS);
-//
-//        if (SampleDAO.connSampleDAO()) {
-//            SampleDAO.setSampleCollection();
-//
-//            if (SampleDAO.addOrUpdateSample(templateDoc)) {
-//                SampleDAO.closeDBConn();
-//            }
-//
-//        }
-//    }
+    private static void testGetProcess() {
+        
+        Document processDoc = new Document();
+        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
+        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
+
+        if (ProcessDAO.getInstance().connDAO()) {
+            ProcessDAO.getInstance().setCollection();
+            ArrayList fetchTemplate = ProcessDAO.getInstance().fetch(processDoc);
+            System.out.println(fetchTemplate.toString());
+        }
+        ProcessDAO.getInstance().closeDBConn();
+        
+    }
+    
+    private static void testInsertProcess()
+    {
+        Document processDoc = new Document();
+        processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+        processDoc.append(ProcessKeyEnum.SID.toString(), "CocaCola");
+        processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
+        processDoc.append(ProcessKeyEnum.User.toString(), "hover");
+        processDoc.append(ProcessKeyEnum.Comments.toString(), "comments");
+        processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
+        
+        Document stepObj = new Document();
+        stepObj.append("STEP1", "1skdaskdas");
+        processDoc.append(ProcessKeyEnum.Steps.toString(), stepObj);
+        
+         if (ProcessDAO.getInstance().connDAO()) {
+            ProcessDAO.getInstance().setCollection();
+            ProcessDAO.getInstance().addOrUpdate(processDoc);
+        }
+        ProcessDAO.getInstance().closeDBConn();
+        
+    }
+    
+    private static void testGetTemplate() {
+        Document templateDoc = new Document();
+        templateDoc.append(TemplateKeyEnum.Active.toString(), 1);
+        templateDoc.append(TemplateKeyEnum.Type.toString(), "Receive");
+        templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
+
+        if (TemplateDAO.connTempDAO()) {
+            TemplateDAO.setTemplateCollection();
+            ArrayList fetchTemplate = TemplateDAO.fetchTemplate(templateDoc);
+            System.out.println(fetchTemplate.toString());
+        }
+        TemplateDAO.closeDBConn();
+
+    }
+
+    private static void testSampleDAO() {
+        
+
+        Document templateDoc = new Document();
+        templateDoc.append(SampleKeyEnum.Active.toString(), 1);
+        templateDoc.append(SampleKeyEnum.DateTime.toString(), new Date());
+        templateDoc.append(SampleKeyEnum.SID.toString(), "CocaCola");
+        templateDoc.append(SampleKeyEnum.User.toString(), "hover");
+
+        Document objR = new Document();
+        Document subObjR1 = new Document();
+        subObjR1.append(SampleKeyEnum.Quantity.toString(), 20);
+        subObjR1.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
+        objR.append("water", subObjR1);
+
+        Document subObjR2 = new Document();
+        subObjR2.append(SampleKeyEnum.Quantity.toString(), 120);
+        subObjR2.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
+        objR.append("sugar", subObjR2);
+        objR.append(SampleKeyEnum.Comments.toString(), "Red");
+        
+        templateDoc.append(SampleKeyEnum.Receive.toString(), objR);
+
+        Document objS = new Document();
+        objS.append(SampleKeyEnum.Comments.toString(), "blue");
+        objS.append(SampleKeyEnum.User.toString(), "hover");
+        Document subObjS1 = new Document();
+        subObjS1.append(SampleKeyEnum.Quantity.toString(), 120);
+        subObjS1.append(SampleKeyEnum.Unit.toString(), UnitEnum.ml.toString());
+        objS.append("Storage1", subObjS1);
+
+        templateDoc.append(SampleKeyEnum.Storage.toString(), objS);
+
+        if (SampleDAO.connSampleDAO()) {
+            SampleDAO.setSampleCollection();
+
+            if (SampleDAO.addOrUpdateSample(templateDoc)) {
+                SampleDAO.closeDBConn();
+            }
+
+        }
+    }
 
     private static void testTemplateDAO() {
         Document templateDoc = new Document();
@@ -198,12 +198,11 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Type.toString(), "Storage");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
-        TemplateDAO dao = (TemplateDAO) TemplateDAO.getInstance();
-        if (dao.connDAO()) {
-        	dao.setCollection();
+        if (TemplateDAO.connTempDAO()) {
+            TemplateDAO.setTemplateCollection();
 
-            if (dao.addOrUpdate(templateDoc)) {
-            	dao.closeDBConn();
+            if (TemplateDAO.addOrUpdateTemp(templateDoc)) {
+                TemplateDAO.closeDBConn();
             }
 
         }

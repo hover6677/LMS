@@ -20,20 +20,20 @@ import org.bson.Document;
  */
 public class ProcessDAO extends AbstractDAO {
 
-	protected static ProcessDAO DAO ;
+    protected static ProcessDAO DAO;
     private static MongoCollection processCollection = null;
     private static final String CollectionStr = "Process";
     private static DBConnection DBConn = new DBConnection();
-    
+
     private ProcessDAO() {
         ProcessDAO.DBConn.dbConnection();
     }
-    
+
     @Override
     public boolean connDAO() {
         return ProcessDAO.DBConn.dbConnection();
     }
-    
+
     @Override
     public MongoCollection getCollection() {
         return processCollection;
@@ -68,8 +68,9 @@ public class ProcessDAO extends AbstractDAO {
             return false;
         }
     }
-    
-    public static Document isProcessFound(String sid) {
+
+    @Override
+    public Document isProcessFound(String sid) {
         connectToCollection();
         Document searchQuery = new Document();
         Document docFetched = null;
@@ -162,28 +163,43 @@ public class ProcessDAO extends AbstractDAO {
     public void closeDBConn() {
         ProcessDAO.DBConn.closeDB();
     }
-    
+
     @Override
-    public ArrayList fetch(Document processRequest)
-    {
+    public ArrayList fetch(Document processRequest) {
         connectToCollection();
         ArrayList finds = new ArrayList();
         processCollection.find(processRequest).into(finds);
         return finds;
     }
-
-    public ArrayList fetch(BasicDBObject processRequest)
-    {
+    /*
+    public ArrayList fetch(BasicDBObject processRequest) {
         ArrayList finds = new ArrayList();
         processCollection.find(processRequest).into(finds);
         return finds;
+    }*/
+
+    public static AbstractDAO getInstance() {
+        // TODO Auto-generated method stub
+        if (DAO == null) {
+            DAO = new ProcessDAO();
+        }
+        return DAO;
+    }
+    private void connectToCollection()
+    {
+        connProcessDAO();
+        setCollection();
+    }
+    private boolean connProcessDAO() {
+        if (!isDBConneced()) {
+            return ProcessDAO.DBConn.dbConnection();
+        } else {
+            return true;
+        }
+    }
+    private boolean isDBConneced() {
+        return ProcessDAO.DBConn.isDBConnected();
     }
 
-	public static AbstractDAO getInstance() {
-		// TODO Auto-generated method stub
-		if(DAO==null)
-			DAO = new ProcessDAO();
-		return DAO;
-	}
-
+    
 }

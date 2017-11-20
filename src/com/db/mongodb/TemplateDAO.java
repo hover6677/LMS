@@ -20,7 +20,7 @@ import org.bson.Document;
  */
 public class TemplateDAO extends AbstractDAO {
 
-	protected static TemplateDAO DAO ;
+    protected static TemplateDAO DAO ;
     private static MongoCollection templateCollection = null;
     private static final String CollectionStr = "Template";
     private static DBConnection DBConn = new DBConnection();
@@ -183,5 +183,10 @@ public class TemplateDAO extends AbstractDAO {
 			DAO = new TemplateDAO();
 		return DAO;
 	}
+
+    @Override
+    public Document isProcessFound(String sid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
