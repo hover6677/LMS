@@ -206,7 +206,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel6.setBackground(java.awt.SystemColor.controlHighlight);
@@ -339,8 +338,8 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags.getAccessibleContext().setAccessibleName("Select a Template");
         jComboBoxTags.getAccessibleContext().setAccessibleDescription("Select a Template");
 
-        jTabbedPane1.addTab("Receiving", jPanel2);
-        jPanel2.getAccessibleContext().setAccessibleName("receivingTab");
+        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.jpg")), jPanel2, ""); // NOI18N
+        jPanel2.getAccessibleContext().setAccessibleName("");
 
         jPanel4.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
@@ -365,6 +364,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         jTextField3.setMinimumSize(new java.awt.Dimension(6, 25));
         jTextField3.setName("ID"); // NOI18N
         jTextField3.setPreferredSize(new java.awt.Dimension(6, 25));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -389,7 +393,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel8.setBackground(java.awt.SystemColor.controlHighlight);
@@ -464,7 +467,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(94, 94, 94))
         );
 
-        jTabbedPane1.addTab("Processing", jPanel4);
+        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.jpg")), jPanel4); // NOI18N
 
         jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -488,7 +491,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane3.setBorder(null);
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanel9.setBackground(java.awt.SystemColor.controlHighlight);
@@ -571,10 +573,10 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(19, 19, 19))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(116, Short.MAX_VALUE))))
+                        .addContainerGap(239, Short.MAX_VALUE))))
         );
 
-        jTabbedPane1.addTab("Storage", jPanel3);
+        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.jpg")), jPanel3); // NOI18N
 
         jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -713,7 +715,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
-                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);
@@ -722,7 +724,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jLabel12, jXDatePicker1}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jTabbedPane1.addTab("Report", jPanel1);
+        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.png")), jPanel1); // NOI18N
 
         clearBtn.setText("Reset All");
         clearBtn.setMaximumSize(new java.awt.Dimension(75, 30));
@@ -1075,6 +1077,10 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
         updateSingleRow();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();

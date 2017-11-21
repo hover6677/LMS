@@ -1,4 +1,4 @@
-package com.ui.user.mainapp;
+package com.ui.login.mainapp;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
