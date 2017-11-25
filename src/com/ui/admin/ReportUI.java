@@ -24,6 +24,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import com.Action.admin.ExportToExcelAction;
 import com.db.mongodb.ProcessDAO;
 import com.db.mongodb.SampleDAO;
 import com.db.mongodb.TemplateDAO;
@@ -140,6 +141,16 @@ public class ReportUI extends JPanel {
 		datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
 		datePicker2.setBounds(203, 141, 213, 30);
 		add(datePicker2);
+		
+		JButton btnExportToExcel = new JButton("Export To Excel");
+		btnExportToExcel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ExportToExcelAction eeAction = new ExportToExcelAction(table);
+				
+			}
+		});
+		btnExportToExcel.setBounds(544, 375, 154, 25);
+		add(btnExportToExcel);
 			
 		
 	}
