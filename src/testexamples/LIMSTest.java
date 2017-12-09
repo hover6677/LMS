@@ -5,7 +5,7 @@
  */
 package testexamples;
 
-import com.db.mongodb.UserManagementDAO;
+import com.db.mongodb.DAO.UserManagementDAO;
 import com.db.mongodb.user.ProcessDAO;
 import com.db.mongodb.user.SampleDAO;
 import com.db.mongodb.user.TemplateDAO;

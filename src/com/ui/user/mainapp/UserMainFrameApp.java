@@ -5,9 +5,9 @@
  */
 package com.ui.user.mainapp;
 
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.SampleDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
 import java.io.File;

@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 
 import org.bson.Document;
 
-import com.db.mongodb.AbstractDAO;
-import com.db.mongodb.ProcessDAO;
+import com.db.mongodb.DAO.AbstractDAO;
+import com.db.mongodb.DAO.ProcessDAO;
 import com.document.enumeration.ProcessKeyEnum;
 
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.DAO;
 
 import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.SampleKeyEnum;
@@ -74,10 +74,10 @@ public class UserManagementDAO extends AbstractDAO {
         Document docFetched = null;
         try {
             int active = userDoc.getInteger(UserManagementEnum.Active.toString(), 1);
-            String sid = userDoc.getString(UserManagementEnum.User.toString());
+            String uid = userDoc.getString(UserManagementEnum.User.toString());
 
             searchQuery.put(UserManagementEnum.Active.toString(), active);
-            searchQuery.put(UserManagementEnum.User.toString(), sid);
+            searchQuery.put(UserManagementEnum.User.toString(), uid);
 
             docFetched = (Document) userCollection.find(searchQuery).first();
 
@@ -110,6 +110,29 @@ public class UserManagementDAO extends AbstractDAO {
         }
          */
         return false;
+    }
+    
+    @Override
+    public Document isLoginValid(Document userDoc) {
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+            int active = userDoc.getInteger(UserManagementEnum.Active.toString(), 1);
+            String uid = userDoc.getString(UserManagementEnum.User.toString());
+            String pass = userDoc.getString(UserManagementEnum.Password.toString());
+
+            searchQuery.put(UserManagementEnum.Active.toString(), active);
+            searchQuery.put(UserManagementEnum.User.toString(), uid);
+            searchQuery.put(UserManagementEnum.Password.toString(), pass);
+
+            docFetched = (Document) userCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
     }
 
     private boolean softDeleteUser(Document userFound) {

@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 
 import java.awt.Frame;
 
@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import org.bson.Document;
 
 import com.Action.admin.InsertAction;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;

@@ -29,9 +29,9 @@
  */
 package com.ui.user.mainframe;
 
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.SampleDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.db.mongodb.user.helper.ProcessDAOHelper;
 import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;

@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import org.bson.Document;
 
 import com.Action.admin.InsertAction;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 

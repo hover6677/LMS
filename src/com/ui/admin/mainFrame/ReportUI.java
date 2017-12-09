@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,9 +25,9 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import com.Action.admin.ExportToExcelAction;
-import com.db.mongodb.ProcessDAO;
-import com.db.mongodb.SampleDAO;
-import com.db.mongodb.TemplateDAO;
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.SampleDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;

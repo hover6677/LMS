@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.db.mongodb;
+package com.db.mongodb.DAO;
 
 import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.SampleKeyEnum;
@@ -169,6 +169,11 @@ public class SampleDAO extends AbstractDAO {
 
     @Override
     public Document isProcessFound(String sid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Document isLoginValid(Document userDoc) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -1,10 +1,10 @@
-package com.ui.login.mainapp;
+package com.ui.admin.mainapp;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import com.ui.admin.UIFrame;
+import com.ui.admin.mainFrame.UIFrame;
 import com.ui.user.mainframe.UserMainFrame;
 
 public class AdminUserView {
