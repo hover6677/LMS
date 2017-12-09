@@ -4,7 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import com.ui.admin.mainFrame.UIFrame;
+import com.ui.admin.mainFrame.AdminMainFrame;
 import com.ui.user.mainframe.UserMainFrame;
 
 public class AdminUserView {
@@ -21,7 +21,7 @@ public class AdminUserView {
 		            break;
 		        }
 		    }
-			UIFrame frame = new UIFrame();
+			AdminMainFrame frame = new AdminMainFrame();
 			new UserMainFrame().setVisible(true);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

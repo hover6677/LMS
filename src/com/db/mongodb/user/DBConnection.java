@@ -6,6 +6,9 @@
 package com.db.mongodb.user;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 import java.util.Map;
 import org.bson.Document;
@@ -24,13 +27,13 @@ public class DBConnection {
     private MongoDatabase db = null;
 
     public boolean dbConnection() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             if (this.setMongoClient()) {
                 if (this.setDb()) {
                     break;
                 }
             }
-            if (i == 4) {
+            if (i == 0) {
                 System.out.println("Can not connect to DB. Please retry later");
                 return false;
             }
@@ -63,11 +66,15 @@ public class DBConnection {
     }
 
     public boolean setMongoClient() {
+
+        Builder o = MongoClientOptions.builder().serverSelectionTimeout(1000);
+        this.mongoClient = new MongoClient(new ServerAddress(IPString, port),o.build());
+
         try {
-            this.mongoClient = new MongoClient(IPString, port);
+            this.mongoClient.getAddress();
         } catch (Exception e) {
             System.out.println("Cannot Connect to DB:" + IPString + ":" + port);
-            System.out.println(e);
+            this.mongoClient.close();
             return false;
         }
         return true;

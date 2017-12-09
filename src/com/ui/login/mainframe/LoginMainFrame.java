@@ -117,6 +117,7 @@ public class LoginMainFrame extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
 
+        this.errorLabel.setText("");
         String uid = this.jTextFieldUID.getText();
         String pass = this.jPasswordField1.getText();
         if(!LoginMainFrameApp.isValidInput(uid))
@@ -132,6 +133,8 @@ public class LoginMainFrame extends javax.swing.JFrame {
             if(LoginMainFrameApp.userLogin(uid,pass))
             {
                 this.errorLabel.setText("successfully");
+                LoginMainFrameApp.displayView();
+                this.dispose();
             }
             else
             {

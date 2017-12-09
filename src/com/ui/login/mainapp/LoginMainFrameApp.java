@@ -7,6 +7,9 @@ package com.ui.login.mainapp;
 
 import com.db.mongodb.DAO.UserManagementDAO;
 import com.document.enumeration.UserManagementEnum;
+import com.ui.admin.mainFrame.AdminMainFrame;
+import com.ui.login.mainframe.LoginMainFrame;
+import com.ui.user.mainframe.UserMainFrame;
 import java.util.Date;
 import org.bson.Document;
 
@@ -17,7 +20,19 @@ import org.bson.Document;
 public class LoginMainFrameApp {
     private static String errorLog = "";
     private static Document userLogined = null;
+    private static UserMainFrame userMainFrame;
+    private static AdminMainFrame uiFrame;
 
+    public static UserMainFrame getUserMainFrame() {
+        return userMainFrame;
+    }
+
+    public static AdminMainFrame getUiFrame() {
+        return uiFrame;
+    }
+
+    
+    
     public static Document getUserLogined() {
         return userLogined;
     }
@@ -63,5 +78,20 @@ public class LoginMainFrameApp {
             errorLog = "DB Coonection lost. Please check DB configuration.";
             return false;
         }
+    }
+
+    public static void displayView() {
+        String uid = userLogined.getString(UserManagementEnum.User.toString());
+        if(uid.equals(UserManagementEnum.admin.toString()))
+        {
+            uiFrame = new AdminMainFrame();
+            uiFrame.setVisible(true);
+        }
+        else
+        {
+            userMainFrame = new UserMainFrame();
+            userMainFrame.setVisible(true);
+        }
+        
     }
 }
