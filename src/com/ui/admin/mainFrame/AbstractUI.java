@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 import java.awt.Frame;
 
 import javax.swing.*;

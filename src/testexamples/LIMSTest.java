@@ -5,6 +5,7 @@
  */
 package testexamples;
 
+import com.db.mongodb.DAO.UserManagementDAO;
 import com.db.mongodb.user.ProcessDAO;
 import com.db.mongodb.user.SampleDAO;
 import com.db.mongodb.user.TemplateDAO;
@@ -15,6 +16,7 @@ import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 import com.document.enumeration.UnitEnum;
+import com.document.enumeration.UserManagementEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -83,12 +85,34 @@ public class LIMSTest {
         //testGetProcess();
         //System.out.println(TemplateTypeEnum.values()[0].toString());
         //System.out.println(ReceiveTypeEnum.names());
-        SampleDAOHelper.fetchSampleBySID("greentea");
-        System.out.println(SampleDAOHelper.getSample().toString());
-        Document store = (Document) SampleDAOHelper.getSample().get("Storage");
-        System.out.println(printStorageToString(store));
+        //SampleDAOHelper.fetchSampleBySID("greentea");
+        //System.out.println(SampleDAOHelper.getSample().toString());
+        //Document store = (Document) SampleDAOHelper.getSample().get("Storage");
+        //System.out.println(printStorageToString(store));
         //Document{{Fridge=Document{{Quantity=10.0, Unit=mg},sds=Document{}}
+        testInsertUser();
+    }
+    
+    private static void testInsertUser()
+    {
+        Document userDoc = new Document();
+        userDoc.append(UserManagementEnum.Active.toString(), 1);
+        userDoc.append(UserManagementEnum.User.toString(), "Conan");
+        userDoc.append(UserManagementEnum.Password.toString(), "Conan");
+        userDoc.append(UserManagementEnum.DateTime.toString(), new Date());
+        //SampleKeyEnum
+        Document viewObject = new Document();
+        viewObject.append(TemplateTypeEnum.Receive.toString(), true);
+        viewObject.append(TemplateTypeEnum.Process.toString(), true);
+        viewObject.append(TemplateTypeEnum.Storage.toString(), true);
+        viewObject.append(TemplateTypeEnum.Report.toString(), true);
+        userDoc.append(UserManagementEnum.View.toString(), viewObject);
         
+         if (UserManagementDAO.getInstance().connDAO()) {
+            UserManagementDAO.getInstance().setCollection();
+            UserManagementDAO.getInstance().addOrUpdate(userDoc);
+        }
+        UserManagementDAO.getInstance().closeDBConn();
     }
 
     

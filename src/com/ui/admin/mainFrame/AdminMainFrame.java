@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -16,11 +16,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-public class UIFrame extends JFrame{
+public class AdminMainFrame extends JFrame{
 	/**
 	 * 
 	 */
-	public UIFrame() {
+	public AdminMainFrame() {
 		setResizable(false);
 		setTitle("LIMS");
 		setSize(759,612);
@@ -39,7 +39,7 @@ public class UIFrame extends JFrame{
 		JLabel label = new JLabel();
 		label.setBounds(12, 13, 710, 40);
 		label.setHorizontalAlignment(SwingConstants.LEFT);
-		label.setIcon(new ImageIcon(UIFrame.class.getResource("/resources/logo.png")));
+		label.setIcon(new ImageIcon(AdminMainFrame.class.getResource("/resources/logo.png")));
 		panel.add(label);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(12, 66, 729, 469);
@@ -95,7 +95,7 @@ public class UIFrame extends JFrame{
 		            break;
 		        }
 		    }
-			UIFrame frame = new UIFrame();
+			AdminMainFrame frame = new AdminMainFrame();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

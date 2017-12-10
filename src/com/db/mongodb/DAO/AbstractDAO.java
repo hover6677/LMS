@@ -1,4 +1,4 @@
-package com.db.mongodb;
+package com.db.mongodb.DAO;
 
 import java.util.ArrayList;
 
@@ -23,5 +23,6 @@ public abstract class AbstractDAO {
 	public abstract void closeDBConn();
 	public abstract ArrayList fetch(Document request);
         public abstract Document isProcessFound(String sid);
+        public abstract Document isLoginValid(Document userDoc);
 	
 }

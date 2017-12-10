@@ -5,7 +5,7 @@
  */
 package com.db.mongodb.user;
 
-import com.db.mongodb.AbstractDAO;
+import com.db.mongodb.DAO.AbstractDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
@@ -199,6 +199,11 @@ public class ProcessDAO extends AbstractDAO {
     }
     private boolean isDBConneced() {
         return ProcessDAO.DBConn.isDBConnected();
+    }
+
+    @Override
+    public Document isLoginValid(Document userDoc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

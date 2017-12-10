@@ -1,4 +1,4 @@
-package com.ui.admin;
+package com.ui.admin.mainFrame;
 
 import javax.swing.*;
 import javax.swing.border.SoftBevelBorder;

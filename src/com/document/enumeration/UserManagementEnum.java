@@ -9,8 +9,8 @@ package com.document.enumeration;
  *
  * @author admin1
  */
-public enum  TemplateTypeEnum {
-    Receive,Process,Storage,Report;
+public enum  UserManagementEnum {
+    User,Password,admin,View,Active,DateTime;
 }
 
 
