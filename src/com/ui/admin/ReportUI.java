@@ -17,6 +17,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.border.MatteBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import org.bson.Document;
 import org.jdatepicker.JDatePicker;
@@ -52,6 +55,7 @@ public class ReportUI extends JPanel {
 	private JTable table;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JButton btnExportToExcel;
 	public ReportUI() {
 		
 		labels = new ArrayList<String>();
@@ -83,6 +87,21 @@ public class ReportUI extends JPanel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		table.setBorder(new EmptyBorder(1, 1, 0, 0));
+		
+		table.getModel().addTableModelListener(new TableModelListener() {
+
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				TableModel tm =(TableModel)e.getSource();
+				if(tm.getRowCount()>0) {
+					btnExportToExcel.setEnabled(true);
+				}else {
+					btnExportToExcel.setEnabled(false);
+				}
+			}
+			
+		});
 		
 		JButton button = new JButton("Search");
 		button.setBounds(421, 40, 115, 30);
@@ -142,7 +161,8 @@ public class ReportUI extends JPanel {
 		datePicker2.setBounds(203, 141, 213, 30);
 		add(datePicker2);
 		
-		JButton btnExportToExcel = new JButton("Export To Excel");
+		btnExportToExcel = new JButton("Export To Excel");
+		btnExportToExcel.setEnabled(false);
 		btnExportToExcel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ExportToExcelAction eeAction = new ExportToExcelAction(table);
@@ -399,8 +419,11 @@ public class ReportUI extends JPanel {
 
 		if(checkEmpty(dataArray,labelArray))return;
 		
+		
 		table = new JTable(dataArray, labelArray);
 		table.updateUI();
+		if(table.getModel().getRowCount()>0)
+			btnExportToExcel.setEnabled(true);
 		scrollPane.setViewportView(table);
 		scrollPane.updateUI();
 
@@ -426,6 +449,8 @@ public class ReportUI extends JPanel {
 		if(checkEmpty(dataArray,labelArray))return;
 		table= new JTable(dataArray, labelArray);
 		table.updateUI();
+		if(table.getModel().getRowCount()>0)
+			btnExportToExcel.setEnabled(true);
 		scrollPane.setViewportView(table);
 		scrollPane.updateUI();
 	
