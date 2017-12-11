@@ -81,6 +81,42 @@ public class UserMainFrame extends javax.swing.JFrame {
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
+    public UserMainFrame(Document userDoc) {
+        UserMainFrameApp.MainFrameApp();
+        initComponents();
+        this.setLocationRelativeTo(null);
+        displayUserView(userDoc);
+        UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
+    }
+
+    private void displayUserView(Document userDoc) {
+        if (null != userDoc) {
+            Document userView = (Document) userDoc.get(UserManagementEnum.View.toString());
+            if (!userView.getBoolean(TemplateTypeEnum.Receive.toString())) {
+                //this.jTabbedPane1.getTabComponentAt(0).setEnabled(false);
+                //this.jTabbedPane1.getTabComponentAt(0).setVisible(false);
+                this.jTabbedPane1.setEnabledAt(0, false);
+            }
+            if (!userView.getBoolean(TemplateTypeEnum.Process.toString())) {
+                //this.jTabbedPane1.getTabComponentAt(1).setEnabled(false);
+                //this.jTabbedPane1.getTabComponentAt(1).setVisible(false);
+                //this.jTabbedPane1.getComponentAt(1).setVisible(false);
+                this.jTabbedPane1.removeTabAt(1);
+                //this.jTabbedPane1.setEnabledAt(1, false);
+            }
+            if (!userView.getBoolean(TemplateTypeEnum.Storage.toString())) {
+                //this.jTabbedPane1.getTabComponentAt(2).setEnabled(false);
+                //this.jTabbedPane1.getTabComponentAt(2).setVisible(false);
+                this.jTabbedPane1.setEnabledAt(2, false);
+            }
+            if (!userView.getBoolean(TemplateTypeEnum.Report.toString())) {
+                //this.jTabbedPane1.getTabComponentAt(3).setEnabled(false);
+                //this.jTabbedPane1.getTabComponentAt(3).setVisible(false);
+                //this.jTabbedPane1.removeTabAt(3);
+            }
+        } 
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1068,9 +1104,8 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         if (this.jXDatePicker1.getDate() == null || this.jXDatePicker2.getDate() == null 
-                 ||  this.jXDatePicker2.getDate().before(this.jXDatePicker1.getDate())) 
-         {
+        if (this.jXDatePicker1.getDate() == null || this.jXDatePicker2.getDate() == null
+                || this.jXDatePicker2.getDate().before(this.jXDatePicker1.getDate())) {
             JOptionPane.showMessageDialog(this, "Please select a valid date range");
             return;
         }
@@ -1479,7 +1514,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         ArrayList<String> resultList = new ArrayList<String>();
         ArrayList<String> labelList = new ArrayList<String>();
         ReadData(resultList, labelList);
-        Object[] rArray =  resultList.toArray();
+        Object[] rArray = resultList.toArray();
         model.insertRow(0, rArray);
         this.jTable1.updateUI();
     }
@@ -1515,7 +1550,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     public void getSampleData(ArrayList<String> resultList, ArrayList<String> labelList) {
-        
+
         labelList.add(SampleKeyEnum.SID.toString());
         resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.SID.toString()));
         labelList.add(SampleKeyEnum.Type.toString());

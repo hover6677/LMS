@@ -97,14 +97,14 @@ public class LIMSTest {
     {
         Document userDoc = new Document();
         userDoc.append(UserManagementEnum.Active.toString(), 1);
-        userDoc.append(UserManagementEnum.User.toString(), "Conan");
-        userDoc.append(UserManagementEnum.Password.toString(), "Conan");
+        userDoc.append(UserManagementEnum.User.toString(), "asdf");
+        userDoc.append(UserManagementEnum.Password.toString(), "asdf");
         userDoc.append(UserManagementEnum.DateTime.toString(), new Date());
         //SampleKeyEnum
         Document viewObject = new Document();
-        viewObject.append(TemplateTypeEnum.Receive.toString(), true);
+        viewObject.append(TemplateTypeEnum.Receive.toString(), false);
         viewObject.append(TemplateTypeEnum.Process.toString(), true);
-        viewObject.append(TemplateTypeEnum.Storage.toString(), true);
+        viewObject.append(TemplateTypeEnum.Storage.toString(), false);
         viewObject.append(TemplateTypeEnum.Report.toString(), true);
         userDoc.append(UserManagementEnum.View.toString(), viewObject);
         

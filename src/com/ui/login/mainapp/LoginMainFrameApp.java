@@ -89,7 +89,7 @@ public class LoginMainFrameApp {
         }
         else
         {
-            userMainFrame = new UserMainFrame();
+            userMainFrame = new UserMainFrame(userLogined);
             userMainFrame.setVisible(true);
         }
         
