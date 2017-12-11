@@ -28,6 +28,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import com.Action.admin.ExportToExcelAction;
+import com.Action.admin.LMSUtils;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
@@ -417,7 +418,7 @@ public class ReportUI extends JPanel {
 		Object[] labelArray =  labelList.toArray();
 		
 
-		if(checkEmpty(dataArray,labelArray))return;
+		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
 		
 		
 		table = new JTable(dataArray, labelArray);
@@ -434,7 +435,8 @@ public class ReportUI extends JPanel {
 		ArrayList<ArrayList<String>>labelList = new ArrayList<ArrayList<String>>();
 		ReadDataFromDate(resultList,labelList);
 		if(resultList==null||labelList==null||resultList.size()<=0||labelList.size()<=0) {
-			checkEmpty(null,null);
+			//checkEmpty(null,null);
+			LMSUtils.checkEmpty(null, null, this);
 			return;
 		}
 			
@@ -446,7 +448,7 @@ public class ReportUI extends JPanel {
 			dataArray[i]=resultList.get(i).toArray();
 		}
 		Object[] labelArray = labelList.get(0).toArray();
-		if(checkEmpty(dataArray,labelArray))return;
+		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
 		table= new JTable(dataArray, labelArray);
 		table.updateUI();
 		if(table.getModel().getRowCount()>0)
@@ -459,16 +461,16 @@ public class ReportUI extends JPanel {
 		
 	}
 
-	private boolean checkEmpty(Object[][] dataArray, Object[] labelArray) {
-		// TODO Auto-generated method stub
-		if(labelArray==null||dataArray == null||labelArray.length==0||dataArray.length==0)
-		{
-			JOptionPane.showMessageDialog(this, "There are no results that match your search");
-			return true;
-		}
-		return false;
-		
-	}
+//	private boolean checkEmpty(Object[][] dataArray, Object[] labelArray) {
+//		// TODO Auto-generated method stub
+//		if(labelArray==null||dataArray == null||labelArray.length==0||dataArray.length==0)
+//		{
+//			JOptionPane.showMessageDialog(this, "There are no results that match your search");
+//			return true;
+//		}
+//		return false;
+//		
+//	}
 
 	public void ReadData(ArrayList<String> resultList,ArrayList<String> labelList)
 	{
