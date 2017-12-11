@@ -55,7 +55,7 @@ public class UserManagementDAO extends AbstractDAO {
 
         try {
             if (null != userFound) {
-                System.out.println("user already existing");
+                update(userFound,userDoc);
                 return false;
             } else {
                 UserManagementDAO.userCollection.insertOne(userDoc);
@@ -91,15 +91,9 @@ public class UserManagementDAO extends AbstractDAO {
 
     @Override
     public boolean update(Document userFound, Document userDoc) {
-        /*
+        
         try {
             softDeleteUser(userFound);
-            if (!userDoc.containsKey(SampleKeyEnum.Receive.toString())) {
-                userDoc.put(SampleKeyEnum.Receive.toString(), userFound.get(SampleKeyEnum.Receive.toString()));
-            }
-            if (!userDoc.containsKey(SampleKeyEnum.Storage.toString())) {
-                userDoc.put(SampleKeyEnum.Storage.toString(), userFound.get(SampleKeyEnum.Storage.toString()));
-            }
             UserManagementDAO.userCollection.insertOne(userDoc);
             return true;
         } catch (Exception e) {
@@ -108,8 +102,6 @@ public class UserManagementDAO extends AbstractDAO {
             System.out.println(e);
             return false;
         }
-         */
-        return false;
     }
     
     @Override
