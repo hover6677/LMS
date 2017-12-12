@@ -31,6 +31,10 @@ public class UMController {
 			JOptionPane.showMessageDialog(umUI, "Please fill username and password!");
 			return;
 		}
+		if(!isRev && !isPro && !isStr && !isRep) {
+			JOptionPane.showMessageDialog(umUI, "There is no view selected");
+			return;
+		}
 		myDoc = createDocument(userName, password, isRev, isPro, isStr, isRep);
 		InsertAction ia = new InsertAction("com.db.mongodb.UserManagementDAO",myDoc);
 		ia.action(dao, umUI);

@@ -32,6 +32,11 @@ public class UMUI extends JPanel {
 	JRadioButton rdbtnReport;
 	private JScrollPane scrollPane;
 	private JTable table;
+	private static int IndexOfUserName=0;
+	private static int IndexOfReceive=2;
+	private static int IndexOfProcess=3;
+	private static int IndexOfStorage=4;
+	private static int IndexOfReport=5;
 	
 	public UMUI() {
 		setLayout(null);
@@ -43,11 +48,11 @@ public class UMUI extends JPanel {
 		
 		JLabel lblUserName = new JLabel("UserName");
 		lblUserName.setLabelFor(txtUserName);
-		lblUserName.setBounds(56, 61, 68, 16);
+		lblUserName.setBounds(56, 61, 70, 16);
 		add(lblUserName);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(366, 61, 56, 16);
+		lblPassword.setBounds(365, 61, 80, 16);
 		add(lblPassword);
 		
 		txtPassword = new JTextField();
@@ -77,18 +82,22 @@ public class UMUI extends JPanel {
 		
 		rdbtnReceive = new JRadioButton("Receive");
 		rdbtnReceive.setBounds(56, 102, 127, 25);
+		rdbtnReceive.setSelected(true);
 		add(rdbtnReceive);
 		
 		rdbtnProcess = new JRadioButton("Process");
 		rdbtnProcess.setBounds(212, 102, 127, 25);
+		rdbtnProcess.setSelected(true);
 		add(rdbtnProcess);
 		
 		rdbtnStorage = new JRadioButton("Storage");
 		rdbtnStorage.setBounds(366, 102, 127, 25);
+		rdbtnStorage.setSelected(true);
 		add(rdbtnStorage);
 		
 		rdbtnReport = new JRadioButton("Report");
 		rdbtnReport.setBounds(523, 102, 127, 25);
+		rdbtnReport.setSelected(true);
 		add(rdbtnReport);
 		
 		scrollPane = new JScrollPane();
@@ -121,7 +130,11 @@ public class UMUI extends JPanel {
 				// TODO Auto-generated method stub
 				JTable target = (JTable)e.getSource();
 				int row =target.getSelectedRow();
-				txtUserName.setText(target.getValueAt(row, 0).toString());
+				txtUserName.setText(target.getValueAt(row, UMUI.IndexOfUserName).toString());
+				rdbtnReceive.setSelected(target.getValueAt(row, UMUI.IndexOfReceive).toString().equalsIgnoreCase("true")? true: false);
+				rdbtnProcess.setSelected(target.getValueAt(row, UMUI.IndexOfProcess).toString().equalsIgnoreCase("true")? true: false);
+				rdbtnStorage.setSelected(target.getValueAt(row, UMUI.IndexOfStorage).toString().equalsIgnoreCase("true")? true: false);
+				rdbtnReport.setSelected(target.getValueAt(row, UMUI.IndexOfReport).toString().equalsIgnoreCase("true")? true: false);
 			}
 
 			@Override

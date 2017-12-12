@@ -56,7 +56,7 @@ public class UserManagementDAO extends AbstractDAO {
         try {
             if (null != userFound) {
                 update(userFound,userDoc);
-                return false;
+                return true;
             } else {
                 UserManagementDAO.userCollection.insertOne(userDoc);
                 return true;
