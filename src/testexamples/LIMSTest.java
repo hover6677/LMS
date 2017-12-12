@@ -6,9 +6,9 @@
 package testexamples;
 
 import com.db.mongodb.DAO.UserManagementDAO;
-import com.db.mongodb.user.ProcessDAO;
-import com.db.mongodb.user.SampleDAO;
-import com.db.mongodb.user.TemplateDAO;
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.SampleDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.ReceiveTypeEnum;
@@ -160,12 +160,12 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Type.toString(), "Receive");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
-        if (TemplateDAO.connTempDAO()) {
-            TemplateDAO.setTemplateCollection();
-            ArrayList fetchTemplate = TemplateDAO.fetchTemplate(templateDoc);
+        if (TemplateDAO.getInstance().connDAO()) {
+            TemplateDAO.getInstance().setCollection();
+            ArrayList fetchTemplate = TemplateDAO.getInstance().fetch(templateDoc);
             System.out.println(fetchTemplate.toString());
         }
-        TemplateDAO.closeDBConn();
+        TemplateDAO.getInstance().closeDBConn();
 
     }
 
@@ -202,11 +202,11 @@ public class LIMSTest {
 
         templateDoc.append(SampleKeyEnum.Storage.toString(), objS);
 
-        if (SampleDAO.connSampleDAO()) {
-            SampleDAO.setSampleCollection();
+        if (SampleDAO.getInstance().connDAO()) {
+            SampleDAO.getInstance().getCollection();
 
-            if (SampleDAO.addOrUpdateSample(templateDoc)) {
-                SampleDAO.closeDBConn();
+            if (SampleDAO.getInstance().addOrUpdate(objS)) {
+                SampleDAO.getInstance().closeDBConn();
             }
 
         }
@@ -222,11 +222,11 @@ public class LIMSTest {
         templateDoc.append(TemplateKeyEnum.Type.toString(), "Storage");
         templateDoc.append(TemplateKeyEnum.User.toString(), "admin");
 
-        if (TemplateDAO.connTempDAO()) {
-            TemplateDAO.setTemplateCollection();
+        if (TemplateDAO.getInstance().connDAO()) {
+            TemplateDAO.getInstance().getCollection();
 
-            if (TemplateDAO.addOrUpdateTemp(templateDoc)) {
-                TemplateDAO.closeDBConn();
+            if (TemplateDAO.getInstance().addOrUpdate(templateDoc)) {
+                TemplateDAO.getInstance().closeDBConn();
             }
 
         }

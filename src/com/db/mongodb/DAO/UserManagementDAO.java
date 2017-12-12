@@ -5,7 +5,7 @@
  */
 package com.db.mongodb.DAO;
 
-import com.db.mongodb.user.DBConnection;
+import com.db.mongodb.DAO.DBConnection;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.UserManagementEnum;
 import com.mongodb.BasicDBObject;
