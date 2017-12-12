@@ -27,8 +27,8 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import com.Action.admin.ExportToExcelAction;
-import com.Action.admin.LMSUtils;
+import com.db.mongodb.admin.helper.ExportToExcelAction;
+import com.db.mongodb.admin.helper.LMSUtils;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;

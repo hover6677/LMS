@@ -5,7 +5,7 @@
  */
 package com.db.mongodb.user.helper;
 
-import com.db.mongodb.user.SampleDAO;
+import com.db.mongodb.DAO.SampleDAO;
 import com.document.enumeration.MessageEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.ui.user.mainapp.UserMainFrameApp;
@@ -33,7 +33,7 @@ public class SampleDAOHelper {
           
     public static boolean fetchSampleBySID(String sid)
     {
-        sample =  SampleDAO.isSampleFound(sid);
+        sample =  ((SampleDAO)SampleDAO.getInstance()).isSampleFound(sid);
         return (null!=sample);
     }
     

@@ -92,29 +92,20 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void displayUserView(Document userDoc) {
         if (null != userDoc) {
             Document userView = (Document) userDoc.get(UserManagementEnum.View.toString());
-            if (!userView.getBoolean(TemplateTypeEnum.Receive.toString())) {
-                //this.jTabbedPane1.getTabComponentAt(0).setEnabled(false);
-                //this.jTabbedPane1.getTabComponentAt(0).setVisible(false);
-                this.jTabbedPane1.setEnabledAt(0, false);
-            }
-            if (!userView.getBoolean(TemplateTypeEnum.Process.toString())) {
-                //this.jTabbedPane1.getTabComponentAt(1).setEnabled(false);
-                //this.jTabbedPane1.getTabComponentAt(1).setVisible(false);
-                //this.jTabbedPane1.getComponentAt(1).setVisible(false);
-                this.jTabbedPane1.removeTabAt(1);
-                //this.jTabbedPane1.setEnabledAt(1, false);
+
+            if (!userView.getBoolean(TemplateTypeEnum.Report.toString())) {
+                this.jTabbedPane1.removeTabAt(3);
             }
             if (!userView.getBoolean(TemplateTypeEnum.Storage.toString())) {
-                //this.jTabbedPane1.getTabComponentAt(2).setEnabled(false);
-                //this.jTabbedPane1.getTabComponentAt(2).setVisible(false);
-                this.jTabbedPane1.setEnabledAt(2, false);
+                this.jTabbedPane1.removeTabAt(2);
             }
-            if (!userView.getBoolean(TemplateTypeEnum.Report.toString())) {
-                //this.jTabbedPane1.getTabComponentAt(3).setEnabled(false);
-                //this.jTabbedPane1.getTabComponentAt(3).setVisible(false);
-                //this.jTabbedPane1.removeTabAt(3);
+            if (!userView.getBoolean(TemplateTypeEnum.Process.toString())) {
+                this.jTabbedPane1.removeTabAt(1);
             }
-        } 
+            if (!userView.getBoolean(TemplateTypeEnum.Receive.toString())) {
+                this.jTabbedPane1.removeTabAt(0);
+            }
+        }
     }
 
     /**
@@ -200,6 +191,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel7.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
 
         jTabbedPane1.setBackground(java.awt.SystemColor.controlHighlight);
+        jTabbedPane1.setName("Tabs"); // NOI18N
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPane1StateChanged(evt);
@@ -209,6 +201,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel2.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel2.setMaximumSize(new java.awt.Dimension(480, 203));
+        jPanel2.setName("Receive"); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Material");
@@ -336,16 +329,16 @@ public class UserMainFrame extends javax.swing.JFrame {
                                         .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                         .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 53, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 43, Short.MAX_VALUE)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                     .add(jLabel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .add(18, 18, 18)))
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags, 0, 356, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags, 0, 355, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -393,11 +386,12 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags.getAccessibleContext().setAccessibleDescription("Select a Template");
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.png")), jPanel2, ""); // NOI18N
-        jPanel2.getAccessibleContext().setAccessibleName("");
+        jPanel2.getAccessibleContext().setAccessibleName("Receive");
 
         jPanel4.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel4.setMaximumSize(new java.awt.Dimension(480, 203));
+        jPanel4.setName("Process"); // NOI18N
 
         searchBtn2.setText("Search");
         searchBtn2.setMaximumSize(new java.awt.Dimension(66, 25));
@@ -455,7 +449,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 868, Short.MAX_VALUE)
+            .add(0, 871, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -522,9 +516,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Processing.png")), jPanel4); // NOI18N
+        jPanel4.getAccessibleContext().setAccessibleName("Process");
 
         jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel3.setName("Storage"); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -553,7 +549,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 917, Short.MAX_VALUE)
+            .add(0, 920, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -631,9 +627,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Storage.png")), jPanel3); // NOI18N
+        jPanel3.getAccessibleContext().setAccessibleName("Storage");
 
         jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        jPanel1.setName("Report"); // NOI18N
 
         jLabel11.setText("Sample ID");
 
@@ -941,7 +939,6 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         try {
-
             this.msgLabel.setText("");
             if (!isAllFilled()) {
                 this.msgLabel.setText(MessageEnum.NotAllFilled.getMsg());
@@ -971,19 +968,21 @@ public class UserMainFrame extends javax.swing.JFrame {
         //String dir = MainFrameApp.getDirList(this.jTabbedPane1.getSelectedIndex());
         //MainFrameApp.setDir(dir);
         if (this.jTabbedPane1.getSelectedIndex() < 3) {
-            TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+
+            TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, this.jTabbedPane1.getSelectedComponent().getName());
             resetBtnActionPerformed();
-            switch (this.jTabbedPane1.getSelectedIndex()) {
-                case 0:
+            TemplateTypeEnum selectedTab = TemplateTypeEnum.valueOf(this.jTabbedPane1.getSelectedComponent().getName());
+            switch (selectedTab) {
+                case Receive:
                     this.jComboBoxTags.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
                     this.jComboBoxTags.setSelectedIndex(-1);
                     this.jComboBoxTags3.setSelectedIndex(-1);
                     break;
-                case 1:
+                case Process:
                     this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(TemplateDAOHelper.fetchTIDList()));
                     this.jComboBoxTags2.setSelectedIndex(-1);
                     break;
-                case 2:
+                case Storage:
                     this.jRadioButton1.setSelected(true);
                     this.jTextField10.setText("");
                     break;
@@ -1027,8 +1026,9 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         } else {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-            ArrayList tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags2.getSelectedIndex());
-            if (null != tags) {
+            ArrayList tags = new ArrayList();
+            tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags2.getSelectedIndex());
+            if (null != tags && !tags.isEmpty()) {
                 drawLabelText(jPanel8, tags);
             }
         }
@@ -1073,8 +1073,9 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         } else {
             TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-            ArrayList tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
-            if (null != tags) {
+            ArrayList tags = new ArrayList();
+            tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
+            if (null != tags && !tags.isEmpty()) {
                 drawLabelText(jPanel6, tags);
             }
         }
@@ -1201,15 +1202,16 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     private void resetOthersOnTab() {
-        switch (this.jTabbedPane1.getSelectedIndex()) {
-            case 0:
+        TemplateTypeEnum selectedTab = TemplateTypeEnum.valueOf(this.jTabbedPane1.getSelectedComponent().getName());
+        switch (selectedTab) {
+            case Receive:
                 this.jTextArea1.setText("");
                 break;
-            case 1:
+            case Process:
                 this.jTextArea2.setText("");
                 this.jComboBoxTags2.setEnabled(false);
                 break;
-            case 2:
+            case Storage:
                 this.jTextArea3.setText("");
                 this.jPanel9.removeAll();
                 this.jPanel9.updateUI();
@@ -1418,16 +1420,17 @@ public class UserMainFrame extends javax.swing.JFrame {
     private Document saveRecord() {
         Document doc = null;
         this.msgLabel.setText("");
-        switch (this.jTabbedPane1.getSelectedIndex()) {
-            case 0:
+        TemplateTypeEnum selectedTab = TemplateTypeEnum.valueOf(this.jTabbedPane1.getSelectedComponent().getName());
+        switch (selectedTab) {
+            case Receive:
                 doc = prepareReceiveDoc();
                 SampleDAO.getInstance().addOrUpdate(doc);
                 break;
-            case 1:
+            case Process:
                 doc = prepareProcessDoc();
                 ProcessDAO.getInstance().addOrUpdate(doc);
                 break;
-            case 2:
+            case Storage:
                 doc = prepareStorageDoc();
                 SampleDAO.getInstance().addOrUpdate(doc);
                 break;

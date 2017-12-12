@@ -5,7 +5,6 @@
  */
 package com.db.mongodb.DAO;
 
-import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.SampleKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
@@ -87,6 +86,23 @@ public class SampleDAO extends AbstractDAO {
             return docFetched;
         }
     }
+    
+    public Document isSampleFound(String sid) {
+        Document searchQuery = new Document();
+        Document docFetched = null;
+        try {
+            searchQuery.put(SampleKeyEnum.Active.toString(), 1);
+            searchQuery.put(SampleKeyEnum.SID.toString(), sid);
+
+            docFetched = (Document) sampleCollection.find(searchQuery).first();
+
+        } catch (Exception e) {
+            System.out.println("fetch error");
+            System.out.println(e);
+        } finally {
+            return docFetched;
+        }
+    }
 
     @Override
     public boolean update(Document sampleFound, Document sampleDoc) {
@@ -99,6 +115,8 @@ public class SampleDAO extends AbstractDAO {
             if (!sampleDoc.containsKey(SampleKeyEnum.Storage.toString())) {
                 sampleDoc.put(SampleKeyEnum.Storage.toString(), sampleFound.get(SampleKeyEnum.Storage.toString()));
             }
+            if(sampleDoc.containsKey("_id"))
+                sampleDoc.remove("_id");
             SampleDAO.sampleCollection.insertOne(sampleDoc);
             return true;
         } catch (Exception e) {
@@ -126,6 +144,7 @@ public class SampleDAO extends AbstractDAO {
 
     private boolean revertSoftDeletion(Document sampleFound) {
         try {
+            sampleFound.put(SampleKeyEnum.Active.toString(), 0);
             Document newObj = new Document();
             newObj.put(SampleKeyEnum.Active.toString(), 1);
             Document updateObj = new Document();

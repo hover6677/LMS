@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
-import com.Action.admin.LMSUtils;
-import com.Action.admin.UMController;
+import com.db.mongodb.admin.helper.LMSUtils;
+import com.db.mongodb.admin.helper.UMController;
 
 import javax.swing.JLabel;
 

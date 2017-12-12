@@ -5,8 +5,8 @@
  */
 package com.db.mongodb.user.helper;
 
-import com.db.mongodb.user.ProcessDAO;
-import com.db.mongodb.user.TemplateDAO;
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;

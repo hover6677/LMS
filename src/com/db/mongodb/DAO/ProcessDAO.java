@@ -5,7 +5,6 @@
  */
 package com.db.mongodb.DAO;
 
-import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.ProcessKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
@@ -98,6 +97,8 @@ public class ProcessDAO extends AbstractDAO {
 
         try {
             softDeleteProcess(processFound);
+            if(processDoc.containsKey("_id"))
+                processDoc.remove("_id");
             ProcessDAO.processCollection.insertOne(processDoc);
             return true;
         } catch (Exception e) {
@@ -110,8 +111,9 @@ public class ProcessDAO extends AbstractDAO {
 
     private boolean softDeleteProcess(Document processFound) {
         try {
+            processFound.put(ProcessKeyEnum.Active.toString(), 0);
             Document newObj = new Document();
-            newObj.put(ProcessKeyEnum.Active.toString(), 0);
+            newObj.put(ProcessKeyEnum.Active.toString(), 1);
             Document updateObj = new Document();
             updateObj.put("$set", newObj);
             processCollection.updateOne(processFound, updateObj);

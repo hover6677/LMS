@@ -5,7 +5,8 @@
  */
 package com.db.mongodb.user.helper;
 
-import com.db.mongodb.user.TemplateDAO;
+import com.db.mongodb.DAO.AbstractDAO;
+import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class TemplateDAOHelper {
           
     public static void getTemplateListByType(String admin,String type)
     {
-        TemplateDAOHelper.templateList = TemplateDAO.fetchTemplate(admin,type);
+        TemplateDAOHelper.templateList = ((TemplateDAO)TemplateDAO.getInstance()).fetchTemplate(admin,type);
     }
     
     public static String[] fetchTIDList()

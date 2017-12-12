@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.bson.Document;
 
-import com.Action.admin.InsertAction;
+import com.db.mongodb.admin.helper.InsertAction;
 import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;

@@ -1,4 +1,4 @@
-package com.Action.admin;
+package com.db.mongodb.admin.helper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,10 +29,6 @@ public class UMController {
 	public void setAction(String userName, String password, boolean isRev, boolean isPro, boolean isStr, boolean isRep) {
 		if(userName==null||password==null) {
 			JOptionPane.showMessageDialog(umUI, "Please fill username and password!");
-			return;
-		}
-		if(!isRev && !isPro && !isStr && !isRep) {
-			JOptionPane.showMessageDialog(umUI, "There is no view selected");
 			return;
 		}
 		myDoc = createDocument(userName, password, isRev, isPro, isStr, isRep);

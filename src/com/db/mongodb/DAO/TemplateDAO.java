@@ -5,7 +5,6 @@
  */
 package com.db.mongodb.DAO;
 
-import com.db.mongodb.user.DBConnection;
 import com.document.enumeration.TemplateKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
@@ -20,12 +19,11 @@ import org.bson.Document;
  */
 public class TemplateDAO extends AbstractDAO {
 
-    protected static TemplateDAO DAO ;
+    protected static TemplateDAO DAO;
     private static MongoCollection templateCollection = null;
     private static final String CollectionStr = "Template";
     private static DBConnection DBConn = new DBConnection();
-    
-    
+
     private TemplateDAO() {
         TemplateDAO.DBConn.dbConnection();
     }
@@ -69,7 +67,6 @@ public class TemplateDAO extends AbstractDAO {
         }
     }
 
-    
     public boolean softDeleteTemplate(Document tempDefined) {
 
         try {
@@ -91,8 +88,10 @@ public class TemplateDAO extends AbstractDAO {
 
     private boolean revertSoftDeletion(Document tempDefined) {
         try {
+            tempDefined.put(TemplateKeyEnum.Active.toString(), 0);
+            
             Document newObj = new Document();
-            newObj.put(TemplateKeyEnum.Active.toString(), 0);
+            newObj.put(TemplateKeyEnum.Active.toString(), 1);
 
             Document updateObj = new Document();
             updateObj.put("$set", newObj);
@@ -137,39 +136,39 @@ public class TemplateDAO extends AbstractDAO {
     public void closeDBConn() {
         TemplateDAO.DBConn.closeDB();
     }
-    
+
     @Override
-    public  ArrayList fetch(Document templateRequest)
-    {
+    public ArrayList fetch(Document templateRequest) {
         ArrayList finds = new ArrayList();
         templateCollection.find(templateRequest).sort(new Document("_id", -1)).limit(1).into(finds);
         return finds;
     }
-    
-    public ArrayList fetchTemplate(String templateType)
-    {
-        Document templateRequest = new Document();
-        templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
-        templateRequest.append(TemplateKeyEnum.Active.toString(),1);
 
-        return fetch(templateRequest);
-    }
-    public ArrayList fetchTemplate(String admin,String templateType)
-    {
+    public ArrayList fetchTemplate(String templateType) {
         Document templateRequest = new Document();
-        templateRequest.append(TemplateKeyEnum.Type.toString(),templateType);
-        templateRequest.append(TemplateKeyEnum.Active.toString(),1);
-        templateRequest.append(TemplateKeyEnum.User.toString(),admin);
+        templateRequest.append(TemplateKeyEnum.Type.toString(), templateType);
+        templateRequest.append(TemplateKeyEnum.Active.toString(), 1);
 
         return fetch(templateRequest);
     }
 
-	@Override
-	public boolean update(Document found, Document doc) {
-		// TODO Auto-generated method stub
-		try {
-			softDeleteTemplate(found);
-			TemplateDAO.templateCollection.insertOne(doc);
+    public ArrayList fetchTemplate(String admin, String templateType) {
+        Document templateRequest = new Document();
+        templateRequest.append(TemplateKeyEnum.Type.toString(), templateType);
+        templateRequest.append(TemplateKeyEnum.Active.toString(), 1);
+        templateRequest.append(TemplateKeyEnum.User.toString(), admin);
+
+        return fetch(templateRequest);
+    }
+
+    @Override
+    public boolean update(Document found, Document doc) {
+        // TODO Auto-generated method stub
+        try {
+            softDeleteTemplate(found);
+            if(doc.containsKey("_id"))
+                doc.remove("_id");
+            TemplateDAO.templateCollection.insertOne(doc);
             return true;
         } catch (Exception e) {
             revertSoftDeletion(found);
@@ -177,12 +176,14 @@ public class TemplateDAO extends AbstractDAO {
             System.out.println(e);
             return false;
         }
-	}
-	public static AbstractDAO getInstance() {
-		if(DAO==null)
-			DAO = new TemplateDAO();
-		return DAO;
-	}
+    }
+
+    public static AbstractDAO getInstance() {
+        if (DAO == null) {
+            DAO = new TemplateDAO();
+        }
+        return DAO;
+    }
 
     @Override
     public Document isProcessFound(String sid) {

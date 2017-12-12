@@ -1,4 +1,4 @@
-package com.Action.admin;
+package com.db.mongodb.admin.helper;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

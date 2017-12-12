@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.bson.Document;
 
-import com.Action.admin.InsertAction;
+import com.db.mongodb.admin.helper.InsertAction;
 import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
