@@ -39,7 +39,7 @@ public class ProcessDAOHelper {
         processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
         processDoc.append(ProcessKeyEnum.SID.toString(), sid);
         processDoc.append(ProcessKeyEnum.TID.toString(), tid);
-        processDoc.append(ProcessKeyEnum.User.toString(), UserMainFrameApp.userName);
+        processDoc.append(ProcessKeyEnum.User.toString(), UserMainFrameApp.getUserName());
         processDoc.append(ProcessKeyEnum.Comments.toString(), remarks);
         processDoc.append(ProcessKeyEnum.Steps.toString(), objP);
         return true;

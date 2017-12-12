@@ -22,6 +22,7 @@ public class TemplateDAOHelper {
           
     public static void getTemplateListByType(String admin,String type)
     {
+        templateList.clear();
         TemplateDAOHelper.templateList = ((TemplateDAO)TemplateDAO.getInstance()).fetchTemplate(admin,type);
     }
     

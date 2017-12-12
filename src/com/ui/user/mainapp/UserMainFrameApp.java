@@ -30,18 +30,25 @@ public class UserMainFrameApp {
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
     private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
-    
-    public  static final String AdminName = "admin";
-    public  static final String userName = "user";
-    public  static ArrayList labelList;
-    public  static ArrayList textFiledList;
-    public  static ArrayList dropDownList;
-    
 
-    
+    public static final String AdminName = "admin";
+    private static String userName = "user";
+
+    public static ArrayList labelList;
+    public static ArrayList textFiledList;
+    public static ArrayList dropDownList;
+
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        UserMainFrameApp.userName = userName;
+    }
 
     public static void MainFrameApp() {
         UserMainFrameApp.fileRW = new FileRW();
@@ -69,14 +76,13 @@ public class UserMainFrameApp {
         if (TemplateDAO.getInstance().connDAO()) {
             TemplateDAO.getInstance().setCollection();
         }
-        
+
         labelList = new ArrayList();
         textFiledList = new ArrayList();
         dropDownList = new ArrayList();
     }
-    
-    public static void MainFrameAppClose()
-    {
+
+    public static void MainFrameAppClose() {
         System.out.println("closing DB...");
         ProcessDAO.getInstance().closeDBConn();
         SampleDAO.getInstance().closeDBConn();
@@ -89,8 +95,9 @@ public class UserMainFrameApp {
     }
 
     public static void readyToSave(int templateIndex) {
-        if(null==templateList ||templateList.size()<=templateIndex)
+        if (null == templateList || templateList.size() <= templateIndex) {
             return;
+        }
         UserMainFrameApp.dir = (String) UserMainFrameApp.dirList.get(templateIndex);
         UserMainFrameApp.recordList.clear();
         ArrayList formatRecords = applyTemplateFormater(templateIndex, (ArrayList) templateList.get(templateIndex));
@@ -183,7 +190,7 @@ public class UserMainFrameApp {
     }
 
     public static void clearRecordListByTemplate(int index) {
-        if (null == UserMainFrameApp.templateList || UserMainFrameApp.templateList.size()<=index) {
+        if (null == UserMainFrameApp.templateList || UserMainFrameApp.templateList.size() <= index) {
             return;
         }
         UserMainFrameApp.templateList.get(index).clear();
@@ -194,7 +201,7 @@ public class UserMainFrameApp {
         templateList.get(selectedIndex).add(o);
         return templateList.get(selectedIndex).size();
     }
-    
+
     public static Double getDoubleFromString(String a) {
         Double quantity = 0.0;
         try {
@@ -204,8 +211,8 @@ public class UserMainFrameApp {
         }
         return quantity;
     }
-    public static void clearArrayList()
-    {
+
+    public static void clearArrayList() {
         dropDownList.clear();
         labelList.clear();
         textFiledList.clear();

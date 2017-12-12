@@ -86,6 +86,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         displayUserView(userDoc);
+        UserMainFrameApp.setUserName(userDoc.getString(UserManagementEnum.User.toString()));
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
@@ -848,6 +849,10 @@ public class UserMainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages) {
+        UserMainFrameApp.labelList.clear();
+        UserMainFrameApp.textFiledList.clear();
+        UserMainFrameApp.dropDownList.clear();
+
         int xinit = 80;
         int yinit = 20;
         int xoffset = 160;
@@ -880,7 +885,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jComboBox.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
             jComboBox.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 
-            if (storages.containsKey(jRadioButton.getText())) {
+            if (null!=storages && storages.containsKey(jRadioButton.getText())) {
                 jRadioButton.setSelected(true);
                 jTextFieldD.setText(((Document) storages.get(jRadioButton.getText())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
                 jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText())).get(SampleKeyEnum.Unit.toString()));
@@ -899,7 +904,10 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     private void drawLabelText(JPanel jPanel, ArrayList tags) {
-        int xinit = 10;
+        UserMainFrameApp.labelList.clear();
+        UserMainFrameApp.textFiledList.clear();
+
+        int xinit = 2;
         int yinit = 20;
         int xoffset = 180;
         int yoffset = 40;
@@ -1068,6 +1076,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void jComboBoxTagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTagsActionPerformed
         // TODO add your handling code here:
+
         if (this.jComboBoxTags.getSelectedIndex() < 0) {
             this.jPanel6.removeAll();
 
@@ -1077,6 +1086,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
                 drawLabelText(jPanel6, tags);
+                this.jScrollPane1.updateUI();
             }
         }
     }//GEN-LAST:event_jComboBoxTagsActionPerformed

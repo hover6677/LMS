@@ -140,7 +140,8 @@ public class TemplateDAO extends AbstractDAO {
     @Override
     public ArrayList fetch(Document templateRequest) {
         ArrayList finds = new ArrayList();
-        templateCollection.find(templateRequest).sort(new Document("_id", -1)).limit(1).into(finds);
+        //templateCollection.find(templateRequest).sort(new Document("_id", -1)).limit(1).into(finds);
+        templateCollection.find(templateRequest).sort(new Document("_id", -1)).into(finds);
         return finds;
     }
 

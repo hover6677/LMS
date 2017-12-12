@@ -43,7 +43,7 @@ public class SampleDAOHelper {
         sample.append(SampleKeyEnum.Active.toString(), 1);
         sample.append(SampleKeyEnum.DateTime.toString(), new Date());
         sample.append(SampleKeyEnum.SID.toString(), sid);
-        sample.append(SampleKeyEnum.User.toString(), UserMainFrameApp.userName);
+        sample.append(SampleKeyEnum.User.toString(), UserMainFrameApp.getUserName());
         sample.append(SampleKeyEnum.Quantity.toString(), quatity);
         sample.append(SampleKeyEnum.Unit.toString(), unit);
         sample.append(SampleKeyEnum.Type.toString(), type);
@@ -61,8 +61,8 @@ public class SampleDAOHelper {
         {
             if(sample.containsKey(SampleKeyEnum.Storage.toString()))
             {
-                Document storageDoc = new Document();
-                storageDoc = (Document) sample.get(SampleKeyEnum.Storage.toString());
+                Document storageDoc = (Document) sample.get(SampleKeyEnum.Storage.toString());
+                storageDoc = (null!=storageDoc)?storageDoc : new Document();
                 
                 Iterator<String> it = objS.keySet().iterator();
                 while(it.hasNext())
@@ -92,7 +92,7 @@ public class SampleDAOHelper {
             else
             {
                 objS.append(SampleKeyEnum.Comments.toString(), remarks);
-                objS.append(SampleKeyEnum.User.toString(),UserMainFrameApp.userName);
+                objS.append(SampleKeyEnum.User.toString(),UserMainFrameApp.getUserName());
                 sample.append(SampleKeyEnum.Storage.toString(), objS);
             }
             return MessageEnum.RecordSaved;
