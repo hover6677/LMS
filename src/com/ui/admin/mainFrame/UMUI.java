@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 public class UMUI extends JPanel {
 	private JTextField txtUserName;
@@ -30,6 +33,7 @@ public class UMUI extends JPanel {
 	JRadioButton rdbtnProcess;
 	JRadioButton rdbtnStorage;
 	JRadioButton rdbtnReport;
+	JPanel tablePanel;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private static int IndexOfUserName=0;
@@ -52,16 +56,16 @@ public class UMUI extends JPanel {
 		add(lblUserName);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(365, 61, 80, 16);
+		lblPassword.setBounds(299, 61, 80, 16);
 		add(lblPassword);
 		
 		txtPassword = new JTextField();
-		txtPassword.setBounds(457, 58, 116, 22);
+		txtPassword.setBounds(391, 58, 116, 22);
 		add(txtPassword);
 		txtPassword.setColumns(10);
 		
 		JButton btnSet = new JButton("Set");
-		btnSet.setBounds(641, 57, 97, 25);
+		btnSet.setBounds(585, 57, 97, 25);
 		btnSet.addActionListener(new ActionListener() {
 
 			@Override
@@ -100,9 +104,15 @@ public class UMUI extends JPanel {
 		rdbtnReport.setSelected(true);
 		add(rdbtnReport);
 		
+		tablePanel = new JPanel();
+		tablePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tablePanel.setBounds(56, 138, 594, 249);
+		add(tablePanel);
+		tablePanel.setLayout(null);
+		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(56, 161, 684, 333);
-		add(scrollPane);
+		scrollPane.setBounds(12, 5, 570, 231);
+		tablePanel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -166,16 +176,20 @@ public class UMUI extends JPanel {
 		table.updateUI();
 		scrollPane.updateUI();
 		scrollPane.setVisible(true);
+		tablePanel.updateUI();
 		this.updateUI();
 	}
-	public static void main(String[] args) {
-		UMUI umui = new UMUI();
-		umui.refresh();
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(umui);
-		frame.setSize(300, 300);
-		
-		frame.setVisible(true);
-		
-	}
+
+	//public static void main(String[] args) {
+	//UMUI umui = new UMUI();
+	//umui.refresh();
+	//JFrame frame = new JFrame();
+	//frame.getContentPane().add(umui);
+	//frame.setSize(300, 300);
+	//
+	//frame.setVisible(true);
+	//
+	//}
+
 }
+

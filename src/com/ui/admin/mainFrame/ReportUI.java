@@ -166,7 +166,7 @@ public class ReportUI extends JPanel {
 		btnExportToExcel.setEnabled(false);
 		btnExportToExcel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ExportToExcelAction eeAction = new ExportToExcelAction(table);
+				ExportToExcelAction eeAction = new ExportToExcelAction(table,"adminReport");
 				
 			}
 		});

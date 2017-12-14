@@ -1122,7 +1122,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
 
         if (!SampleDAOHelper.fetchSampleBySID(this.jTextField2.getText().trim())) {
-            JOptionPane.showMessageDialog(this, "SID Not Fount");
+            JOptionPane.showMessageDialog(this, "SID Not Found");
             return;
         }
         updateSingleRow();

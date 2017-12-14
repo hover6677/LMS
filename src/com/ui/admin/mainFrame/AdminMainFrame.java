@@ -20,6 +20,7 @@ public class AdminMainFrame extends JFrame{
 	/**
 	 * 
 	 */
+	UMUI umui = new UMUI();
 	public AdminMainFrame() {
 		setResizable(false);
 		setTitle("LIMS");
@@ -49,11 +50,15 @@ public class AdminMainFrame extends JFrame{
 		tabbedPane.addTab("Processing", new ProcessingUI());
 		tabbedPane.addTab("Storage", new StorageUI2());
 		tabbedPane.addTab("Report", rpUI);
+		tabbedPane.addTab("UserManagement", umui);
 		tabbedPane.addChangeListener(new ChangeListener() {
 		        public void stateChanged(ChangeEvent e) {
 		        	JTabbedPane me =(JTabbedPane)e.getSource();
 		        	if(me.getSelectedIndex()==3) {
 		        		//rpUI.upda();
+		        	}
+		        	if(me.getSelectedIndex()==4) {
+		        		umui.refresh();
 		        	}
 		        }
 

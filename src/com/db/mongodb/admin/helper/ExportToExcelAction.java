@@ -23,12 +23,14 @@ public class ExportToExcelAction {
 	private ArrayList<ArrayList<String>> dataList;
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
-	public ExportToExcelAction(JTable t) {
+	private String filename;
+	public ExportToExcelAction(JTable t, String f) {
 		table  =t;
 		tModel = table.getModel();
 		dataList = new ArrayList<ArrayList<String>>();
 		workbook = new XSSFWorkbook();
-		sheet = workbook.createSheet("Report");
+		filename = f;
+		sheet = workbook.createSheet(filename);
 		processData();
 		setTitle();
 		setData();
@@ -50,7 +52,7 @@ public class ExportToExcelAction {
 		
 			FileOutputStream outputStream;
 			try {
-				outputStream = new FileOutputStream("Report.xlsx");
+				outputStream = new FileOutputStream(filename+".xlsx");
 				workbook.write(outputStream);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
