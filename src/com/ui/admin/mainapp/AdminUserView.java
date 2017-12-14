@@ -4,7 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import com.ui.admin.mainFrame.AdminMainFrame;
+import com.ui.admin.mainframe.AdminMainFrame;
 import com.ui.user.mainframe.UserMainFrame;
 
 public class AdminUserView {
