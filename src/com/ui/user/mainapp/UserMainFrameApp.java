@@ -30,12 +30,15 @@ public class UserMainFrameApp {
     private static ArrayList<ArrayList> templateList;
     private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
     private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
+    public static final String plusIcon = "/resources/plus.png";
+    public static final String minusIcon = "/resources/minus.png";
 
     public static final String AdminName = "admin";
     private static String userName = "user";
 
     public static ArrayList labelList;
     public static ArrayList textFiledList;
+    public static ArrayList deltaTextFiledList;
     public static ArrayList dropDownList;
 
     private static ArrayList<String> dirList;
@@ -79,6 +82,7 @@ public class UserMainFrameApp {
 
         labelList = new ArrayList();
         textFiledList = new ArrayList();
+        deltaTextFiledList = new ArrayList();
         dropDownList = new ArrayList();
     }
 

@@ -7,7 +7,7 @@ package com.ui.login.mainapp;
 
 import com.db.mongodb.DAO.UserManagementDAO;
 import com.document.enumeration.UserManagementEnum;
-import com.ui.admin.mainFrame.AdminMainFrame;
+import com.ui.admin.mainframe.AdminMainFrame;
 import com.ui.login.mainframe.LoginMainFrame;
 import com.ui.user.mainframe.UserMainFrame;
 import java.util.Date;

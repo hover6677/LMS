@@ -38,6 +38,7 @@ import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.*;
 import com.mongodb.BasicDBObject;
+import com.ui.admin.mainframe.AdminMainFrame;
 import java.awt.Component;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Set;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -334,13 +336,13 @@ public class UserMainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 43, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 46, Short.MAX_VALUE)
                                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                     .add(jLabel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .add(18, 18, 18)))
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags, 0, 355, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags, 0, 361, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBoxTags3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -451,7 +453,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 871, Short.MAX_VALUE)
+            .add(0, 880, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -525,7 +527,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel3.setName("Storage"); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Sample ID");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
@@ -544,6 +545,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         });
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jPanel9.setBackground(java.awt.SystemColor.controlHighlight);
 
@@ -578,6 +580,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         jRadioButton2.setBackground(java.awt.SystemColor.controlHighlight);
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText(" OUT");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -587,18 +594,18 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(56, 56, 56)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3Layout.createSequentialGroup()
-                        .add(jLabel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 62, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(28, 28, 28)
-                        .add(jTextField10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(37, 37, 37)
-                        .add(jButton1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 440, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, Short.MAX_VALUE)
                         .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(90, 90, 90)
+                        .add(111, 111, 111)
                         .add(jRadioButton1)
                         .add(18, 18, 18)
                         .add(jRadioButton2))
-                    .add(jScrollPane3)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -852,8 +859,11 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
+        UserMainFrameApp.deltaTextFiledList.clear();
         UserMainFrameApp.dropDownList.clear();
 
+        boolean inFlag = (this.jRadioButton1.getSelectedObjects() != null);
+        
         int xinit = 80;
         int yinit = 20;
         int xoffset = 160;
@@ -872,6 +882,8 @@ public class UserMainFrame extends javax.swing.JFrame {
 
             JRadioButton jRadioButton = new javax.swing.JRadioButton();
             JTextField jTextFieldD = new JTextField();
+            JLabel operator = new JLabel();
+            JTextField jTextFieldDelta = new JTextField();
             JComboBox jComboBox = new javax.swing.JComboBox();
 
             jRadioButton.setText(tags.get(i).toString());
@@ -880,24 +892,36 @@ public class UserMainFrame extends javax.swing.JFrame {
             x += xoffset;
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
+            jTextFieldD.setEnabled(false);
+            jTextFieldD.setText("0");
+
+            x += xoffset2;
+            operator.setBounds(x, y + i * yoffset, height, height);
+            operator.setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag?UserMainFrameApp.plusIcon:UserMainFrameApp.minusIcon)));
+            x += xoffset2 / 2 + height/2;
+
+            jTextFieldDelta.setBounds(x, y + i * yoffset, textWidth, height);
+            jTextFieldDelta.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 
             x += xoffset2;
             jComboBox.setBounds(x, y + i * yoffset, textWidth, height);
             jComboBox.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
-            jComboBox.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 
-            if (null!=storages && storages.containsKey(jRadioButton.getText())) {
+            if (null != storages && storages.containsKey(jRadioButton.getText())) {
                 jRadioButton.setSelected(true);
                 jTextFieldD.setText(((Document) storages.get(jRadioButton.getText())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
                 jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText())).get(SampleKeyEnum.Unit.toString()));
             }
-
+           
             jPanel.add(jRadioButton);
             jPanel.add(jTextFieldD);
+            jPanel.add(operator);
+            jPanel.add(jTextFieldDelta);
             jPanel.add(jComboBox);
 
             UserMainFrameApp.labelList.add(jRadioButton);
             UserMainFrameApp.textFiledList.add(jTextFieldD);
+            UserMainFrameApp.deltaTextFiledList.add(jTextFieldDelta);
             UserMainFrameApp.dropDownList.add(jComboBox);
         }
         jPanel.updateUI();
@@ -1002,32 +1026,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-        this.msgLabel.setText("");
-        String sampleID = this.jTextField10.getText().replaceAll(" ", "");
-
-        if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
-            if (this.jPanel9.getComponentCount() > 0) {
-                this.jPanel9.removeAll();
-                this.jPanel9.updateUI();
-            }
-            this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
-
-        } else {
-            TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-            ArrayList tags = TemplateDAOHelper.fetchTagListByTID(0);
-            if (null != tags) {
-                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages());
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jComboBoxTags2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTags2ActionPerformed
         // TODO add your handling code here:
         if (this.jComboBoxTags2.getSelectedIndex() < 0) {
@@ -1100,10 +1098,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxTagsItemStateChanged
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
     private void jComboBoxTagsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTagsFocusGained
         // TODO add your handling code here:
         TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
@@ -1146,6 +1140,42 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        refreshOperator(this.jPanel9,true);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        this.msgLabel.setText("");
+        String sampleID = this.jTextField10.getText().replaceAll(" ", "");
+
+        if (!SampleDAOHelper.fetchSampleBySID(sampleID)) {
+            if (this.jPanel9.getComponentCount() > 0) {
+                this.jPanel9.removeAll();
+                this.jPanel9.updateUI();
+            }
+            this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
+
+        } else {
+            TemplateDAOHelper.getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+            ArrayList tags = TemplateDAOHelper.fetchTagListByTID(0);
+            if (null != tags) {
+                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages());
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField10ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        refreshOperator(this.jPanel9,false);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
@@ -1210,6 +1240,17 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         }
         return list;
+    }
+    
+    private void refreshOperator(JPanel panel,boolean inFlag) {
+        Component[] components = panel.getComponents();
+
+        for (int i = 0; i < components.length; i++) {
+            if (components[i].getClass().isInstance(new JLabel())) {
+                ((JLabel) components[i]).setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag?UserMainFrameApp.plusIcon:UserMainFrameApp.minusIcon)));
+                ((JLabel) components[i]).repaint();
+            }
+        }
     }
 
     private void resetOthersOnTab() {
@@ -1502,19 +1543,24 @@ public class UserMainFrame extends javax.swing.JFrame {
         Document objS = new Document();
         for (int i = 0; i < UserMainFrameApp.labelList.size()
                 && i < UserMainFrameApp.textFiledList.size()
+                && i < UserMainFrameApp.deltaTextFiledList.size()
                 && i < UserMainFrameApp.dropDownList.size(); i++) {
 
             if (null != ((JRadioButton) UserMainFrameApp.labelList.get(i)).getSelectedObjects()) {
                 Document subObj = new Document();
-                subObj.append(SampleKeyEnum.Quantity.toString(), UserMainFrameApp.getDoubleFromString(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim()));
+                subObj.append(SampleKeyEnum.Quantity.toString(),caculateQuantity(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim(),((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(),inFlag));
                 subObj.append(SampleKeyEnum.Unit.toString(), ((JComboBox) UserMainFrameApp.dropDownList.get(i)).getSelectedItem().toString());
-
                 objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
             }
         }
         MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS, inFlag);
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
+    }
+    
+    private double caculateQuantity(String current,String delta,boolean inflag)
+    {
+        return UserMainFrameApp.getDoubleFromString(current)+(((inflag)?1:-1) * UserMainFrameApp.getDoubleFromString(delta));
     }
 
     /**

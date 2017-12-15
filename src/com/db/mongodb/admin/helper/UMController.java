@@ -12,7 +12,7 @@ import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 import com.document.enumeration.UserManagementEnum;
 import com.mongodb.BasicDBObject;
-import com.ui.admin.mainFrame.UMUI;
+import com.ui.admin.mainframe.UMUI;
 
 import org.bson.Document;
 
