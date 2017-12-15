@@ -48,7 +48,12 @@ public class ProcessDAOHelper {
     
     public static boolean fetchProcessBySID(String sid)
     {
-        processDoc =  ProcessDAO.getInstance().isProcessFound(sid);
+    	Document d = new Document();
+    	d.append(ProcessKeyEnum.Active.toString(), 1);
+    	d.append(ProcessKeyEnum.SID.toString(), sid);
+    	
+    	
+        processDoc =  ProcessDAO.getInstance().isFound(d);
         return (null!=processDoc);
     }
     

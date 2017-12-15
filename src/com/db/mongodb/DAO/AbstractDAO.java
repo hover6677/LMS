@@ -22,7 +22,7 @@ public abstract class AbstractDAO {
 	//protected abstract boolean revertSoftDeletion(Document found);
 	public abstract void closeDBConn();
 	public abstract ArrayList fetch(Document request);
-        public abstract Document isProcessFound(String sid);
+        //public abstract Document isProcessFound(String sid);
         public abstract Document isLoginValid(Document userDoc);
 	
 }

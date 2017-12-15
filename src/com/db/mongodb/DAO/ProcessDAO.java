@@ -7,6 +7,7 @@ package com.db.mongodb.DAO;
 
 import com.document.enumeration.ProcessKeyEnum;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -79,10 +80,13 @@ public class ProcessDAO extends AbstractDAO {
 
             searchQuery.put(ProcessKeyEnum.Active.toString(), active);
             searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
-            searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
+            if(tid!=null)
+            	searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 
             BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
-            docFetched = (Document) processCollection.find(searchQuery).sort(sortObject).limit(1);
+            FindIterable iter=(FindIterable) processCollection.find(searchQuery).sort(sortObject).limit(1);
+            docFetched = (Document)iter.first();
+            //docFetched = (FindIterableImpl) processCollection.find(searchQuery).sort(sortObject).limit(1);
 
         } catch (Exception e) {
             System.out.println("fetch error");
@@ -168,10 +172,10 @@ public class ProcessDAO extends AbstractDAO {
 		return DAO;
 	}
 
-    @Override
-    public Document isProcessFound(String sid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public Document isProcessFound(String sid) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     @Override
     public Document isLoginValid(Document userDoc) {

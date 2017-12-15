@@ -184,9 +184,9 @@ public class UserManagementDAO extends AbstractDAO {
         return DAO;
     }
 
-    @Override
-    public Document isProcessFound(String sid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public Document isProcessFound(String sid) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
 }
