@@ -50,6 +50,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.ui.user.mainapp.UserMainFrameApp;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import static java.lang.Thread.sleep;
 import java.util.Date;
@@ -240,10 +241,15 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(2000, 230));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(970, 230));
 
         jPanel6.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel6.setMaximumSize(new java.awt.Dimension(32767, 20000));
+        jPanel6.setPreferredSize(new java.awt.Dimension(977, 230));
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -253,7 +259,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 232, Short.MAX_VALUE)
+            .add(0, 230, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel6);
@@ -371,7 +377,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jLabel16)
                     .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(21, 21, 21)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
@@ -445,19 +451,24 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(32767, 230));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(970, 232));
 
         jPanel8.setBackground(java.awt.SystemColor.controlHighlight);
+        jPanel8.setMaximumSize(new java.awt.Dimension(32767, 230));
+        jPanel8.setPreferredSize(new java.awt.Dimension(970, 230));
 
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 880, Short.MAX_VALUE)
+            .add(0, 970, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 214, Short.MAX_VALUE)
+            .add(0, 230, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel8);
@@ -480,23 +491,21 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jLabel6)
                         .add(18, 18, 18)
-                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2)
-                            .add(jPanel4Layout.createSequentialGroup()
-                                .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(18, 18, 18)
-                                .add(searchBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(44, 44, 44)
-                                .add(jLabel8)
-                                .add(18, 18, 18)
-                                .add(jComboBoxTags2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                        .add(18, 18, 18)
+                        .add(searchBtn2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(44, 44, 44)
+                        .add(jLabel8)
+                        .add(18, 18, 18)
+                        .add(jComboBoxTags2, 0, 347, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(filler2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, Short.MAX_VALUE))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jLabel15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(10, 10, 10)
-                        .add(jScrollPane5)))
+                        .add(jScrollPane5))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .add(45, 45, 45))
         );
         jPanel4Layout.setVerticalGroup(
@@ -511,7 +520,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(24, 24, 24)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(30, 30, 30)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -544,8 +553,9 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setBorder(null);
+        jScrollPane3.setMaximumSize(new java.awt.Dimension(32767, 195));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(920, 195));
 
         jPanel9.setBackground(java.awt.SystemColor.controlHighlight);
 
@@ -553,7 +563,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 920, Short.MAX_VALUE)
+            .add(0, 931, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -624,7 +634,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel10))
                 .add(24, 24, 24)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
@@ -632,7 +642,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(19, 19, 19))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(98, Short.MAX_VALUE))))
+                        .addContainerGap(100, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Storage.png")), jPanel3); // NOI18N
@@ -928,12 +938,13 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     }
 
-    private void drawLabelText(JPanel jPanel, ArrayList tags) {
+    private void drawLabelText(JPanel jPanel, ArrayList tags,JScrollPane sPanel) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
 
         int xinit = 2;
         int yinit = 20;
+        int yfinal = yinit;
         int xoffset = 180;
         int yoffset = 40;
         int labelWidth = 160;
@@ -961,8 +972,16 @@ public class UserMainFrame extends javax.swing.JFrame {
 
             UserMainFrameApp.labelList.add(jLabelD);
             UserMainFrameApp.textFiledList.add(jTextFieldD);
+            
+            yfinal = y + (i+1) * yoffset;
         }
-        jPanel.updateUI();
+        
+        jPanel.setPreferredSize(new Dimension(970,yfinal));
+        sPanel.setPreferredSize(new Dimension((int) jPanel.getPreferredSize().getWidth(),
+                    (int)(jPanel.getPreferredSize().getHeight()+30)));
+        jPanel.setBorder(BorderFactory.createEmptyBorder());
+        sPanel.setBorder(BorderFactory.createEmptyBorder());
+        sPanel.updateUI();
 
     }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1036,7 +1055,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = new ArrayList();
             tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags2.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
-                drawLabelText(jPanel8, tags);
+                drawLabelText(jPanel8, tags,this.jScrollPane2);
             }
         }
     }//GEN-LAST:event_jComboBoxTags2ActionPerformed
@@ -1084,8 +1103,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = new ArrayList();
             tags = TemplateDAOHelper.fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
-                drawLabelText(jPanel6, tags);
-                this.jScrollPane1.updateUI();
+                drawLabelText(jPanel6, tags,this.jScrollPane1);
             }
         }
     }//GEN-LAST:event_jComboBoxTagsActionPerformed
