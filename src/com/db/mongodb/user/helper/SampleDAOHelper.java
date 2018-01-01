@@ -73,7 +73,7 @@ public class SampleDAOHelper {
                         if(((Document) objS.get(key)).getString(SampleKeyEnum.Unit.toString()).equals(((Document) storageDoc.get(key)).getString(SampleKeyEnum.Unit.toString())))
                         {
                             Document pair = new Document();
-                            pair.append(SampleKeyEnum.Quantity.toString(), updateQuality(inFlag,key,objS,storageDoc));
+                            pair.append(SampleKeyEnum.Quantity.toString(), ((Document)objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString()));
                             pair.append(SampleKeyEnum.Unit.toString(), ((Document) objS.get(key)).getString(SampleKeyEnum.Unit.toString()));
                             storageDoc.put(key,pair);
                         }

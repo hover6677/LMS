@@ -907,10 +907,10 @@ public class UserMainFrame extends javax.swing.JFrame {
             jComboBox.setBounds(x, y + i * yoffset, textWidth, height);
             jComboBox.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
 
-            if (null != storages && storages.containsKey(jRadioButton.getText())) {
+            if (null != storages && storages.containsKey(jRadioButton.getText().trim())) {
                 jRadioButton.setSelected(true);
-                jTextFieldD.setText(((Document) storages.get(jRadioButton.getText())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
-                jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText())).get(SampleKeyEnum.Unit.toString()));
+                jTextFieldD.setText(((Document) storages.get(jRadioButton.getText().trim())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
+                jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText().trim())).get(SampleKeyEnum.Unit.toString()));
             }
            
             jPanel.add(jRadioButton);
