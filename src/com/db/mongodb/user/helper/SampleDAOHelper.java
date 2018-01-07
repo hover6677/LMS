@@ -37,7 +37,7 @@ public class SampleDAOHelper {
         return (null!=sample);
     }
     
-    public static boolean prepareReceivedSample(String sid, double quatity,String tid,String unit,String type,String remarks,Document objR)
+    public static boolean prepareReceivedSample(String sid, double quatity,String tid,String unit,String type,String remarks,Document objR,Document objS)
     {
         sample = new Document();
         sample.append(SampleKeyEnum.Active.toString(), 1);
@@ -49,6 +49,7 @@ public class SampleDAOHelper {
         sample.append(SampleKeyEnum.Type.toString(), type);
         sample.append(SampleKeyEnum.Comments.toString(), remarks);
         sample.append(SampleKeyEnum.Receive.toString(), objR);
+        sample.append(SampleKeyEnum.Storage.toString(), objS);
         return true;
     }
 

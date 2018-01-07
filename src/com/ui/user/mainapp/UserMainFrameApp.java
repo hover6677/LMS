@@ -8,6 +8,7 @@ package com.ui.user.mainapp;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
+import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
 import java.io.File;
@@ -37,6 +38,8 @@ public class UserMainFrameApp {
     private static String userName = "user";
 
     public static ArrayList labelList;
+    public static ArrayList radioLabelList;
+    public static ArrayList radioTextList;
     public static ArrayList textFiledList;
     public static ArrayList deltaTextFiledList;
     public static ArrayList dropDownList;
@@ -44,6 +47,26 @@ public class UserMainFrameApp {
     private static ArrayList<String> dirList;
     private static String dir;
     private static FileRW fileRW;
+
+    private static TemplateDAOHelper templateDAO = new TemplateDAOHelper();
+
+    private static TemplateDAOHelper storageTemplateDAO = new TemplateDAOHelper();
+
+    public static TemplateDAOHelper getTemplateDAO() {
+        return templateDAO;
+    }
+
+    public static void setTemplateDAO(TemplateDAOHelper templateDAO) {
+        UserMainFrameApp.templateDAO = templateDAO;
+    }
+
+    public static TemplateDAOHelper getStorageTemplateDAO() {
+        return storageTemplateDAO;
+    }
+
+    public static void setStorageTemplateDAO(TemplateDAOHelper SampletemplateDAO) {
+        UserMainFrameApp.storageTemplateDAO = SampletemplateDAO;
+    }
 
     public static String getUserName() {
         return userName;
@@ -84,6 +107,9 @@ public class UserMainFrameApp {
         textFiledList = new ArrayList();
         deltaTextFiledList = new ArrayList();
         dropDownList = new ArrayList();
+        radioLabelList = new ArrayList();
+        radioTextList = new ArrayList();
+
     }
 
     public static void MainFrameAppClose() {
@@ -220,5 +246,7 @@ public class UserMainFrameApp {
         dropDownList.clear();
         labelList.clear();
         textFiledList.clear();
+        radioLabelList.clear();
+        radioTextList.clear();
     }
 }

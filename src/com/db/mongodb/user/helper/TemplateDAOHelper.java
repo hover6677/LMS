@@ -18,30 +18,30 @@ import org.bson.Document;
  */
 public class TemplateDAOHelper {
     
-    public static ArrayList templateList = new ArrayList();
+    public ArrayList templateList = new ArrayList();
           
-    public static void getTemplateListByType(String admin,String type)
+    public void getTemplateListByType(String admin,String type)
     {
         templateList.clear();
-        TemplateDAOHelper.templateList = ((TemplateDAO)TemplateDAO.getInstance()).fetchTemplate(admin,type);
+        this.templateList = ((TemplateDAO)TemplateDAO.getInstance()).fetchTemplate(admin,type);
     }
     
-    public static String[] fetchTIDList()
+    public String[] fetchTIDList()
     {
-        String[] TIDList = new String[TemplateDAOHelper.templateList.size()];
+        String[] TIDList = new String[this.templateList.size()];
         
-        for(int i = 0;i<TemplateDAOHelper.templateList.size();i++)
+        for(int i = 0;i<this.templateList.size();i++)
         {
-            Document doc =  (Document) TemplateDAOHelper.templateList.get(i);
+            Document doc =  (Document) this.templateList.get(i);
             TIDList[i] = doc.getString(TemplateKeyEnum.TID.toString());
         }
         
         return TIDList;
     }
     
-    public static ArrayList fetchTagListByTID(int index)
+    public  ArrayList fetchTagListByTID(int index)
     {
-        Document doc = (Document) TemplateDAOHelper.templateList.get(index);
+        Document doc = (Document) this.templateList.get(index);
         ArrayList tagList = (ArrayList) doc.get(TemplateKeyEnum.Tags.toString());
         return tagList;
     }
