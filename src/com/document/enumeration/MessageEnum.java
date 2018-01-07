@@ -12,6 +12,7 @@ package com.document.enumeration;
 
 public enum MessageEnum {
     SampleNotFound("Sample Not Found."),
+    MaterialNotFound("Material Not Found."),
     NotAllFilled("Please fill up all the fields."),
     NotAllSelected("Please make your selection"),
     RecordSaved("Record Saved Successfully"),

@@ -5,6 +5,7 @@
  */
 package com.ui.user.mainapp;
 
+import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
@@ -92,6 +93,9 @@ public class UserMainFrameApp {
         for (int i = 0; i < tabCount; i++) {
             templateList.add(new ArrayList());
         }*/
+        if (MaterialDAO.getInstance().connDAO()) {
+            MaterialDAO.getInstance().setCollection();
+        }
 
         if (ProcessDAO.getInstance().connDAO()) {
             ProcessDAO.getInstance().setCollection();

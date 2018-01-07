@@ -29,10 +29,12 @@
  */
 package com.ui.user.mainframe;
 
+import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
 import com.db.mongodb.admin.helper.ExportToExcelAction;
+import com.db.mongodb.user.helper.MaterialDAOHelper;
 import com.db.mongodb.user.helper.ProcessDAOHelper;
 import com.db.mongodb.user.helper.SampleDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
@@ -132,7 +134,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel6 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
@@ -140,8 +141,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags1 = new javax.swing.JComboBox<>();
         jComboBoxTags3 = new javax.swing.JComboBox<>();
         jTextField4 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -219,6 +218,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         jTextField1.setMinimumSize(new java.awt.Dimension(6, 25));
         jTextField1.setName("ID"); // NOI18N
         jTextField1.setPreferredSize(new java.awt.Dimension(6, 25));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -268,10 +272,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jPanel6);
         jPanel6.getAccessibleContext().setAccessibleParent(jPanel2);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Remarks");
-        jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
@@ -306,15 +306,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jTextField4.setMinimumSize(new java.awt.Dimension(6, 25));
         jTextField4.setName("ID"); // NOI18N
         jTextField4.setPreferredSize(new java.awt.Dimension(6, 25));
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setText("Sample ID");
-        jLabel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField5.setMinimumSize(new java.awt.Dimension(6, 25));
-        jTextField5.setName("ID"); // NOI18N
-        jTextField5.setPreferredSize(new java.awt.Dimension(6, 25));
 
         jScrollPane8.setBorder(null);
         jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -356,20 +347,16 @@ public class UserMainFrame extends javax.swing.JFrame {
                                         .add(238, 238, 238)
                                         .add(filler1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(jPanel2Layout.createSequentialGroup()
-                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBoxTags3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                    .add(jLabel16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                    .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                        .add(0, 30, Short.MAX_VALUE)
+                                                .add(jComboBoxTags3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                            .add(jPanel2Layout.createSequentialGroup()
+                                                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(23, 23, 23)
+                                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 27, Short.MAX_VALUE)
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -378,21 +365,16 @@ public class UserMainFrame extends javax.swing.JFrame {
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                             .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 21, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 45, Short.MAX_VALUE)
                                         .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                 .add(18, 18, 18)
                                 .add(jComboBoxTags, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(0, 0, Short.MAX_VALUE))
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(jLabel17)
                                 .add(12, 12, 12)
                                 .add(jScrollPane4)))))
                 .add(43, 43, 43))
         );
-
-        jPanel2Layout.linkSize(new java.awt.Component[] {jComboBoxTags3, jTextField1, jTextField5}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
         jPanel2Layout.linkSize(new java.awt.Component[] {jLabel17, jLabel9}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
@@ -411,28 +393,25 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(26, Short.MAX_VALUE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel16)
-                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jComboBoxTags3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .add(jLabel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .add(18, 18, Short.MAX_VALUE)
-                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel2Layout.linkSize(new java.awt.Component[] {jComboBoxTags3, jTextField1, jTextField4, jTextField5}, org.jdesktop.layout.GroupLayout.VERTICAL);
+        jPanel2Layout.linkSize(new java.awt.Component[] {jComboBoxTags, jComboBoxTags1, jComboBoxTags3, jTextField1, jTextField4}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jPanel2Layout.linkSize(new java.awt.Component[] {jLabel16, jLabel3, jLabel4, jLabel5}, org.jdesktop.layout.GroupLayout.VERTICAL);
+        jPanel2Layout.linkSize(new java.awt.Component[] {jLabel3, jLabel4, jLabel5}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
         jComboBoxTags.getAccessibleContext().setAccessibleName("Select a Template");
         jComboBoxTags.getAccessibleContext().setAccessibleDescription("Select a Template");
@@ -506,7 +485,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 1000, Short.MAX_VALUE)
+            .add(0, 970, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -540,7 +519,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(jLabel8)
                         .add(18, 18, 18)
                         .add(jComboBoxTags2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(filler2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, Short.MAX_VALUE))
@@ -801,7 +780,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
                 .add(24, 24, 24)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField2))
                 .add(18, 18, 18)
@@ -1014,8 +993,8 @@ public class UserMainFrame extends javax.swing.JFrame {
             jPanel.add(jRadioButton);
             jPanel.add(jTextFieldD);
            
-            UserMainFrameApp.labelList.add(jRadioButton);
-            UserMainFrameApp.textFiledList.add(jTextFieldD);
+            UserMainFrameApp.radioLabelList.add(jRadioButton);
+            UserMainFrameApp.radioTextList.add(jTextFieldD);
         }
         jPanel.updateUI();
     }
@@ -1290,6 +1269,10 @@ public class UserMainFrame extends javax.swing.JFrame {
         refreshOperator(this.jPanel9, false);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
         if (null != selectedCountLabel) {
@@ -1538,14 +1521,12 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1577,7 +1558,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JLabel msgLabel;
@@ -1592,7 +1572,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         switch (selectedTab) {
             case Receive:
                 doc = prepareReceiveDoc();
-                SampleDAO.getInstance().addOrUpdate(doc);
+                MaterialDAO.getInstance().addOrUpdate(doc);
                 break;
             case Process:
                 doc = prepareProcessDoc();
@@ -1610,7 +1590,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     private Document prepareReceiveDoc() {
-        String sid = this.jTextField1.getText().replaceAll(" ", "");
+        String mid = this.jTextField1.getText().replaceAll(" ", "");
         Double quantity = 0.0;
         try {
             quantity = Double.parseDouble(this.jTextField4.getText().replaceAll(" ", ""));
@@ -1641,9 +1621,9 @@ public class UserMainFrame extends javax.swing.JFrame {
                 objS.append(((JRadioButton) UserMainFrameApp.radioLabelList.get(i)).getText().trim(), subObj);
             }
         }
-        SampleDAOHelper.prepareReceivedSample(sid, quantity, tid, unit, type, remarks, objR,objS);
+        MaterialDAOHelper.prepareReceivedMaterial(mid, quantity, tid, unit, type, remarks, objR,objS);
 
-        return SampleDAOHelper.getSample();
+        return MaterialDAOHelper.getMaterial();
     }
 
     private Document prepareProcessDoc() {
