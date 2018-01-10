@@ -85,6 +85,42 @@ public class MaterialDAO extends AbstractDAO {
             return docFetched;
         }
     }
+    
+    public boolean updateSampleList(String mid,String sid)
+    {
+        Document materialFound = isMaterialFound(mid);
+        softDeleteMaterial(materialFound);
+        Document materialUpdate = materialFound;
+        materialUpdate = addSIDToList(materialUpdate,sid);
+        update(materialFound,materialUpdate);
+        return true;
+    }
+    
+   private Document addSIDToList(Document doc, String sid)
+   {
+       ArrayList sidList = new ArrayList();
+       if(null!=doc)
+       {
+           if(doc.containsKey(MaterialKeyEnum.SampleList.toString()))
+           {
+               sidList = addUniqueToList((ArrayList)doc.get(MaterialKeyEnum.SampleList.toString()),sid);
+               doc.put(MaterialKeyEnum.SampleList.toString(), sidList);
+           }
+           else
+           {
+               doc.put(MaterialKeyEnum.SampleList.toString(), sidList.add(sid));
+           }
+       }
+       return doc;
+   }
+   private ArrayList addUniqueToList(ArrayList alist, String str)
+   {
+       if(!alist.isEmpty() && alist.indexOf(str)<0)
+       {
+           alist.add(str);
+       }
+       return alist;
+   }
 
     public Document isMaterialFound(String mid) {
         Document searchQuery = new Document();
@@ -107,7 +143,7 @@ public class MaterialDAO extends AbstractDAO {
     public boolean update(Document materialFound, Document materialDoc) {
 
         try {
-            softDeleteSample(materialFound);
+            softDeleteMaterial(materialFound);
             if (!materialDoc.containsKey(MaterialKeyEnum.SampleList.toString())) {
                 materialDoc.put(MaterialKeyEnum.SampleList.toString(), materialFound.get(MaterialKeyEnum.SampleList.toString()));
             }
@@ -136,7 +172,7 @@ public class MaterialDAO extends AbstractDAO {
         }
     }
 
-    private boolean softDeleteSample(Document materialFound) {
+    private boolean softDeleteMaterial(Document materialFound) {
         try {
             Document newObj = new Document();
             newObj.put(MaterialKeyEnum.Active.toString(), 0);
@@ -145,7 +181,7 @@ public class MaterialDAO extends AbstractDAO {
             materialCollection.updateOne(materialFound, updateObj);
             return true;
         } catch (Exception e) {
-            System.out.println("update softDeleteSample failed");
+            System.out.println("update softDeleteMaterial failed");
             System.out.println(e);
             return false;
         }
