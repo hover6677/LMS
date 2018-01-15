@@ -28,6 +28,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import com.db.mongodb.admin.helper.ExportToExcelAction;
+import com.db.mongodb.admin.helper.JTablePrint;
 import com.db.mongodb.admin.helper.LMSUtils;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
@@ -57,6 +58,7 @@ public class ReportUI extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JButton btnExportToExcel;
+	private JButton btnPrintButton;
 	public ReportUI() {
 		
 		labels = new ArrayList<String>();
@@ -172,6 +174,17 @@ public class ReportUI extends JPanel {
 		});
 		btnExportToExcel.setBounds(544, 375, 154, 25);
 		add(btnExportToExcel);
+		
+		btnPrintButton = new JButton("Print Table");
+		btnPrintButton.setEnabled(false);
+		btnPrintButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTablePrint tPrint = new JTablePrint(table);
+				tPrint.Execute();
+			}
+		});
+		btnPrintButton.setBounds(382, 375, 154, 25);
+		add(btnPrintButton);
 			
 		
 	}
@@ -424,7 +437,10 @@ public class ReportUI extends JPanel {
 		table = new JTable(dataArray, labelArray);
 		table.updateUI();
 		if(table.getModel().getRowCount()>0)
-			btnExportToExcel.setEnabled(true);
+		{
+				btnExportToExcel.setEnabled(true);
+				btnPrintButton.setEnabled(true);
+		}
 		scrollPane.setViewportView(table);
 		scrollPane.updateUI();
 
