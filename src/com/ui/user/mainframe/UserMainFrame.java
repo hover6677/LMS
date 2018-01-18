@@ -85,6 +85,10 @@ import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.awt.event.ActionEvent;
+import com.db.mongodb.admin.helper.Printer;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
 public class UserMainFrame extends javax.swing.JFrame {
 
@@ -196,6 +200,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         msgLabel = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LMS");
@@ -364,21 +369,21 @@ public class UserMainFrame extends javax.swing.JFrame {
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBoxTags3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                                .add(jComboBoxTags3, 0, 123, Short.MAX_VALUE))
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .add(23, 23, 23)
-                                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 30, Short.MAX_VALUE)
+                                                .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .add(30, 30, 30)
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
-                                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .add(18, 18, 18)
-                                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                             .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 48, Short.MAX_VALUE)
+                                        .add(48, 48, 48)
                                         .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                 .add(18, 18, 18)
                                 .add(jComboBoxTags, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -881,81 +886,53 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.png"))); // NOI18N
 
         msgLabel.setForeground(new java.awt.Color(255, 0, 0));
-        
-        btnPrint = new JButton("Print");
-        btnPrint.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		
-        			Runnable printThread = new Runnable() {
 
-						@Override
-						public void run() {
-							JButton bu = (JButton)e.getSource();
-							PrinterJob pjob = PrinterJob.getPrinterJob();
-							PageFormat preformat = pjob.defaultPage();
-							preformat.setOrientation(PageFormat.LANDSCAPE);
-							PageFormat postformat = pjob.pageDialog(preformat);
-							//If user does not hit cancel then print.
-							if (preformat != postformat) {
-							    //Set print component
-							    pjob.setPrintable(new Printer(bu.getRootPane()), postformat);
-							    if (pjob.printDialog()) {
-							        try {
-										pjob.print();
-									} catch (PrinterException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-							    }
-							}
-						}
-						
-        			};
-        			Thread thread = new Thread(printThread);
-					thread.start();
-					
-
-        	}
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/print_icon.png"))); // NOI18N
+        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton5.setBorderPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
         });
 
-        GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
+        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
-        	jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel7Layout.createSequentialGroup()
-        			.addGap(37)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(jPanel7Layout.createSequentialGroup()
-        					.addComponent(jLabel1)
-        					.addGap(0, 1035, Short.MAX_VALUE))
-        				.addGroup(jPanel7Layout.createSequentialGroup()
-        					.addComponent(clearBtn, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addComponent(btnPrint, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(msgLabel, GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
-        					.addGap(18)
-        					.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
-        			.addGap(30))
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .add(37, 37, 37)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jTabbedPane1)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(27, 27, 27)
+                        .add(msgLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(18, 18, 18)
+                        .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(30, 30, 30))
         );
         jPanel7Layout.setVerticalGroup(
-        	jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel7Layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(jPanel7Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(jPanel7Layout.createParallelGroup(Alignment.TRAILING, false)
-        					.addComponent(msgLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addGroup(jPanel7Layout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(clearBtn, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-        						.addComponent(btnPrint, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
-        				.addComponent(saveBtn, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(13, 13, 13)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 501, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(msgLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(clearBtn, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                    .add(saveBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
-        jPanel7.setLayout(jPanel7Layout);
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Templates");
         saveBtn.getAccessibleContext().setAccessibleParent(jTabbedPane1);
@@ -1358,6 +1335,35 @@ public class UserMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Runnable myRunnable = new Runnable() {
+
+            public void run() {
+                JButton bu = (JButton) evt.getSource();
+                PrinterJob pjob = PrinterJob.getPrinterJob();
+                PageFormat preformat = pjob.defaultPage();
+                preformat.setOrientation(PageFormat.LANDSCAPE);
+                PageFormat postformat = pjob.pageDialog(preformat);
+                //If user does not hit cancel then print.
+                if (preformat != postformat) {
+                    //Set print component
+                    pjob.setPrintable(new Printer(bu.getRootPane()), postformat);
+                    if (pjob.printDialog()) {
+                        try {
+                            pjob.print();
+                        } catch (PrinterException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        };
+        Thread thread = new Thread(myRunnable);
+        thread.start();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
         if (null != selectedCountLabel) {
@@ -1596,6 +1602,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBoxTags;
     private javax.swing.JComboBox<String> jComboBoxTags1;
     private javax.swing.JComboBox<String> jComboBoxTags2;
@@ -1651,7 +1658,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel msgLabel;
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton searchBtn2;
-    private JButton btnPrint;
     // End of variables declaration//GEN-END:variables
 
     private boolean saveRecord() {
