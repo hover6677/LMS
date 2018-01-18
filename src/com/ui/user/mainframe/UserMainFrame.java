@@ -1669,8 +1669,6 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.msgLabel.setText(MessageEnum.SampleDuplFound.getMsg());
                     flag = false;
                 } else {
-                    Document sampleDoc = prepareSampleDoc();
-                    SampleDAO.getInstance().addOrUpdate(sampleDoc);
                     doc = prepareProcessDoc();
                     ProcessDAO.getInstance().addOrUpdate(doc);
                     updateMaterialDoc(doc);
@@ -1744,13 +1742,6 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         return ProcessDAOHelper.getProcessDoc();
 
-    }
-    private Document prepareSampleDoc()
-    {
-        String sid = this.jTextField5.getText().replaceAll(" ", "");
-        String remarks = this.jTextArea2.getText();
-        SampleDAOHelper.prepareSampleDoc(sid, remarks);
-        return SampleDAOHelper.getSample();
     }
 
     private Document prepareStorageDoc() {

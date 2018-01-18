@@ -37,17 +37,6 @@ public class SampleDAOHelper {
         return (null!=sample);
     }
     
-    public static boolean prepareSampleDoc(String sid, String remarks)
-    {
-        sample = new Document();
-        sample.append(SampleKeyEnum.Active.toString(), 1);
-        sample.append(SampleKeyEnum.DateTime.toString(), new Date());
-        sample.append(SampleKeyEnum.SID.toString(), sid);
-        sample.append(SampleKeyEnum.User.toString(), UserMainFrameApp.getUserName());
-        sample.append(SampleKeyEnum.Comments.toString(), remarks);
-        return true;
-    }
-    
     public static boolean prepareReceivedSample(String sid, double quatity,String tid,String unit,String type,String remarks,Document objR,Document objS)
     {
         sample = new Document();

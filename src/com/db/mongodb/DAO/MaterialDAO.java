@@ -108,8 +108,7 @@ public class MaterialDAO extends AbstractDAO {
            }
            else
            {
-               sidList.add(sid);
-               doc.put(MaterialKeyEnum.SampleList.toString(), sidList);
+               doc.put(MaterialKeyEnum.SampleList.toString(), sidList.add(sid));
            }
        }
        return doc;
