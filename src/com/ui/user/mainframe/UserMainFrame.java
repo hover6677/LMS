@@ -34,6 +34,7 @@ import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
 import com.db.mongodb.admin.helper.ExportToExcelAction;
+import com.db.mongodb.admin.helper.Printer;
 import com.db.mongodb.admin.helper.Printing;
 import com.db.mongodb.user.helper.MaterialDAOHelper;
 import com.db.mongodb.user.helper.ProcessDAOHelper;
@@ -43,6 +44,7 @@ import com.document.enumeration.*;
 import com.mongodb.BasicDBObject;
 import com.ui.admin.mainframe.AdminMainFrame;
 import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -80,7 +82,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.awt.event.ActionEvent;
 
 public class UserMainFrame extends javax.swing.JFrame {
@@ -887,12 +891,23 @@ public class UserMainFrame extends javax.swing.JFrame {
 
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
-							try {
-								Printing.printComponent(((JButton)e.getSource()).getRootPane(), true);
-							} catch (PrinterException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+							JButton bu = (JButton)e.getSource();
+							PrinterJob pjob = PrinterJob.getPrinterJob();
+							PageFormat preformat = pjob.defaultPage();
+							preformat.setOrientation(PageFormat.LANDSCAPE);
+							PageFormat postformat = pjob.pageDialog(preformat);
+							//If user does not hit cancel then print.
+							if (preformat != postformat) {
+							    //Set print component
+							    pjob.setPrintable(new Printer(bu.getRootPane()), postformat);
+							    if (pjob.printDialog()) {
+							        try {
+										pjob.print();
+									} catch (PrinterException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+							    }
 							}
 						}
 						
