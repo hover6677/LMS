@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 
 public abstract class AbstractDAO {
@@ -24,5 +25,6 @@ public abstract class AbstractDAO {
 	public abstract ArrayList fetch(Document request);
         //public abstract Document isProcessFound(String sid);
         public abstract Document isLoginValid(Document userDoc);
-	
+
+		public abstract ArrayList fetch(BasicDBObject sampleRequest) ;
 }

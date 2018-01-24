@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
@@ -39,6 +40,7 @@ import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -195,15 +197,19 @@ public class ReportUI extends JPanel {
 		 ArrayList<String> result = null;
 		  ArrayList fetchTemplate =null;
 		  Document sampleDoc = new Document();
-		  sampleDoc.append(SampleKeyEnum.Active.toString(), 1);
-		  sampleDoc.append(SampleKeyEnum.SID.toString(), textField.getText());
+		  BasicDBObject ref = new BasicDBObject();
+		  ref.put(SampleKeyEnum.Active.toString(), 1);
+		  ref.put(SampleKeyEnum.SID.toString(), Pattern.compile(textField.getText() , Pattern.CASE_INSENSITIVE));
+//		  sampleDoc.append(SampleKeyEnum.Active.toString(), 1);
+//		  sampleDoc.append(SampleKeyEnum.SID.toString(), "?i:"+textField.getText());
 		  if(textField.getText()==null||textField.getText().equals("")) {
 			  JOptionPane.showMessageDialog(this, "Please enter a SID");
 			  return;
 		  }
 	      if (SampleDAO.getInstance().connDAO()) {
 	    	  SampleDAO.getInstance().setCollection();
-	          fetchTemplate = SampleDAO.getInstance().fetch(sampleDoc);
+	          //fetchTemplate = SampleDAO.getInstance().fetch(sampleDoc);
+	    	  fetchTemplate = SampleDAO.getInstance().fetch(ref);
 	      }
 	      
 	      ProcessDAO.getInstance().closeDBConn();
@@ -349,12 +355,15 @@ public class ReportUI extends JPanel {
 		
 		 ArrayList<String> result = new ArrayList<String>();
 		  ArrayList fetchTemplate =null;
-		  Document processDoc = new Document();
-		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);
-		  processDoc.append(ProcessKeyEnum.SID.toString(), textField.getText());
+		  BasicDBObject ref = new BasicDBObject();
+		  ref.append(ProcessKeyEnum.Active.toString(), 1);
+		  ref.append(ProcessKeyEnum.SID.toString(), Pattern.compile(textField.getText() , Pattern.CASE_INSENSITIVE));
+//		  Document processDoc = new Document();
+//		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+//		  processDoc.append(ProcessKeyEnum.SID.toString(), textField.getText());
 	      if (ProcessDAO.getInstance().connDAO()) {
 	          ProcessDAO.getInstance().setCollection();
-	          fetchTemplate = ProcessDAO.getInstance().fetch(processDoc);
+	          fetchTemplate = ProcessDAO.getInstance().fetch(ref);
 	      }
 	      ProcessDAO.getInstance().closeDBConn();
 	      if(fetchTemplate!=null&& fetchTemplate.size()>0) {

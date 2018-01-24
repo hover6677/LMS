@@ -171,7 +171,7 @@ public class SampleDAO extends AbstractDAO {
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
-
+    @Override
     public ArrayList fetch(BasicDBObject sampleRequest)
     {
         ArrayList finds = new ArrayList();
