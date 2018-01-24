@@ -196,6 +196,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        excelBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -811,6 +812,13 @@ public class UserMainFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(15).setMaxWidth(400);
         }
 
+        excelBtn.setText("Export To Excel");
+        excelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excelBtnActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -823,16 +831,20 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
                 .add(24, 24, 24)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField2))
                 .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton4))
-                .add(369, 369, 369))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane7)
+                .add(290, 290, 290)
+                .add(excelBtn))
+            .add(jScrollPane7)
         );
+
+        jPanel1Layout.linkSize(new java.awt.Component[] {excelBtn, jButton4}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
@@ -849,14 +861,15 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel14)
                     .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(excelBtn))
                 .add(18, 18, 18)
                 .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jPanel1Layout.linkSize(new java.awt.Component[] {jButton4, jLabel14, jXDatePicker2}, org.jdesktop.layout.GroupLayout.VERTICAL);
+        jPanel1Layout.linkSize(new java.awt.Component[] {excelBtn, jButton4, jLabel14, jXDatePicker2}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jLabel12, jXDatePicker1}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
@@ -1364,6 +1377,10 @@ public class UserMainFrame extends javax.swing.JFrame {
         thread.start();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_excelBtnActionPerformed
+
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
         if (null != selectedCountLabel) {
@@ -1597,6 +1614,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
+    private javax.swing.JButton excelBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JButton jButton1;
