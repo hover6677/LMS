@@ -9,6 +9,8 @@ import com.document.enumeration.SampleKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import org.bson.Document;
 
 /**
@@ -88,12 +90,14 @@ public class SampleDAO extends AbstractDAO {
     }
     
     public Document isSampleFound(String sid) {
-        Document searchQuery = new Document();
+        //Document searchQuery = new Document();
+    	BasicDBObject searchQuery = new BasicDBObject();
+		
         Document docFetched = null;
         try {
             searchQuery.put(SampleKeyEnum.Active.toString(), 1);
-            searchQuery.put(SampleKeyEnum.SID.toString(), sid);
-
+            //searchQuery.put(SampleKeyEnum.SID.toString(), sid);
+            searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile(sid , Pattern.CASE_INSENSITIVE));
             docFetched = (Document) sampleCollection.find(searchQuery).first();
 
         } catch (Exception e) {

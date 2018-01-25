@@ -196,4 +196,14 @@ public class TemplateDAO extends AbstractDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+	@Override
+	public ArrayList fetch(BasicDBObject templateRequest) {
+		// TODO Auto-generated method stub
+		ArrayList finds = new ArrayList();
+        //templateCollection.find(templateRequest).sort(new Document("_id", -1)).limit(1).into(finds);
+        templateCollection.find(templateRequest).sort(new Document("_id", -1)).into(finds);
+        return finds;
+
+	}
+
 }
