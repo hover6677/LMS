@@ -1,9 +1,14 @@
 package com.db.mongodb.admin.helper;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
@@ -51,9 +56,26 @@ public class ExportToExcelAction {
 	public void exportToExcel() {
 		
 			FileOutputStream outputStream;
+			DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+			Date date = new Date();
+			String time = dateFormat.format(date);
+			String fileName = filename+time+".xlsx";
+			File dir = new File("C:\\output\\");
+			dir.mkdirs();
+			File f = new File(dir,fileName);
+			
+			
 			try {
-				outputStream = new FileOutputStream(filename+".xlsx");
+				if(!f.exists())f.createNewFile();
+				
+				outputStream = new FileOutputStream(f);
 				workbook.write(outputStream);
+				if(!Desktop.isDesktopSupported()){
+		            System.out.println("Desktop is not supported");
+		            return;
+		        }
+				Desktop desktop = Desktop.getDesktop();
+		        if(f.exists()) desktop.open(f);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

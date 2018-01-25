@@ -813,6 +813,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
 
         excelBtn.setText("Export To Excel");
+        excelBtn.setEnabled(false);
         excelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excelBtnActionPerformed(evt);
@@ -1379,6 +1380,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
         // TODO add your handling code here:
+    	ExportToExcelAction eeAction = new ExportToExcelAction(jTable1,"Report");
     }//GEN-LAST:event_excelBtnActionPerformed
 
     /*private void clearCountLabel() {
@@ -1809,6 +1811,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         Object[] rArray = resultList.toArray();
         model.insertRow(0, rArray);
         this.jTable1.updateUI();
+		if(this.jTable1.getModel().getRowCount()>0)
+		{
+				this.excelBtn.setEnabled(true);
+				
+		}
     }
 
     public void ReadData(ArrayList<String> resultList, ArrayList<String> labelList) {
