@@ -88,6 +88,7 @@ public class ReportUI extends JPanel {
 		add(panel_1);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		//scrollPane.setBounds(12, 13, 671, 122);
 		panel_1.add(scrollPane,BorderLayout.CENTER);
 		
@@ -96,7 +97,7 @@ public class ReportUI extends JPanel {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		table.setBorder(new EmptyBorder(1, 1, 0, 0));
-		
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.getModel().addTableModelListener(new TableModelListener() {
 
 			@Override
@@ -274,6 +275,7 @@ public class ReportUI extends JPanel {
 	      //processDoc.append(ProcessKeyEnum.TID.toString(), "CocaTemp1");
 	}
 	
+
 	private void getSampleData(Hashtable<String, ArrayList<String>> resultTable,
 			Hashtable<String,ArrayList<String>> labelTable) {
 		// TODO Auto-generated method stub
@@ -505,25 +507,27 @@ public class ReportUI extends JPanel {
 		this.updateUI();
 	}
 	public void updaDate() {
-		ArrayList<ArrayList<String>> resultList = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>>labelList = new ArrayList<ArrayList<String>>();
-		ReadDataFromDate(resultList,labelList);
-		if(resultList==null||labelList==null||resultList.size()<=0||labelList.size()<=0) {
-			//checkEmpty(null,null);
-			LMSUtils.checkEmpty(null, null, this);
-			return;
-		}
-			
-		int size1 = resultList.size();
-		int size2 = labelList.get(0).size();
-		Object[][] dataArray = new Object[size1][size2];
-		for(int i =0; i<size1;i++)
-		{
-			dataArray[i]=resultList.get(i).toArray();
-		}
-		Object[] labelArray = labelList.get(0).toArray();
-		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
-		table= new JTable(dataArray, labelArray);
+//		ArrayList<ArrayList<String>> resultList = new ArrayList<ArrayList<String>>();
+//		ArrayList<ArrayList<String>>labelList = new ArrayList<ArrayList<String>>();
+//		ReadDataFromDate(resultList,labelList);
+//		if(resultList==null||labelList==null||resultList.size()<=0||labelList.size()<=0) {
+//			//checkEmpty(null,null);
+//			LMSUtils.checkEmpty(null, null, this);
+//			return;
+//		}
+//			
+//		int size1 = resultList.size();
+//		int size2 = labelList.get(0).size();
+//		Object[][] dataArray = new Object[size1][size2];
+//		for(int i =0; i<size1;i++)
+//		{
+//			dataArray[i]=resultList.get(i).toArray();
+//		}
+//		Object[] labelArray = labelList.get(0).toArray();
+//		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
+//		table= new JTable(dataArray, labelArray);
+		ReportGenerator rg = new ReportGenerator(datePicker,datePicker2,this,table,btnExportToExcel);
+		table.setModel(rg.getTableModel());
 		table.updateUI();
 		if(table.getModel().getRowCount()>0)
 			btnExportToExcel.setEnabled(true);

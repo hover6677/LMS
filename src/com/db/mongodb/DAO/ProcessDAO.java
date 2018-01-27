@@ -11,6 +11,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import org.bson.Document;
 
@@ -73,7 +74,7 @@ public class ProcessDAO extends AbstractDAO {
 
     @Override
     public Document isFound(Document processDoc) {
-        Document searchQuery = new Document();
+    	BasicDBObject searchQuery = new BasicDBObject();
         Document docFetched = null;
         try {
             int active = processDoc.getInteger(ProcessKeyEnum.Active.toString(), 1);
@@ -81,7 +82,7 @@ public class ProcessDAO extends AbstractDAO {
             String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
 
             searchQuery.put(ProcessKeyEnum.Active.toString(), active);
-            searchQuery.put(ProcessKeyEnum.SID.toString(), sid);
+            searchQuery.put(ProcessKeyEnum.SID.toString(), Pattern.compile(sid , Pattern.CASE_INSENSITIVE));
             if(tid!=null)
             	searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 

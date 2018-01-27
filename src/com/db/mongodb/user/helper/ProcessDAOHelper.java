@@ -52,8 +52,12 @@ public class ProcessDAOHelper {
     	d.append(ProcessKeyEnum.Active.toString(), 1);
     	d.append(ProcessKeyEnum.SID.toString(), sid);
     	
-    	
-        processDoc =  ProcessDAO.getInstance().isFound(d);
+	      if (ProcessDAO.getInstance().connDAO()) {
+	          ProcessDAO.getInstance().setCollection();
+	          
+	          processDoc =  ProcessDAO.getInstance().isFound(d);
+	      }
+	      ProcessDAO.getInstance().closeDBConn();
         return (null!=processDoc);
     }
     

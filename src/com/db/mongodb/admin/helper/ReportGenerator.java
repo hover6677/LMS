@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -15,7 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import org.bson.Document;
+import org.jdatepicker.impl.JDatePickerImpl;
 
+import com.db.mongodb.DAO.ProcessDAO;
+import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.user.helper.MaterialDAOHelper;
 import com.db.mongodb.user.helper.ProcessDAOHelper;
 import com.db.mongodb.user.helper.SampleDAOHelper;
@@ -23,6 +28,7 @@ import com.document.enumeration.MaterialKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
+import com.mongodb.BasicDBObject;
 
 public class ReportGenerator {
 	private JTextField sIDTextField;
@@ -31,6 +37,8 @@ public class ReportGenerator {
 	private JButton excelBtn;
 	private JTextField mIDTextField;
 	private Boolean isSIDSearch;
+	private JDatePickerImpl datePickerFrom;
+	private JDatePickerImpl datePickerTo;
 	public ReportGenerator(JTextField sid,JTextField mid, Component p, JTable t, JButton b) {
 		sIDTextField=sid;
 		mIDTextField = mid;
@@ -43,6 +51,36 @@ public class ReportGenerator {
 			updateSingleRow();
 		}
 		
+	}
+	public ReportGenerator(JDatePickerImpl From, JDatePickerImpl To, Component p, JTable t, JButton b) {
+		parentFrame=p;
+		table=t;
+		excelBtn=b;
+		datePickerFrom = From;
+		datePickerTo = To;
+		ArrayList<String> sampleList =this.getSIDListFromSampleDataDate();
+		updateRowbyDate(sampleList);
+		
+	}
+	private void updateRowbyDate(ArrayList<String> sampleList) {
+		// TODO Auto-generated method stub
+		ArrayList<ArrayList<String>> resultData = new ArrayList<ArrayList<String>>();
+		ArrayList<String> labelData = new ArrayList<String>();
+		getDataFromSIDList(resultData,labelData,sampleList);
+		Object[][] dataArray= new Object[resultData.size()][resultData.get(0).size()];
+        for(int i=0;i<resultData.size();i++) {
+        	dataArray[i]=resultData.get(i).toArray();
+        }
+        Object[] labelArray =  labelData.toArray();
+        
+        table=new JTable(dataArray,labelArray);
+        table.setGridColor(Color.BLACK);
+        this.table.updateUI();
+		if(this.table.getModel().getRowCount()>0)
+		{
+				this.excelBtn.setEnabled(true);
+				
+		}
 	}
 	public TableModel getTableModel() {
 		
@@ -123,7 +161,33 @@ public class ReportGenerator {
 			JOptionPane.showMessageDialog(parentFrame, "Sample list is empty. No matched sid found");
 			return;
 		}
-		for(int i = 0; i<sampleList.size();i++) {
+		getDataFromSIDList(resultList,labelList,sampleList);
+//		for(int i = 0; i<sampleList.size();i++) {
+//			 if (!SampleDAOHelper.fetchSampleBySID(sampleList.get(i))) {
+//				 JOptionPane.showMessageDialog(parentFrame, "SID "+sampleList.get(0)+ "is not found");
+//				 return;
+//			 }
+//			if(i ==0) {
+//
+//				labelList.addAll(getSampleData(resultList));
+//			
+//		        if (resultList.isEmpty() || labelList.isEmpty()) {
+//		            return;
+//		        }
+//		        	labelList.addAll(getProcessData(resultList,sampleList.get(i)));
+//			}
+//			else {
+//					getSampleData(resultList);
+//				
+//					if (resultList.isEmpty() || labelList.isEmpty()) {
+//						return;
+//					}
+//		        	getProcessData(resultList,sampleList.get(i));
+//			}
+//		}
+	}
+    private void getDataFromSIDList(ArrayList<ArrayList<String>> resultList, ArrayList<String> labelList,ArrayList<String>sampleList) {
+    	for(int i = 0; i<sampleList.size();i++) {
 			 if (!SampleDAOHelper.fetchSampleBySID(sampleList.get(i))) {
 				 JOptionPane.showMessageDialog(parentFrame, "SID "+sampleList.get(0)+ "is not found");
 				 return;
@@ -146,7 +210,7 @@ public class ReportGenerator {
 		        	getProcessData(resultList,sampleList.get(i));
 			}
 		}
-	}
+    }
 	public ArrayList<String> getSampleData(ArrayList<ArrayList<String>> resultList) {
 		ArrayList<String> labelList = new ArrayList<String>();
 		ArrayList<String> list = new ArrayList<String>();
@@ -196,6 +260,7 @@ public class ReportGenerator {
 
     	ArrayList<String> labelList = new ArrayList<String>();
     	ArrayList<String> list = new ArrayList<String>();
+    	
         if (!ProcessDAOHelper.fetchProcessBySID(sID)) {
         	labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.TID.toString());
         	labelList.add(SampleKeyEnum.Process.toString() + " " + ProcessKeyEnum.User.toString());
@@ -229,93 +294,7 @@ public class ReportGenerator {
         resultList.get(resultList.size()-1).addAll(list);
         return labelList;
     }
-    public void getlabelListbyMID(ArrayList<String> labelList) {
-    	labelList.add(SampleKeyEnum.SID.toString());
-    	labelList.add(SampleKeyEnum.Type.toString());
-    	labelList.add(SampleKeyEnum.User.toString());
-    	labelList.add(SampleKeyEnum.DateTime.toString());
-    	labelList.add(SampleKeyEnum.Quantity.toString());
-    	labelList.add(SampleKeyEnum.Unit.toString());
-    	labelList.add(SampleKeyEnum.Comments.toString());
-    	labelList.add(SampleKeyEnum.Receive.toString());
-    	labelList.add(SampleKeyEnum.Storage.toString());
-        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString());
-        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString() + "_" + SampleKeyEnum.Comments.toString());
-        
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.TID.toString());
-        labelList.add(SampleKeyEnum.Process.toString() + " " + ProcessKeyEnum.User.toString());        
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.DateTime.toString());        
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Comments.toString());
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Steps.toString());
-
-    }
-	public void getSampleDataByMID(ArrayList<String> resultList, ArrayList<String> labelList) {
-
-        labelList.add(SampleKeyEnum.SID.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.SID.toString()));
-        labelList.add(SampleKeyEnum.Type.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Type.toString()));
-        labelList.add(SampleKeyEnum.User.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.User.toString()));
-        labelList.add(SampleKeyEnum.DateTime.toString());
-        resultList.add(SampleDAOHelper.getSample().getDate(SampleKeyEnum.DateTime.toString()).toString());
-        labelList.add(SampleKeyEnum.Quantity.toString());
-        resultList.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
-        labelList.add(SampleKeyEnum.Unit.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
-        labelList.add(SampleKeyEnum.Comments.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
-
-        labelList.add(SampleKeyEnum.Receive.toString());
-        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
-            Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
-            String strRecv = printTagsToString(doc);
-            resultList.add(strRecv);
-        } else {
-            resultList.add(" ");
-        }
-
-        labelList.add(SampleKeyEnum.Storage.toString());
-        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString());
-        labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString() + "_" + SampleKeyEnum.Comments.toString());
-
-        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Storage.toString())) {
-            Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Storage.toString());
-            String strStorg = printStorageToString(doc);
-            resultList.add(strStorg);
-            resultList.add(doc.getString(SampleKeyEnum.User.toString()));
-            resultList.add(doc.getString(SampleKeyEnum.Comments.toString()));
-        } else {
-            resultList.add(" ");
-            resultList.add(" ");
-            resultList.add(" ");
-        }
-        return;
-    }
-    public void getProcessDataByMID(ArrayList<String> resultList, ArrayList<String> labelList) {
-
-        if (!ProcessDAOHelper.fetchProcessBySID(sIDTextField.getText().trim())) {
-            return;
-        }
-
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.TID.toString());
-        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.TID.toString()));
-        labelList.add(SampleKeyEnum.Process.toString() + " " + ProcessKeyEnum.User.toString());
-        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.User.toString()));
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.DateTime.toString());
-        resultList.add(ProcessDAOHelper.getProcessDoc().getDate(ProcessKeyEnum.DateTime.toString()).toString());
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Comments.toString());
-        resultList.add(ProcessDAOHelper.getProcessDoc().getString(ProcessKeyEnum.Comments.toString()));
-
-        labelList.add(SampleKeyEnum.Process.toString() + "_" + ProcessKeyEnum.Steps.toString());
-        if (ProcessDAOHelper.getProcessDoc().containsKey(ProcessKeyEnum.Steps.toString())) {
-            Document doc = (Document) ProcessDAOHelper.getProcessDoc().get(ProcessKeyEnum.Steps.toString());
-            String stepsRecv = printTagsToString(doc);
-            resultList.add(stepsRecv);
-        } else {
-            resultList.add(" ");
-        }
-    }
+	
     private String printTagsToString(Document doc) {
         String tagsStr = "";
         if (null == doc || doc.isEmpty()) {
@@ -357,4 +336,68 @@ public class ReportGenerator {
 
         return storageStr;
     }
+	private ArrayList<String> getSIDListFromSampleDataDate()
+	{
+		ArrayList<String> SIDList = new ArrayList<String>();
+		ArrayList fetchTemplate =null;
+		  Date fromDate = (Date) datePickerFrom.getModel().getValue();
+		  Date toDate = (Date) datePickerTo.getModel().getValue();
+		  if(fromDate==null ||toDate == null )return null;
+		  fromDate = resetDate(fromDate);
+		  toDate = resetDate(toDate);
+
+		  if(fromDate.compareTo(toDate)==0)
+			  toDate = AddOneDay(toDate);
+		  else if(fromDate.compareTo(toDate)>0) {
+			  JOptionPane.showMessageDialog(parentFrame, "From date must be before To date");
+			  return null;
+		  }
+		  BasicDBObject query = new BasicDBObject();
+		  query.put(SampleKeyEnum.DateTime.toString(), new BasicDBObject("$gt", fromDate).append("$lt", toDate));
+		  query.put(SampleKeyEnum.Active.toString(), 1);
+		  
+		  
+	      if (SampleDAO.getInstance().connDAO()) {
+	    	  SampleDAO.getInstance().setCollection();
+	          fetchTemplate = ((SampleDAO)SampleDAO.getInstance()).fetch(query);
+	      }
+	      ProcessDAO.getInstance().closeDBConn();
+	      
+	      if(fetchTemplate!=null&& fetchTemplate.size()>0) {
+	    	  for(int i=0;i<fetchTemplate.size();i++) {
+		    	  Document d=(Document)(fetchTemplate.get(i));
+	    		  if(d.containsKey(ProcessKeyEnum.SID.toString())) {
+	    			  String SID = (String) d.get(ProcessKeyEnum.SID.toString());
+	    			  SIDList.add(SID);
+	    		  }
+	    	  }
+	      }
+	      System.out.println(SIDList.toString());
+	      return SIDList;
+		
+	}
+	      private Date resetDate(Date d)
+	  	{
+	  		  Calendar cal = Calendar.getInstance();
+	  		  cal.setTime(d);
+	  	      cal.set(Calendar.HOUR_OF_DAY, 0);  
+	  	      cal.set(Calendar.MINUTE, 0);  
+	  	      cal.set(Calendar.SECOND, 0);  
+	  	      cal.set(Calendar.MILLISECOND, 0);  
+	  	      return cal.getTime(); 
+
+	  		  
+	  	}
+	  	private Date AddOneDay(Date d)
+	  	{
+	  		  Calendar cal = Calendar.getInstance();
+	  		  cal.setTime(d);
+	  	      cal.set(Calendar.HOUR_OF_DAY, 23);  
+	  	      cal.set(Calendar.MINUTE, 59);  
+	  	      cal.set(Calendar.SECOND, 59);  
+	  	      cal.set(Calendar.MILLISECOND, 999);  
+	  	      return cal.getTime(); 
+
+	  		  
+	  	}
 }
