@@ -36,6 +36,7 @@ public class SampleDAO extends AbstractDAO {
 
     @Override
     public  MongoCollection getCollection() {
+    	if(sampleCollection==null)setCollection();
         return sampleCollection;
     }
 
@@ -98,6 +99,7 @@ public class SampleDAO extends AbstractDAO {
             searchQuery.put(SampleKeyEnum.Active.toString(), 1);
             //searchQuery.put(SampleKeyEnum.SID.toString(), sid);
             searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile(sid , Pattern.CASE_INSENSITIVE));
+            
             docFetched = (Document) sampleCollection.find(searchQuery).first();
 
         } catch (Exception e) {
@@ -187,6 +189,7 @@ public class SampleDAO extends AbstractDAO {
 		// TODO Auto-generated method stub
 		if(DAO==null)
 			DAO = new SampleDAO();
+		if(DAO.sampleCollection==null)DAO.setCollection();
 		return DAO;
 	}
 

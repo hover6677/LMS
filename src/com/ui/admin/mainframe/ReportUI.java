@@ -31,9 +31,12 @@ import org.jdatepicker.impl.UtilDateModel;
 import com.db.mongodb.admin.helper.ExportToExcelAction;
 import com.db.mongodb.admin.helper.JTablePrint;
 import com.db.mongodb.admin.helper.LMSUtils;
+import com.db.mongodb.admin.helper.ReportGenerator;
+import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
+import com.document.enumeration.MaterialKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
@@ -61,6 +64,7 @@ public class ReportUI extends JPanel {
 	private JTextField textField_2;
 	private JButton btnExportToExcel;
 	private JButton btnPrintButton;
+	private JTextField text_Material;
 	public ReportUI() {
 		
 		labels = new ArrayList<String>();
@@ -109,7 +113,8 @@ public class ReportUI extends JPanel {
 		});
 		
 		JButton button = new JButton("Search");
-		button.setBounds(421, 40, 115, 30);
+		button.setToolTipText("Please fill Sample ID or Material ID. If both are provided, only Sample ID will be used.");
+		button.setBounds(421, 58, 115, 30);
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -122,15 +127,15 @@ public class ReportUI extends JPanel {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(203, 41, 182, 30);
+		textField.setBounds(203, 27, 182, 23);
 		add(textField);
 		
 		JLabel label = new JLabel("SID");
-		label.setBounds(160, 44, 34, 16);
+		label.setBounds(105, 30, 89, 16);
 		add(label);
 		
 		JLabel lblFrom = new JLabel("From");
-		lblFrom.setBounds(160, 98, 34, 16);
+		lblFrom.setBounds(105, 98, 89, 16);
 		add(lblFrom);
 		
 		Properties p = new Properties();
@@ -156,7 +161,7 @@ public class ReportUI extends JPanel {
 		add(btnFilterByDate);
 		
 		JLabel lblTo = new JLabel("To");
-		lblTo.setBounds(160, 138, 34, 16);
+		lblTo.setBounds(105, 138, 89, 16);
 		add(lblTo);
 		
 		
@@ -187,6 +192,15 @@ public class ReportUI extends JPanel {
 		});
 		btnPrintButton.setBounds(382, 375, 154, 25);
 		add(btnPrintButton);
+		
+		JLabel lblMaterialId = new JLabel("Material ID");
+		lblMaterialId.setBounds(105, 65, 89, 16);
+		add(lblMaterialId);
+		
+		text_Material = new JTextField();
+		text_Material.setColumns(10);
+		text_Material.setBounds(203, 62, 182, 23);
+		add(text_Material);
 			
 		
 	}
@@ -200,12 +214,10 @@ public class ReportUI extends JPanel {
 		  BasicDBObject ref = new BasicDBObject();
 		  ref.put(SampleKeyEnum.Active.toString(), 1);
 		  ref.put(SampleKeyEnum.SID.toString(), Pattern.compile(textField.getText() , Pattern.CASE_INSENSITIVE));
+		  
 //		  sampleDoc.append(SampleKeyEnum.Active.toString(), 1);
 //		  sampleDoc.append(SampleKeyEnum.SID.toString(), "?i:"+textField.getText());
-		  if(textField.getText()==null||textField.getText().equals("")) {
-			  JOptionPane.showMessageDialog(this, "Please enter a SID");
-			  return;
-		  }
+
 	      if (SampleDAO.getInstance().connDAO()) {
 	    	  SampleDAO.getInstance().setCollection();
 	          //fetchTemplate = SampleDAO.getInstance().fetch(sampleDoc);
@@ -357,7 +369,8 @@ public class ReportUI extends JPanel {
 		  ArrayList fetchTemplate =null;
 		  BasicDBObject ref = new BasicDBObject();
 		  ref.append(ProcessKeyEnum.Active.toString(), 1);
-		  ref.append(ProcessKeyEnum.SID.toString(), Pattern.compile(textField.getText() , Pattern.CASE_INSENSITIVE));
+		  ref.put(SampleKeyEnum.SID.toString(), Pattern.compile(textField.getText() , Pattern.CASE_INSENSITIVE));
+		  
 //		  Document processDoc = new Document();
 //		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);
 //		  processDoc.append(ProcessKeyEnum.SID.toString(), textField.getText());
@@ -431,28 +444,64 @@ public class ReportUI extends JPanel {
 	
 		}
 
+	private void getMaterialData(ArrayList<String> resultList, ArrayList<String> labelList) {
+		// TODO Auto-generated method stub
+		  ArrayList<String> result = new ArrayList<String>();
+		  ArrayList fetchMaterial =null;
+		  BasicDBObject ref = new BasicDBObject();
+		  ref.append(ProcessKeyEnum.Active.toString(), 1);
+		  ref.put(MaterialKeyEnum.MID.toString(), Pattern.compile(text_Material.getText() , Pattern.CASE_INSENSITIVE));
+		  
+//		  Document processDoc = new Document();
+//		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+//		  processDoc.append(ProcessKeyEnum.SID.toString(), textField.getText());
+	      if (MaterialDAO.getInstance().connDAO()) {
+	    	  MaterialDAO.getInstance().setCollection();
+	          fetchMaterial = MaterialDAO.getInstance().fetch(ref);
+	      }
+	      MaterialDAO.getInstance().closeDBConn();
+	      if(fetchMaterial!=null&& fetchMaterial.size()>0) {
+	    	  for(int i = 0; i<fetchMaterial.size();i++) {
+	    		  Document d=(Document)(fetchMaterial.get(i));
+	    		  if(d.containsKey(ProcessKeyEnum.Steps.toString())) {
+	    			  Document stepDoc = (Document) d.get(ProcessKeyEnum.Steps.toString());
+	    			  Set<String> set = stepDoc.keySet();
+	    			  for(String s: set) {
+	    				  result.add((String) stepDoc.get(s));
+	    				  labelList.add(s);
+	    			  }
+	    		  }
+	    	  }
+	      }
+	      resultList.addAll(result);
+	}
+
 	public void upda() {
 		
-		ArrayList<String> resultList = new ArrayList<String>();
-		ArrayList<String> labelList = new ArrayList<String>();
-		ReadData(resultList, labelList);
-		Object[][] dataArray = { (Object[]) resultList.toArray()};
-		Object[] labelArray =  labelList.toArray();
-		
-
-		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
-		
-		
-		table = new JTable(dataArray, labelArray);
+//		ArrayList<String> resultList = new ArrayList<String>();
+//		ArrayList<String> labelList = new ArrayList<String>();
+//		ReadData(resultList, labelList);
+//		Object[][] dataArray = { (Object[]) resultList.toArray()};
+//		Object[] labelArray =  labelList.toArray();
+//		
+//
+//		if(LMSUtils.checkEmpty(dataArray,labelArray,this))return;
+//		
+//		
+//		table = new JTable(dataArray, labelArray);
+//		table.updateUI();
+//		if(table.getModel().getRowCount()>0)
+//		{
+//				btnExportToExcel.setEnabled(true);
+//				btnPrintButton.setEnabled(true);
+//		}
+//		scrollPane.setViewportView(table);
+//		scrollPane.updateUI();
+		ReportGenerator rg= new ReportGenerator(textField,text_Material,this,table,btnExportToExcel);
+		//System.out.println(rg.getTableModel().getColumnCount());
+		table.setModel(rg.getTableModel());
 		table.updateUI();
-		if(table.getModel().getRowCount()>0)
-		{
-				btnExportToExcel.setEnabled(true);
-				btnPrintButton.setEnabled(true);
-		}
-		scrollPane.setViewportView(table);
-		scrollPane.updateUI();
-
+		btnExportToExcel.setEnabled(true);
 		this.updateUI();
 	}
 	public void updaDate() {
@@ -499,16 +548,26 @@ public class ReportUI extends JPanel {
 
 	public void ReadData(ArrayList<String> resultList,ArrayList<String> labelList)
 	{
-	
-		getSampleData(resultList,labelList);
-		if(resultList.size()==0||labelList.size()==0)return;
-		getProcessData(resultList,labelList);
+	    if((textField.getText()==null||textField.getText().equals(""))&&(text_Material.getText()==null||text_Material.getText().equals(""))) {
+			  JOptionPane.showMessageDialog(this, "Please enter a SID or a Material ID");
+			  return;
+		}
+	    if((textField.getText()!=null&&!textField.getText().equals(""))) {
+			getSampleData(resultList,labelList);
+			if(resultList.size()==0||labelList.size()==0)return;
+			getProcessData(resultList,labelList);
+			return;
+	    }else
+	    {
+	    	getMaterialData(resultList,labelList);
+	    }
 		
 	
 	
 		
 		
 	}
+
 
 	private void ReadDataFromDate(ArrayList<ArrayList<String>> resultList, ArrayList<ArrayList<String>> labelList) {
 		// TODO Auto-generated method stub

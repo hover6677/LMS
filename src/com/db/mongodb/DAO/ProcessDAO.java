@@ -36,6 +36,8 @@ public class ProcessDAO extends AbstractDAO {
     
     @Override
     public MongoCollection getCollection() {
+    	if(processCollection==null)
+    		setCollection();
         return processCollection;
     }
 
@@ -169,6 +171,7 @@ public class ProcessDAO extends AbstractDAO {
 		// TODO Auto-generated method stub
 		if(DAO==null)
 			DAO = new ProcessDAO();
+		if(DAO.processCollection==null)DAO.setCollection();
 		return DAO;
 	}
 

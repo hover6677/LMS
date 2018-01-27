@@ -9,6 +9,8 @@ import com.document.enumeration.MaterialKeyEnum;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import org.bson.Document;
 
 /**
@@ -123,12 +125,12 @@ public class MaterialDAO extends AbstractDAO {
    }
 
     public Document isMaterialFound(String mid) {
-        Document searchQuery = new Document();
+    	BasicDBObject searchQuery = new BasicDBObject();
         Document docFetched = null;
         try {
             searchQuery.put(MaterialKeyEnum.Active.toString(), 1);
-            searchQuery.put(MaterialKeyEnum.MID.toString(), mid);
-
+            //searchQuery.put(MaterialKeyEnum.MID.toString(), mid);
+            searchQuery.put(MaterialKeyEnum.MID.toString(), Pattern.compile(mid , Pattern.CASE_INSENSITIVE));
             docFetched = (Document) materialCollection.find(searchQuery).first();
 
         } catch (Exception e) {
@@ -227,6 +229,7 @@ public class MaterialDAO extends AbstractDAO {
         if (DAO == null) {
             DAO = new MaterialDAO();
         }
+        if (DAO.materialCollection==null) DAO.setCollection();
         return DAO;
     }
 
