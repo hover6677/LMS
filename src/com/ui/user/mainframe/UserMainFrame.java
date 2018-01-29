@@ -201,7 +201,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         msgLabel = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LMS");
@@ -813,7 +812,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
 
         excelBtn.setText("Export To Excel");
-        excelBtn.setEnabled(false);
         excelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excelBtnActionPerformed(evt);
@@ -901,15 +899,6 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         msgLabel.setForeground(new java.awt.Color(255, 0, 0));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/print_icon.png"))); // NOI18N
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setBorderPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -920,8 +909,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     .add(jTabbedPane1)
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(jLabel1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, Short.MAX_VALUE))
                     .add(jPanel7Layout.createSequentialGroup()
                         .add(clearBtn, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(27, 27, 27)
@@ -934,9 +922,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(13, 13, 13)
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 501, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1349,35 +1335,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        Runnable myRunnable = new Runnable() {
-
-            public void run() {
-                JButton bu = (JButton) evt.getSource();
-                PrinterJob pjob = PrinterJob.getPrinterJob();
-                PageFormat preformat = pjob.defaultPage();
-                preformat.setOrientation(PageFormat.LANDSCAPE);
-                PageFormat postformat = pjob.pageDialog(preformat);
-                //If user does not hit cancel then print.
-                if (preformat != postformat) {
-                    //Set print component
-                    pjob.setPrintable(new Printer(bu.getRootPane()), postformat);
-                    if (pjob.printDialog()) {
-                        try {
-                            pjob.print();
-                        } catch (PrinterException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        };
-        Thread thread = new Thread(myRunnable);
-        thread.start();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
         // TODO add your handling code here:
     	ExportToExcelAction eeAction = new ExportToExcelAction(jTable1,"Report");
@@ -1622,7 +1579,6 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBoxTags;
     private javax.swing.JComboBox<String> jComboBoxTags1;
     private javax.swing.JComboBox<String> jComboBoxTags2;
@@ -1697,6 +1653,8 @@ public class UserMainFrame extends javax.swing.JFrame {
                 } else {
                     doc = prepareProcessDoc();
                     ProcessDAO.getInstance().addOrUpdate(doc);
+                    doc.remove(ProcessKeyEnum.Steps.toString());
+                    SampleDAO.getInstance().addOrUpdate(doc);
                     updateMaterialDoc(doc);
                 }
                 break;
