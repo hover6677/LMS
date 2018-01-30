@@ -735,7 +735,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel14.setText("To");
 
         jButton4.setText("Filter By Date");
-        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -770,6 +769,8 @@ public class UserMainFrame extends javax.swing.JFrame {
         });
 
         jLabel16.setText("Material ID");
+
+        jTextField6.setEnabled(false);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

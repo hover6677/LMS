@@ -75,6 +75,11 @@ public class ReportGenerator {
         
         table=new JTable(dataArray,labelArray);
         table.setGridColor(Color.BLACK);
+        
+        this.table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(this.table);
+        tca.adjustColumns();
+        
         this.table.updateUI();
 		if(this.table.getModel().getRowCount()>0)
 		{
@@ -126,6 +131,11 @@ public class ReportGenerator {
         
         table=new JTable(dataArray,labelArray);
         table.setGridColor(Color.BLACK);
+        
+        this.table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(this.table);
+        tca.adjustColumns();
+        
         this.table.updateUI();
 		if(this.table.getModel().getRowCount()>0)
 		{
@@ -216,27 +226,27 @@ public class ReportGenerator {
 		ArrayList<String> list = new ArrayList<String>();
         labelList.add(SampleKeyEnum.SID.toString());
         list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.SID.toString()));
-        labelList.add(SampleKeyEnum.Type.toString());
-        list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Type.toString()));
+        labelList.add(SampleKeyEnum.MID.toString());
+        list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.MID.toString()));
         labelList.add(SampleKeyEnum.User.toString());
         list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.User.toString()));
         labelList.add(SampleKeyEnum.DateTime.toString());
         list.add(SampleDAOHelper.getSample().getDate(SampleKeyEnum.DateTime.toString()).toString());
-        labelList.add(SampleKeyEnum.Quantity.toString());
-        list.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
-        labelList.add(SampleKeyEnum.Unit.toString());
-        list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
+        //labelList.add(SampleKeyEnum.Quantity.toString());
+        //list.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
+        //labelList.add(SampleKeyEnum.Unit.toString());
+        //list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
         labelList.add(SampleKeyEnum.Comments.toString());
         list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
 
         //labelList.add(SampleKeyEnum.Receive.toString());
-        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
+        /*if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
             Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
             String strRecv = printTagsToString(doc);
             list.add(strRecv);
         } else {
         	list.add(" ");
-        }
+        }*/
 
         labelList.add(SampleKeyEnum.Storage.toString());
         labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString());
