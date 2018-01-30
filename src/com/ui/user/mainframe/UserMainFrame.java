@@ -89,6 +89,7 @@ import com.db.mongodb.admin.helper.Printer;
 import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import com.db.mongodb.admin.helper.TableColumnAdjuster;
 
 public class UserMainFrame extends javax.swing.JFrame {
 
@@ -380,8 +381,8 @@ public class UserMainFrame extends javax.swing.JFrame {
                                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 112, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(43, 43, 43)
+                                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                             .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -745,74 +746,21 @@ public class UserMainFrame extends javax.swing.JFrame {
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setBackground(java.awt.SystemColor.controlHighlight);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "SID", "Type", "User", "Receive Date", "Quantity Received", "Unit", "Comments", "Receive", "Storage", "Storage_User", "Storage_Comments", "Process_TID", "Process_Date", "Process_User", "Process_Comments", "Process_Steps"
+                "SID", "MID", "UserID", "Creation_Time", "Comments", "Storage", "Storage_UserID", "Storage_Comments", "Process_ID", "Processed_By", "Process_time", "Process_Commnets", "Steps"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable1.setDragEnabled(true);
         jTable1.setGridColor(new java.awt.Color(51, 51, 51));
         jTable1.setRowHeight(20);
         jScrollPane7.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(200);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(400);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(400);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(120);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(120);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(400);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(120);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setPreferredWidth(120);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(13).setResizable(false);
-            jTable1.getColumnModel().getColumn(13).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(14).setMinWidth(160);
-            jTable1.getColumnModel().getColumn(14).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(14).setMaxWidth(400);
-            jTable1.getColumnModel().getColumn(15).setMinWidth(160);
-            jTable1.getColumnModel().getColumn(15).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(15).setMaxWidth(400);
-        }
 
         excelBtn.setText("Export To Excel");
         excelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -853,6 +801,9 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(excelBtn))
         );
+
+        jPanel1Layout.linkSize(new java.awt.Component[] {excelBtn, jButton2, jButton4}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
@@ -1321,8 +1272,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
             this.saveBtn.setEnabled(false);
 
-        }
-        else {
+        } else {
             this.saveBtn.setEnabled(true);
             UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(0);
@@ -1351,7 +1301,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
     private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
         // TODO add your handling code here:
-    	ExportToExcelAction eeAction = new ExportToExcelAction(jTable1,"Report");
+        ExportToExcelAction eeAction = new ExportToExcelAction(jTable1, "Report");
     }//GEN-LAST:event_excelBtnActionPerformed
 
     /*private void clearCountLabel() {
@@ -1678,8 +1628,9 @@ public class UserMainFrame extends javax.swing.JFrame {
                 break;
             case Storage:
                 doc = prepareStorageDoc();
-                if(null==doc)
+                if (null == doc) {
                     return false;
+                }
                 SampleDAO.getInstance().addOrUpdate(doc);
                 break;
             default:
@@ -1762,22 +1713,20 @@ public class UserMainFrame extends javax.swing.JFrame {
             if (null != ((JRadioButton) UserMainFrameApp.labelList.get(i)).getSelectedObjects()) {
                 Document subObj = new Document();
                 double updatedQ = caculateQuantity(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim(), ((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(), inFlag);
-                if(updatedQ<0)
-                {
+                if (updatedQ < 0) {
                     this.msgLabel.setText(MessageEnum.QuantityMisMatch.getMsg());
                     return null;
                 }
-                subObj.append(SampleKeyEnum.Quantity.toString(),updatedQ);
+                subObj.append(SampleKeyEnum.Quantity.toString(), updatedQ);
                 subObj.append(SampleKeyEnum.Unit.toString(), ((JComboBox) UserMainFrameApp.dropDownList.get(i)).getSelectedItem().toString());
                 objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
             }
         }
-               
+
         MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS);
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
     }
-    
 
     private double caculateQuantity(String current, String delta, boolean inflag) {
         return UserMainFrameApp.getDoubleFromString(current) + (((inflag) ? 1 : -1) * UserMainFrameApp.getDoubleFromString(delta));
@@ -1796,12 +1745,16 @@ public class UserMainFrame extends javax.swing.JFrame {
         ReadData(resultList, labelList);
         Object[] rArray = resultList.toArray();
         model.insertRow(0, rArray);
+
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(jTable1);
+        tca.adjustColumns();
+
         this.jTable1.updateUI();
-		if(this.jTable1.getModel().getRowCount()>0)
-		{
-				this.excelBtn.setEnabled(true);
-				
-		}
+        if (this.jTable1.getModel().getRowCount() > 0) {
+            this.excelBtn.setEnabled(true);
+
+        }
     }
 
     public void ReadData(ArrayList<String> resultList, ArrayList<String> labelList) {
@@ -1816,6 +1769,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         if (resultList.size() != labelList.size()) {
             JOptionPane.showMessageDialog(this, "Records Display could be error");
         }
+
     }
 
     private void ReadDataFromDate(ArrayList<ArrayList<String>> resultList, ArrayList<ArrayList<String>> labelList) {
@@ -1838,28 +1792,27 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         labelList.add(SampleKeyEnum.SID.toString());
         resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.SID.toString()));
-        labelList.add(SampleKeyEnum.Type.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Type.toString()));
+        labelList.add(SampleKeyEnum.MID.toString());
+        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.MID.toString()));
         labelList.add(SampleKeyEnum.User.toString());
         resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.User.toString()));
         labelList.add(SampleKeyEnum.DateTime.toString());
         resultList.add(SampleDAOHelper.getSample().getDate(SampleKeyEnum.DateTime.toString()).toString());
-        labelList.add(SampleKeyEnum.Quantity.toString());
-        resultList.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
-        labelList.add(SampleKeyEnum.Unit.toString());
-        resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
+        //labelList.add(SampleKeyEnum.Quantity.toString());
+        //resultList.add(SampleDAOHelper.getSample().getDouble(SampleKeyEnum.Quantity.toString()).toString());
+        //labelList.add(SampleKeyEnum.Unit.toString());
+        //resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Unit.toString()));
         labelList.add(SampleKeyEnum.Comments.toString());
         resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
 
         //labelList.add(SampleKeyEnum.Receive.toString());
-        if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
+        /*if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
             Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
             String strRecv = printTagsToString(doc);
             resultList.add(strRecv);
         } else {
             resultList.add(" ");
-        }
-
+        }*/
         labelList.add(SampleKeyEnum.Storage.toString());
         labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString());
         labelList.add(SampleKeyEnum.Storage.toString() + "_" + SampleKeyEnum.User.toString() + "_" + SampleKeyEnum.Comments.toString());

@@ -176,8 +176,8 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
                                                           <Component id="jLabel4" min="-2" pref="64" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="jTextField4" min="-2" pref="112" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                                          <Component id="jTextField4" min="-2" pref="81" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="jComboBoxTags1" min="-2" pref="69" max="-2" attributes="0"/>
                                                       </Group>
@@ -1059,13 +1059,13 @@
                           </Group>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton4" pref="121" max="32767" attributes="0"/>
-                              <Component id="jButton2" max="32767" attributes="0"/>
+                              <Component id="jButton4" linkSize="10" pref="121" max="32767" attributes="0"/>
+                              <Component id="jButton2" linkSize="10" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="excelBtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="excelBtn" linkSize="10" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1152,114 +1152,28 @@
                   <SubComponents>
                     <Component class="javax.swing.JTable" name="jTable1">
                       <Properties>
+                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="e3" green="e3" id="Control Highlight" palette="2" red="e3" type="palette"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="16" rowCount="0">
-                            <Column editable="false" title="SID" type="java.lang.String"/>
-                            <Column editable="false" title="Type" type="java.lang.String"/>
-                            <Column editable="false" title="User" type="java.lang.String"/>
-                            <Column editable="false" title="Receive Date" type="java.lang.String"/>
-                            <Column editable="false" title="Quantity Received" type="java.lang.String"/>
-                            <Column editable="false" title="Unit" type="java.lang.String"/>
-                            <Column editable="false" title="Comments" type="java.lang.String"/>
-                            <Column editable="false" title="Receive" type="java.lang.String"/>
-                            <Column editable="false" title="Storage" type="java.lang.String"/>
-                            <Column editable="false" title="Storage_User" type="java.lang.String"/>
-                            <Column editable="false" title="Storage_Comments" type="java.lang.String"/>
-                            <Column editable="false" title="Process_TID" type="java.lang.String"/>
-                            <Column editable="false" title="Process_Date" type="java.lang.String"/>
-                            <Column editable="false" title="Process_User" type="java.lang.String"/>
-                            <Column editable="false" title="Process_Comments" type="java.lang.String"/>
-                            <Column editable="false" title="Process_Steps" type="java.lang.String"/>
+                          <Table columnCount="13" rowCount="0">
+                            <Column editable="true" title="SID" type="java.lang.Object"/>
+                            <Column editable="true" title="MID" type="java.lang.Object"/>
+                            <Column editable="true" title="UserID" type="java.lang.Object"/>
+                            <Column editable="true" title="Creation_Time" type="java.lang.Object"/>
+                            <Column editable="true" title="Comments" type="java.lang.Object"/>
+                            <Column editable="true" title="Storage" type="java.lang.Object"/>
+                            <Column editable="true" title="Storage_UserID" type="java.lang.Object"/>
+                            <Column editable="true" title="Storage_Comments" type="java.lang.Object"/>
+                            <Column editable="true" title="Process_ID" type="java.lang.Object"/>
+                            <Column editable="true" title="Processed_By" type="java.lang.Object"/>
+                            <Column editable="true" title="Process_time" type="java.lang.Object"/>
+                            <Column editable="true" title="Process_Commnets" type="java.lang.Object"/>
+                            <Column editable="true" title="Steps" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="autoResizeMode" type="int" value="0"/>
-                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                          <TableColumnModel selectionModel="0">
-                            <Column maxWidth="200" minWidth="80" prefWidth="80" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="400" minWidth="80" prefWidth="80" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="400" minWidth="80" prefWidth="80" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="400" minWidth="120" prefWidth="120" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="false">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="400" minWidth="160" prefWidth="160" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="400" minWidth="160" prefWidth="160" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                          </TableColumnModel>
-                        </Property>
                         <Property name="dragEnabled" type="boolean" value="true"/>
                         <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="33" red="33" type="rgb"/>
