@@ -115,9 +115,9 @@ public class SampleDAO extends AbstractDAO {
 
         try {
             softDeleteSample(sampleFound);
-            if (!sampleDoc.containsKey(SampleKeyEnum.Receive.toString())) {
+            /*if (!sampleDoc.containsKey(SampleKeyEnum.Receive.toString())) {
                 sampleDoc.put(SampleKeyEnum.Receive.toString(), sampleFound.get(SampleKeyEnum.Receive.toString()));
-            }
+            }*/
             if (!sampleDoc.containsKey(SampleKeyEnum.Storage.toString())) {
                 sampleDoc.put(SampleKeyEnum.Storage.toString(), sampleFound.get(SampleKeyEnum.Storage.toString()));
             }

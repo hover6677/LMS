@@ -190,7 +190,7 @@ public class LIMSTest {
         objR.append("sugar", subObjR2);
         objR.append(SampleKeyEnum.Comments.toString(), "Red");
         
-        templateDoc.append(SampleKeyEnum.Receive.toString(), objR);
+        //templateDoc.append(SampleKeyEnum.Receive.toString(), objR);
 
         Document objS = new Document();
         objS.append(SampleKeyEnum.Comments.toString(), "blue");

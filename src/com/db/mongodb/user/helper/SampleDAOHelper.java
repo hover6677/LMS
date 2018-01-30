@@ -5,7 +5,9 @@
  */
 package com.db.mongodb.user.helper;
 
+import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.SampleDAO;
+import com.document.enumeration.MaterialKeyEnum;
 import com.document.enumeration.MessageEnum;
 import com.document.enumeration.SampleKeyEnum;
 import com.ui.user.mainapp.UserMainFrameApp;
@@ -20,7 +22,7 @@ import org.bson.Document;
  * @author admin1
  */
 public class SampleDAOHelper {
-    
+
     private static Document sample = new Document();
 
     public static Document getSample() {
@@ -30,15 +32,13 @@ public class SampleDAOHelper {
     public static void setSample(Document sample) {
         SampleDAOHelper.sample = sample;
     }
-          
-    public static boolean fetchSampleBySID(String sid)
-    {
-        sample =  ((SampleDAO)SampleDAO.getInstance()).isSampleFound(sid);
-        return (null!=sample);
+
+    public static boolean fetchSampleBySID(String sid) {
+        sample = ((SampleDAO) SampleDAO.getInstance()).isSampleFound(sid);
+        return (null != sample);
     }
-    
-    public static boolean prepareReceivedSample(String sid, double quatity,String tid,String unit,String type,String remarks,Document objR,Document objS)
-    {
+
+    public static boolean prepareReceivedSample(String sid, double quatity, String tid, String unit, String type, String remarks, Document objR, Document objS) {
         sample = new Document();
         sample.append(SampleKeyEnum.Active.toString(), 1);
         sample.append(SampleKeyEnum.DateTime.toString(), new Date());
@@ -48,70 +48,75 @@ public class SampleDAOHelper {
         sample.append(SampleKeyEnum.Unit.toString(), unit);
         sample.append(SampleKeyEnum.Type.toString(), type);
         sample.append(SampleKeyEnum.Comments.toString(), remarks);
-        sample.append(SampleKeyEnum.Receive.toString(), objR);
+        //sample.append(SampleKeyEnum.Receive.toString(), objR);
         sample.append(SampleKeyEnum.Storage.toString(), objS);
         return true;
     }
 
-    public static MessageEnum  prepareStorage(String sid, String remarks, Document objS, boolean inFlag) {
-        if(!fetchSampleBySID(sid))
-        {
-            return MessageEnum.SampleNotFound;
+    private static double validateQuatity(Document objS) {
+        String mid = sample.getString(SampleKeyEnum.MID.toString());
+        double materialQuality = MaterialDAOHelper.getMaterialQuality(mid);
+        if (materialQuality < 0) {
+            return materialQuality;
+        } else {
+            Iterator<String> it = objS.keySet().iterator();
+            Double totalNew = 0.0;
+            while (it.hasNext()) {
+                String key = it.next().toString();
+                totalNew += ((Document) objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString());
+            }
+            return materialQuality-totalNew;
         }
-        else
-        {
-            if(sample.containsKey(SampleKeyEnum.Storage.toString()))
-            {
+    }
+
+    public static MessageEnum prepareStorage(String sid, String remarks, Document objS) {
+        if (!fetchSampleBySID(sid)) {
+            return MessageEnum.SampleNotFound;
+        } else if (validateQuatity(objS)<0) {
+            return MessageEnum.QuantityNotEnough;
+        } else {
+            
+            
+            double newQuatity = validateQuatity(objS);
+            String mid = sample.getString(SampleKeyEnum.MID.toString());
+            MaterialDAOHelper.fetchMaterialByMID(mid);
+            MaterialDAOHelper.getMaterial().put(MaterialKeyEnum.Quantity.toString(),newQuatity);
+            MaterialDAO.getInstance().addOrUpdate(MaterialDAOHelper.getMaterial());
+            
+            if (sample.containsKey(SampleKeyEnum.Storage.toString())) {
                 Document storageDoc = (Document) sample.get(SampleKeyEnum.Storage.toString());
-                storageDoc = (null!=storageDoc)?storageDoc : new Document();
-                
+                storageDoc = (null != storageDoc) ? storageDoc : new Document();
+
                 Iterator<String> it = objS.keySet().iterator();
-                while(it.hasNext())
-                {
+                while (it.hasNext()) {
                     String key = it.next().toString();
-                    if(storageDoc.containsKey(key))
-                    {
-                        if(((Document) objS.get(key)).getString(SampleKeyEnum.Unit.toString()).equals(((Document) storageDoc.get(key)).getString(SampleKeyEnum.Unit.toString())))
-                        {
+                    if (storageDoc.containsKey(key)) {
+                        if (((Document) objS.get(key)).getString(SampleKeyEnum.Unit.toString()).equals(((Document) storageDoc.get(key)).getString(SampleKeyEnum.Unit.toString()))) {
                             Document pair = new Document();
-                            pair.append(SampleKeyEnum.Quantity.toString(), ((Document)objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString()));
+                            pair.append(SampleKeyEnum.Quantity.toString(), ((Document) objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString()));
                             pair.append(SampleKeyEnum.Unit.toString(), ((Document) objS.get(key)).getString(SampleKeyEnum.Unit.toString()));
-                            storageDoc.put(key,pair);
+                            storageDoc.put(key, pair);
+                        } else {
+                            return MessageEnum.UnitMisMatch;
                         }
-                        else
-                        {
-                           return MessageEnum.UnitMisMatch;
-                        }
-                    }
-                    else
-                    {
+                    } else {
                         storageDoc.append(key, objS.get(key));
                     }
                 }
-                sample.put(SampleKeyEnum.Storage.toString(),storageDoc);
-            }
-            else
-            {
+                sample.put(SampleKeyEnum.Storage.toString(), storageDoc);
+            } else {
                 objS.append(SampleKeyEnum.Comments.toString(), remarks);
-                objS.append(SampleKeyEnum.User.toString(),UserMainFrameApp.getUserName());
+                objS.append(SampleKeyEnum.User.toString(), UserMainFrameApp.getUserName());
                 sample.append(SampleKeyEnum.Storage.toString(), objS);
             }
             return MessageEnum.RecordSaved;
         }
     }
 
-    private static Double updateQuality(boolean inFlag,String key, Document objS, Document storageDoc) {
-        
-        Double delta = (inFlag?1:-1)*((Document) objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString());
-        return((Document) storageDoc.get(key)).getDouble(SampleKeyEnum.Quantity.toString())+delta;
-    }
-    
-    public static Document getStorages()
-    {
+    public static Document getStorages() {
         Document storage = new Document();
-        if(sample.containsKey(SampleKeyEnum.Storage.toString()))
-        {
-            storage =(Document) sample.get(SampleKeyEnum.Storage.toString());
+        if (sample.containsKey(SampleKeyEnum.Storage.toString())) {
+            storage = (Document) sample.get(SampleKeyEnum.Storage.toString());
         }
         return storage;
     }

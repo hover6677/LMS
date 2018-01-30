@@ -229,7 +229,7 @@ public class ReportGenerator {
         labelList.add(SampleKeyEnum.Comments.toString());
         list.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
 
-        labelList.add(SampleKeyEnum.Receive.toString());
+        //labelList.add(SampleKeyEnum.Receive.toString());
         if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
             Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
             String strRecv = printTagsToString(doc);

@@ -18,7 +18,9 @@ public enum MessageEnum {
     NotAllSelected("Please make your selection"),
     RecordSaved("Record Saved Successfully"),
     NumberRequired("Please inpuot an number"),
-    UnitMisMatch("Failed to update quantity due to mismatched  unit");
+    UnitMisMatch("Failed to update quantity due to mismatched  unit"),
+    QuantityMisMatch("Not enough quantity"),
+    QuantityNotEnough("Not enough Material");
     
     private String msg;
 

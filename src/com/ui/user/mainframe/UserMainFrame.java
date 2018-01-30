@@ -197,6 +197,8 @@ public class UserMainFrame extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         excelBtn = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
         clearBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -728,6 +730,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jLabel12.setText("From");
 
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel14.setText("To");
 
         jButton4.setText("Filter By Date");
@@ -818,32 +821,38 @@ public class UserMainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setText("Material ID");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(153, 153, 153)
+            .add(jScrollPane7)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .add(99, 99, 99)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12))
                 .add(24, 24, 24)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField2))
-                .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton4))
-                .add(290, 290, 290)
+                    .add(jTextField2)
+                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .add(61, 61, 61)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jLabel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jLabel16, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(27, 27, 27)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .add(jTextField6))
+                .add(40, 40, 40)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jButton4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .add(jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(excelBtn))
-            .add(jScrollPane7)
         );
-
-        jPanel1Layout.linkSize(new java.awt.Component[] {excelBtn, jButton4}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
@@ -851,18 +860,19 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel11)
                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel16)
+                    .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel14)
+                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(excelBtn))
+                    .add(jLabel14)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
+                .add(excelBtn)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
         );
 
@@ -1147,6 +1157,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 case Storage:
                     this.jRadioButton1.setSelected(true);
                     this.jTextField10.setText("");
+                    this.saveBtn.setEnabled(false);
                     break;
                 default:
                     this.msgLabel.setText("");
@@ -1308,8 +1319,11 @@ public class UserMainFrame extends javax.swing.JFrame {
                 this.jPanel9.updateUI();
             }
             this.msgLabel.setText(MessageEnum.SampleNotFound.getMsg());
+            this.saveBtn.setEnabled(false);
 
-        } else {
+        }
+        else {
+            this.saveBtn.setEnabled(true);
             UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(0);
             if (null != tags) {
@@ -1590,6 +1604,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1629,6 +1644,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JLabel msgLabel;
@@ -1651,15 +1667,19 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.msgLabel.setText(MessageEnum.SampleDuplFound.getMsg());
                     flag = false;
                 } else {
+                    String mid = this.jTextField3.getText().replaceAll(" ", "");
                     doc = prepareProcessDoc();
                     ProcessDAO.getInstance().addOrUpdate(doc);
                     doc.remove(ProcessKeyEnum.Steps.toString());
+                    doc.append(SampleKeyEnum.MID.toString(), mid);
                     SampleDAO.getInstance().addOrUpdate(doc);
                     updateMaterialDoc(doc);
                 }
                 break;
             case Storage:
                 doc = prepareStorageDoc();
+                if(null==doc)
+                    return false;
                 SampleDAO.getInstance().addOrUpdate(doc);
                 break;
             default:
@@ -1707,7 +1727,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     private void updateMaterialDoc(Document doc) {
-        ((MaterialDAO) MaterialDAO.getInstance()).updateSampleList(this.jTextField3.getText().replaceAll(" ", ""), doc.getString(SampleKeyEnum.SID.toString()));
+        ((MaterialDAO) MaterialDAO.getInstance()).updateSampleList(doc.getString(SampleKeyEnum.MID.toString()), doc.getString(SampleKeyEnum.SID.toString()));
         return;
     }
 
@@ -1741,15 +1761,23 @@ public class UserMainFrame extends javax.swing.JFrame {
 
             if (null != ((JRadioButton) UserMainFrameApp.labelList.get(i)).getSelectedObjects()) {
                 Document subObj = new Document();
-                subObj.append(SampleKeyEnum.Quantity.toString(), caculateQuantity(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim(), ((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(), inFlag));
+                double updatedQ = caculateQuantity(((JTextField) UserMainFrameApp.textFiledList.get(i)).getText().trim(), ((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(), inFlag);
+                if(updatedQ<0)
+                {
+                    this.msgLabel.setText(MessageEnum.QuantityMisMatch.getMsg());
+                    return null;
+                }
+                subObj.append(SampleKeyEnum.Quantity.toString(),updatedQ);
                 subObj.append(SampleKeyEnum.Unit.toString(), ((JComboBox) UserMainFrameApp.dropDownList.get(i)).getSelectedItem().toString());
                 objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
             }
         }
-        MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS, inFlag);
+               
+        MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS);
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
     }
+    
 
     private double caculateQuantity(String current, String delta, boolean inflag) {
         return UserMainFrameApp.getDoubleFromString(current) + (((inflag) ? 1 : -1) * UserMainFrameApp.getDoubleFromString(delta));
@@ -1823,7 +1851,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         labelList.add(SampleKeyEnum.Comments.toString());
         resultList.add(SampleDAOHelper.getSample().getString(SampleKeyEnum.Comments.toString()));
 
-        labelList.add(SampleKeyEnum.Receive.toString());
+        //labelList.add(SampleKeyEnum.Receive.toString());
         if (SampleDAOHelper.getSample().containsKey(TemplateTypeEnum.Receive.toString())) {
             Document doc = (Document) SampleDAOHelper.getSample().get(TemplateTypeEnum.Receive.toString());
             String strRecv = printTagsToString(doc);

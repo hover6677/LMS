@@ -10,7 +10,7 @@ package com.document.enumeration;
  * @author admin1
  */
 public enum  SampleKeyEnum {
-    Active,DateTime,User,SID,Type,Receive,Quantity,Unit,Storage,Process,Comments;
+    Active,DateTime,User,SID,Type,MID,Quantity,Unit,Storage,Process,Comments;
 }
 
 

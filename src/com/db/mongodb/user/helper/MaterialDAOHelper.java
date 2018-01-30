@@ -99,12 +99,13 @@ public class MaterialDAOHelper {
             return MessageEnum.RecordSaved;
         }
     }
-
+/*
     private static Double updateQuality(boolean inFlag,String key, Document objS, Document storageDoc) {
         
         Double delta = (inFlag?1:-1)*((Document) objS.get(key)).getDouble(MaterialKeyEnum.Quantity.toString());
         return((Document) storageDoc.get(key)).getDouble(MaterialKeyEnum.Quantity.toString())+delta;
     }
+*/
     
     public static Document getStorages()
     {
@@ -114,5 +115,30 @@ public class MaterialDAOHelper {
             storage =(Document) material.get(MaterialKeyEnum.Storage.toString());
         }
         return storage;
+    }
+    public static double getMaterialQuality(String mid)
+    {
+        if(fetchMaterialByMID(mid))
+        {
+            return material.getDouble(MaterialKeyEnum.Quantity.toString());
+        }
+        else
+        {
+            return -1;
+        }
+        
+    }
+    public static boolean updateMaterialQuality(String mid,double q)
+    {
+        if(fetchMaterialByMID(mid))
+        {
+            material.put(MaterialKeyEnum.Quantity.toString(),q);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 }
