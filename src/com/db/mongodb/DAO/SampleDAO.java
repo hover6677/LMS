@@ -19,14 +19,26 @@ import org.bson.Document;
  */
 public class SampleDAO extends AbstractDAO {
 
-	protected static SampleDAO DAO ;
+    protected static SampleDAO DAO;
     private static MongoCollection sampleCollection = null;
     private static final String CollectionStr = "Sample";
     private static DBConnection DBConn = new DBConnection();
 
-    
     public SampleDAO() {
         SampleDAO.DBConn.dbConnection();
+    }
+
+    public ArrayList getSamplesByMid(String mid) {
+        ArrayList list = new ArrayList();
+
+        Document searchQuery = new Document();
+
+        searchQuery.put(SampleKeyEnum.Active.toString(), 1);
+        searchQuery.put(SampleKeyEnum.MID.toString(), mid);
+
+        sampleCollection.find(searchQuery).into(list);
+
+        return list;
     }
 
     @Override
@@ -35,8 +47,10 @@ public class SampleDAO extends AbstractDAO {
     }
 
     @Override
-    public  MongoCollection getCollection() {
-    	if(sampleCollection==null)setCollection();
+    public MongoCollection getCollection() {
+        if (sampleCollection == null) {
+            setCollection();
+        }
         return sampleCollection;
     }
 
@@ -89,17 +103,17 @@ public class SampleDAO extends AbstractDAO {
             return docFetched;
         }
     }
-    
+
     public Document isSampleFound(String sid) {
         //Document searchQuery = new Document();
-    	BasicDBObject searchQuery = new BasicDBObject();
-		
+        BasicDBObject searchQuery = new BasicDBObject();
+
         Document docFetched = null;
         try {
             searchQuery.put(SampleKeyEnum.Active.toString(), 1);
             //searchQuery.put(SampleKeyEnum.SID.toString(), sid);
-            searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile("^"+sid.trim()+"$", Pattern.CASE_INSENSITIVE));
-            
+            searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile("^" + sid.trim() + "$", Pattern.CASE_INSENSITIVE));
+
             docFetched = (Document) sampleCollection.find(searchQuery).first();
 
         } catch (Exception e) {
@@ -121,8 +135,9 @@ public class SampleDAO extends AbstractDAO {
             if (!sampleDoc.containsKey(SampleKeyEnum.Storage.toString())) {
                 sampleDoc.put(SampleKeyEnum.Storage.toString(), sampleFound.get(SampleKeyEnum.Storage.toString()));
             }
-            if(sampleDoc.containsKey("_id"))
+            if (sampleDoc.containsKey("_id")) {
                 sampleDoc.remove("_id");
+            }
             SampleDAO.sampleCollection.insertOne(sampleDoc);
             return true;
         } catch (Exception e) {
@@ -169,35 +184,36 @@ public class SampleDAO extends AbstractDAO {
     public void closeDBConn() {
         SampleDAO.DBConn.closeDB();
     }
-    
+
     @Override
-    public ArrayList fetch(Document sampleRequest)
-    {
+    public ArrayList fetch(Document sampleRequest) {
         ArrayList finds = new ArrayList();
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
+
     @Override
-    public ArrayList fetch(BasicDBObject sampleRequest)
-    {
+    public ArrayList fetch(BasicDBObject sampleRequest) {
         ArrayList finds = new ArrayList();
         sampleCollection.find(sampleRequest).into(finds);
         return finds;
     }
-    
+
     public static AbstractDAO getInstance() {
-		// TODO Auto-generated method stub
-		if(DAO==null)
-			DAO = new SampleDAO();
-		if(DAO.sampleCollection==null)DAO.setCollection();
-		return DAO;
-	}
+        // TODO Auto-generated method stub
+        if (DAO == null) {
+            DAO = new SampleDAO();
+        }
+        if (DAO.sampleCollection == null) {
+            DAO.setCollection();
+        }
+        return DAO;
+    }
 
 //    @Override
 //    public Document isProcessFound(String sid) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public Document isLoginValid(Document userDoc) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -33,6 +33,14 @@ public class SampleDAOHelper {
         SampleDAOHelper.sample = sample;
     }
 
+    private static ArrayList getOtherSamplesByMID(String mid) {
+        return ((SampleDAO) SampleDAO.getInstance()).getSamplesByMid(mid);
+    }
+
+    public static String getMidBySample() {
+        return sample.getString(SampleKeyEnum.MID.toString());
+    }
+
     public static boolean fetchSampleBySID(String sid) {
         sample = ((SampleDAO) SampleDAO.getInstance()).isSampleFound(sid);
         return (null != sample);
@@ -53,36 +61,34 @@ public class SampleDAOHelper {
         return true;
     }
 
-    private static double validateQuatity(Document objS) {
+    public static String getUnitByMid(String mid) {
+        return MaterialDAOHelper.getMaterialUnit(mid);
+    }
+
+    private static double validateQuatity(double  deltaQuantity) {
         String mid = sample.getString(SampleKeyEnum.MID.toString());
-        double materialQuality = MaterialDAOHelper.getMaterialQuality(mid);
+        double materialQuality = MaterialDAOHelper.getMaterialQuatity(mid);
         if (materialQuality < 0) {
             return materialQuality;
         } else {
-            Iterator<String> it = objS.keySet().iterator();
-            Double totalNew = 0.0;
-            while (it.hasNext()) {
-                String key = it.next().toString();
-                totalNew += ((Document) objS.get(key)).getDouble(SampleKeyEnum.Quantity.toString());
-            }
-            return materialQuality-totalNew;
+            return materialQuality - deltaQuantity;
         }
     }
 
-    public static MessageEnum prepareStorage(String sid, String remarks, Document objS) {
+    public static MessageEnum prepareStorage(String sid, String remarks, Document objS,double deltaQuantity) {
         if (!fetchSampleBySID(sid)) {
+            sample = null;
             return MessageEnum.SampleNotFound;
-        } else if (validateQuatity(objS)<0) {
+        } else if (validateQuatity(deltaQuantity) < 0) {
+            sample = null;
             return MessageEnum.QuantityNotEnough;
         } else {
-            
-            
-            double newQuatity = validateQuatity(objS);
+            double newQuatity = validateQuatity(deltaQuantity);
             String mid = sample.getString(SampleKeyEnum.MID.toString());
             MaterialDAOHelper.fetchMaterialByMID(mid);
-            MaterialDAOHelper.getMaterial().put(MaterialKeyEnum.Quantity.toString(),newQuatity);
+            MaterialDAOHelper.getMaterial().put(MaterialKeyEnum.Quantity.toString(), newQuatity);
             MaterialDAO.getInstance().addOrUpdate(MaterialDAOHelper.getMaterial());
-            
+
             if (sample.containsKey(SampleKeyEnum.Storage.toString())) {
                 Document storageDoc = (Document) sample.get(SampleKeyEnum.Storage.toString());
                 storageDoc = (null != storageDoc) ? storageDoc : new Document();
@@ -102,6 +108,7 @@ public class SampleDAOHelper {
                     } else {
                         storageDoc.append(key, objS.get(key));
                     }
+                    storageDoc.put(SampleKeyEnum.Comments.toString(), remarks);
                 }
                 sample.put(SampleKeyEnum.Storage.toString(), storageDoc);
             } else {

@@ -926,7 +926,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages) {
+    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages,String unit) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
         UserMainFrameApp.deltaTextFiledList.clear();
@@ -981,6 +981,12 @@ public class UserMainFrame extends javax.swing.JFrame {
                 jRadioButton.setSelected(true);
                 jTextFieldD.setText(((Document) storages.get(jRadioButton.getText().trim())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
                 jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText().trim())).get(SampleKeyEnum.Unit.toString()));
+                jComboBox.setEnabled(false);
+            }
+            else
+            {
+                jComboBox.setSelectedItem(unit);
+                jComboBox.setEnabled(false);
             }
 
             jPanel.add(jRadioButton);
@@ -1281,8 +1287,9 @@ public class UserMainFrame extends javax.swing.JFrame {
             this.saveBtn.setEnabled(true);
             UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(0);
+            String unit = SampleDAOHelper.getUnitByMid(SampleDAOHelper.getMidBySample());
             if (null != tags) {
-                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages());
+                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages(),unit);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1749,6 +1756,8 @@ public class UserMainFrame extends javax.swing.JFrame {
         boolean inFlag = (this.jRadioButton1.getSelectedObjects() != null) ? true : false;
 
         Document objS = new Document();
+        //Document objdeltaS = new Document();
+        Double deltaQuantity = 0.0;
         for (int i = 0; i < UserMainFrameApp.labelList.size()
                 && i < UserMainFrameApp.textFiledList.size()
                 && i < UserMainFrameApp.deltaTextFiledList.size()
@@ -1764,12 +1773,41 @@ public class UserMainFrame extends javax.swing.JFrame {
                 subObj.append(SampleKeyEnum.Quantity.toString(), updatedQ);
                 subObj.append(SampleKeyEnum.Unit.toString(), ((JComboBox) UserMainFrameApp.dropDownList.get(i)).getSelectedItem().toString());
                 objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
+
+                double delta = getDeltaQuatity(((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(), inFlag);
+                if(delta<0)
+                {
+                    SampleDAOHelper.setSample(null);
+                    break;
+                }
+                else
+                {
+                    deltaQuantity+=delta;
+                }
             }
         }
 
-        MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS);
+        MessageEnum prepareStorage = SampleDAOHelper.prepareStorage(sid, remarks, objS, deltaQuantity);
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
+    }
+    
+    private double getDeltaQuatity(String delta, boolean inFlag)
+    {
+        double parseDouble = 0.0;
+        if ("".equals(delta))
+        {
+            return parseDouble;
+        }
+        try {
+             parseDouble = inFlag? Double.parseDouble(delta):0.0;
+        } catch (NumberFormatException numberFormatException) {
+            parseDouble = -1.0;
+        }
+        finally
+        {
+            return parseDouble;
+        }
     }
 
     private double caculateQuantity(String current, String delta, boolean inflag) {

@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author admin1
  */
 public enum  UnitEnum {
-    kg,g,mg,L,ml,pack;
+    kg,g,mg,L,ml,pack,undefined;
     
     public static String[] names() {
     return Arrays.toString(UnitEnum.values()).replaceAll("^.|.$", "").split(", ");

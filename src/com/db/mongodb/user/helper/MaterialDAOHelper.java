@@ -8,6 +8,7 @@ package com.db.mongodb.user.helper;
 import com.db.mongodb.DAO.MaterialDAO;
 import com.document.enumeration.MessageEnum;
 import com.document.enumeration.MaterialKeyEnum;
+import com.document.enumeration.UnitEnum;
 import com.ui.user.mainapp.UserMainFrameApp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -116,7 +117,7 @@ public class MaterialDAOHelper {
         }
         return storage;
     }
-    public static double getMaterialQuality(String mid)
+    public static double getMaterialQuatity(String mid)
     {
         if(fetchMaterialByMID(mid))
         {
@@ -128,6 +129,44 @@ public class MaterialDAOHelper {
         }
         
     }
+    public static double getMaterialInitialQuatity(String mid)
+    {
+        if(fetchMaterialByMID(mid))
+        {
+            return getSumQuantity();
+        }
+        else
+        {
+            return -1;
+        }
+        
+    }
+    private static double getSumQuantity()
+    {
+        Document objs = (Document) material.get(MaterialKeyEnum.Storage.toString());
+        Iterator it = objs.keySet().iterator();
+        Double total = 0.0;
+        while(it.hasNext())
+        {
+            String location = it.next().toString();
+            Document objl = (Document) objs.get(location);
+            total += objl.getDouble(MaterialKeyEnum.Quantity.toString());
+        }
+        return total;
+    }
+    public static String getMaterialUnit(String mid)
+    {
+        if(fetchMaterialByMID(mid))
+        {
+            return material.getString(MaterialKeyEnum.Unit.toString());
+        }
+        else
+        {
+            return UnitEnum.undefined.toString();
+        }
+        
+    }
+    
     public static boolean updateMaterialQuality(String mid,double q)
     {
         if(fetchMaterialByMID(mid))
