@@ -756,6 +756,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel14.setText("To");
 
         jButton4.setText("Filter By Date");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -1129,18 +1130,25 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.jComboBoxTags.setSelectedIndex(-1);
                     this.jComboBoxTags3.setSelectedIndex(-1);
                     this.jButton6.setVisible(false);
+                    this.saveBtn.setEnabled(true);
                     break;
                 case Process:
                     this.jComboBoxTags2.setModel(new javax.swing.DefaultComboBoxModel(UserMainFrameApp.getTemplateDAO().fetchTIDList()));
                     this.jComboBoxTags2.setSelectedIndex(-1);
                     this.saveBtn.setEnabled(false);
                     this.jButton5.setVisible(false);
+                    this.resetBtnActionPerformed();
                     break;
                 case Storage:
                     this.jRadioButton1.setSelected(true);
                     this.jTextField10.setText("");
                     this.saveBtn.setEnabled(false);
                     this.jButton3.setVisible(false);
+                    this.resetBtnActionPerformed();
+                    break;
+                case Report:
+                    
+                    this.resetBtnActionPerformed();
                     break;
                 default:
                     this.msgLabel.setText("");
@@ -1232,6 +1240,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             return;
         }
 
+        
         if (!SampleDAOHelper.fetchSampleBySID(this.jTextField2.getText().trim())) {
             JOptionPane.showMessageDialog(this, "SID Not Found");
             return;
@@ -1442,6 +1451,9 @@ public class UserMainFrame extends javax.swing.JFrame {
                 this.jButton3.setVisible(false);
                 this.jPanel9.removeAll();
                 this.jPanel9.updateUI();
+                this.saveBtn.setEnabled(false);
+                break;
+            case Report:
                 this.saveBtn.setEnabled(false);
                 break;
             default:
