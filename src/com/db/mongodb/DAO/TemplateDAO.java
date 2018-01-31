@@ -121,8 +121,9 @@ public class TemplateDAO extends AbstractDAO {
             searchQuery.put(TemplateKeyEnum.Type.toString(), type);
             searchQuery.put(TemplateKeyEnum.TID.toString(), tid);
 
-            BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
-            docFetched = (Document) templateCollection.find(searchQuery).sort(new Document("_id", -1)).limit(1);
+            //BasicDBObject sortObject = new BasicDBObject().append("_id", -1);
+            //docFetched = (Document) templateCollection.find(searchQuery).sort(new Document("_id", -1)).limit(1);
+            docFetched = (Document) templateCollection.find(searchQuery).first();
 
         } catch (Exception e) {
             System.out.println("fetch error");

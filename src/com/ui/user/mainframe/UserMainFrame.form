@@ -14,6 +14,7 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[742, 650]"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -116,7 +117,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="3" title="User View">
+                    <TitledBorder position="3">
                       <Color PropertyName="color" blue="cc" green="0" red="0" type="rgb"/>
                     </TitledBorder>
                   </Border>
@@ -151,7 +152,7 @@
                                   <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="578" max="32767" attributes="0"/>
+                                  <EmptySpace pref="586" max="32767" attributes="0"/>
                                   <Component id="jScrollPane1" min="-2" pref="430" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -168,7 +169,7 @@
                                                       <Group type="102" attributes="0">
                                                           <Component id="jLabel9" linkSize="8" min="-2" pref="76" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jComboBoxTags3" pref="126" max="32767" attributes="0"/>
+                                                          <Component id="jComboBoxTags3" pref="134" max="32767" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" attributes="0">
                                                           <Component id="jLabel3" min="-2" pref="65" max="-2" attributes="0"/>
@@ -521,7 +522,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="3" title="User View">
+                    <TitledBorder position="3">
                       <Color PropertyName="color" blue="cc" green="0" red="0" type="rgb"/>
                     </TitledBorder>
                   </Border>
@@ -742,7 +743,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="973" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="981" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -828,7 +829,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="3" title="User View">
+                    <TitledBorder position="3">
                       <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
                     </TitledBorder>
                   </Border>
@@ -867,7 +868,7 @@
                                           <Component id="jTextField10" min="-2" pref="440" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jButton1" min="-2" pref="94" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" pref="27" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" pref="35" max="32767" attributes="0"/>
                                           <Component id="jLabel10" min="-2" pref="46" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                                           <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
@@ -908,7 +909,7 @@
                               <Component id="jScrollPane6" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace pref="43" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1043,7 +1044,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="3" title="Report">
+                    <TitledBorder position="3">
                       <Font PropertyName="font" name="Tahoma" size="18" style="0"/>
                     </TitledBorder>
                   </Border>
@@ -1074,7 +1075,7 @@
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextField2" max="32767" attributes="0"/>
-                              <Component id="jXDatePicker1" pref="252" max="32767" attributes="0"/>
+                              <Component id="jXDatePicker1" pref="256" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1083,7 +1084,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jXDatePicker2" pref="306" max="32767" attributes="0"/>
+                              <Component id="jXDatePicker2" pref="310" max="32767" attributes="0"/>
                               <Component id="jTextField6" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
@@ -1120,7 +1121,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="excelBtn" linkSize="2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane7" pref="278" max="32767" attributes="0"/>
+                          <Component id="jScrollPane7" pref="308" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

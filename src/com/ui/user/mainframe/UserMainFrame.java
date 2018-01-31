@@ -212,6 +212,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         setTitle("LMS");
         setLocation(new java.awt.Point(320, 200));
         setMinimumSize(new java.awt.Dimension(742, 650));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -230,7 +231,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(java.awt.SystemColor.controlHighlight);
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel2.setMaximumSize(new java.awt.Dimension(480, 203));
         jPanel2.setName("Receive"); // NOI18N
 
@@ -365,7 +366,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jButton6))
                     .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(578, Short.MAX_VALUE)
+                        .addContainerGap(586, Short.MAX_VALUE)
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 430, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(24, 24, 24)
@@ -380,7 +381,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBoxTags3, 0, 126, Short.MAX_VALUE))
+                                                .add(jComboBoxTags3, 0, 134, Short.MAX_VALUE))
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .add(23, 23, 23)
@@ -447,7 +448,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel2.getAccessibleContext().setAccessibleName("Receive");
 
         jPanel4.setBackground(java.awt.SystemColor.controlHighlight);
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 204))); // NOI18N
         jPanel4.setMaximumSize(new java.awt.Dimension(480, 203));
         jPanel4.setName("Process"); // NOI18N
 
@@ -512,7 +513,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 973, Short.MAX_VALUE)
+            .add(0, 981, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -614,7 +615,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel4.getAccessibleContext().setAccessibleName("Process");
 
         jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User View", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 255))); // NOI18N
         jPanel3.setName("Storage"); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -699,7 +700,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                                 .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 440, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18)
                                 .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 27, Short.MAX_VALUE)
+                                .add(18, 35, Short.MAX_VALUE)
                                 .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(111, 111, 111)
                                 .add(jRadioButton1)
@@ -731,14 +732,14 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Storage.png")), jPanel3); // NOI18N
         jPanel3.getAccessibleContext().setAccessibleName("Storage");
 
         jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
         jPanel1.setName("Report"); // NOI18N
 
         jLabel11.setText("Sample ID");
@@ -806,14 +807,14 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(24, 24, 24)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jTextField2)
-                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+                    .add(jXDatePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
                 .add(61, 61, 61)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jLabel14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jLabel16, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(27, 27, 27)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .add(jXDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                     .add(jTextField6))
                 .add(40, 40, 40)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -846,7 +847,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(excelBtn)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);

@@ -32,7 +32,7 @@ public class UMController {
 			return;
 		}
 		myDoc = createDocument(userName, password, isRev, isPro, isStr, isRep);
-		InsertAction ia = new InsertAction("com.db.mongodb.UserManagementDAO",myDoc);
+		InsertAction ia = new InsertAction("com.db.mongodb.DAO.UserManagementDAO",myDoc);
 		ia.action(dao, umUI);
 		umUI.refresh();
 		

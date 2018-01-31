@@ -57,7 +57,7 @@ public class ReceivingUI extends AbstractUI {
             processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
             processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
             processDoc.append(TemplateKeyEnum.Tags.toString(), value);
-            InsertAction ia = new InsertAction("com.db.mongodb.TemplateDAO", processDoc);
+            InsertAction ia = new InsertAction("com.db.mongodb.DAO.TemplateDAO", processDoc);
             ia.action(TemplateDAO.getInstance(), this);
             cleanAll(arrayOfTxtBox);
         }
