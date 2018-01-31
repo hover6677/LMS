@@ -130,7 +130,7 @@ public class MaterialDAO extends AbstractDAO {
         try {
             searchQuery.put(MaterialKeyEnum.Active.toString(), 1);
             //searchQuery.put(MaterialKeyEnum.MID.toString(), mid);
-            searchQuery.put(MaterialKeyEnum.MID.toString(), Pattern.compile(mid , Pattern.CASE_INSENSITIVE));
+            searchQuery.put(MaterialKeyEnum.MID.toString(), Pattern.compile("^"+mid.trim()+"$" , Pattern.CASE_INSENSITIVE));
             docFetched = (Document) materialCollection.find(searchQuery).first();
 
         } catch (Exception e) {

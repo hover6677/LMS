@@ -363,12 +363,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton6))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(586, Short.MAX_VALUE)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 430, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
                         .add(24, 24, 24)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel2Layout.createSequentialGroup()
@@ -381,7 +375,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBoxTags3, 0, 134, Short.MAX_VALUE))
+                                                .add(jComboBoxTags3, 0, 177, Short.MAX_VALUE))
                                             .add(jPanel2Layout.createSequentialGroup()
                                                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .add(23, 23, 23)
@@ -395,14 +389,19 @@ public class UserMainFrame extends javax.swing.JFrame {
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jComboBoxTags1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                             .add(jScrollPane8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(48, 48, 48)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                 .add(18, 18, 18)
                                 .add(jComboBoxTags, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(jLabel17)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jScrollPane4)))))
+                                .add(jScrollPane4))))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jButton6)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 428, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .add(43, 43, 43))
         );
 
@@ -1214,37 +1213,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxTags1ActionPerformed
 
-    private void jComboBoxTagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTagsActionPerformed
-        // TODO add your handling code here:
-
-        if (this.jComboBoxTags.getSelectedIndex() < 0) {
-            this.jPanel6.removeAll();
-            this.jButton6.setVisible(false);
-
-        } else {
-            UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-            ArrayList tags = new ArrayList();
-            tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
-            if (null != tags && !tags.isEmpty()) {
-                drawLabelText(jPanel6, tags, this.jScrollPane1, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
-            }
-            this.jButton6.setVisible(true);
-        }
-    }//GEN-LAST:event_jComboBoxTagsActionPerformed
-
-    private void jComboBoxTagsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTagsItemStateChanged
-        // TODO add your handling code here:
-        if (this.jComboBoxTags.getSelectedIndex() < 0) {
-            this.jPanel6.removeAll();
-            this.jPanel6.updateUI();
-        }
-    }//GEN-LAST:event_jComboBoxTagsItemStateChanged
-
-    private void jComboBoxTagsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTagsFocusGained
-        // TODO add your handling code here:
-        UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
-    }//GEN-LAST:event_jComboBoxTagsFocusGained
-
     private void jComboBoxTags2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTags2FocusGained
         // TODO add your handling code here:
         UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
@@ -1340,6 +1308,37 @@ public class UserMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         ExportToExcelAction eeAction = new ExportToExcelAction(jTable1, "Report");
     }//GEN-LAST:event_excelBtnActionPerformed
+
+    private void jComboBoxTagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTagsActionPerformed
+        // TODO add your handling code here:
+
+        if (this.jComboBoxTags.getSelectedIndex() < 0) {
+            this.jPanel6.removeAll();
+            this.jButton6.setVisible(false);
+
+        } else {
+            UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+            ArrayList tags = new ArrayList();
+            tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
+            if (null != tags && !tags.isEmpty()) {
+                drawLabelText(jPanel6, tags, this.jScrollPane1, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
+            }
+            this.jButton6.setVisible(true);
+        }
+    }//GEN-LAST:event_jComboBoxTagsActionPerformed
+
+    private void jComboBoxTagsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxTagsFocusGained
+        // TODO add your handling code here:
+        UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
+    }//GEN-LAST:event_jComboBoxTagsFocusGained
+
+    private void jComboBoxTagsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTagsItemStateChanged
+        // TODO add your handling code here:
+        if (this.jComboBoxTags.getSelectedIndex() < 0) {
+            this.jPanel6.removeAll();
+            this.jPanel6.updateUI();
+        }
+    }//GEN-LAST:event_jComboBoxTagsItemStateChanged
 
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();

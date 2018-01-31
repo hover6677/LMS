@@ -211,7 +211,7 @@ public class ReportUI extends JPanel {
         Document sampleDoc = new Document();
         BasicDBObject ref = new BasicDBObject();
         ref.put(SampleKeyEnum.Active.toString(), 1);
-        ref.put(SampleKeyEnum.SID.toString(), Pattern.compile(textField.getText(), Pattern.CASE_INSENSITIVE));
+        ref.put(SampleKeyEnum.SID.toString(), Pattern.compile("^"+textField.getText().trim()+"$", Pattern.CASE_INSENSITIVE));
 
 //		  sampleDoc.append(SampleKeyEnum.Active.toString(), 1);
 //		  sampleDoc.append(SampleKeyEnum.SID.toString(), "?i:"+textField.getText());
@@ -352,7 +352,7 @@ public class ReportUI extends JPanel {
         ArrayList fetchTemplate = null;
         BasicDBObject ref = new BasicDBObject();
         ref.append(ProcessKeyEnum.Active.toString(), 1);
-        ref.put(SampleKeyEnum.SID.toString(), Pattern.compile(textField.getText(), Pattern.CASE_INSENSITIVE));
+        ref.put(SampleKeyEnum.SID.toString(), Pattern.compile("^"+textField.getText().trim()+"$", Pattern.CASE_INSENSITIVE));
 
 //		  Document processDoc = new Document();
 //		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);
@@ -434,7 +434,7 @@ public class ReportUI extends JPanel {
         ArrayList fetchMaterial = null;
         BasicDBObject ref = new BasicDBObject();
         ref.append(ProcessKeyEnum.Active.toString(), 1);
-        ref.put(MaterialKeyEnum.MID.toString(), Pattern.compile(text_Material.getText(), Pattern.CASE_INSENSITIVE));
+        ref.put(MaterialKeyEnum.MID.toString(), Pattern.compile("^"+text_Material.getText().trim()+"$", Pattern.CASE_INSENSITIVE));
 
 //		  Document processDoc = new Document();
 //		  processDoc.append(ProcessKeyEnum.Active.toString(), 1);

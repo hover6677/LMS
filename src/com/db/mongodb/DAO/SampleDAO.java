@@ -98,7 +98,7 @@ public class SampleDAO extends AbstractDAO {
         try {
             searchQuery.put(SampleKeyEnum.Active.toString(), 1);
             //searchQuery.put(SampleKeyEnum.SID.toString(), sid);
-            searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile(sid , Pattern.CASE_INSENSITIVE));
+            searchQuery.put(SampleKeyEnum.SID.toString(), Pattern.compile("^"+sid.trim()+"$", Pattern.CASE_INSENSITIVE));
             
             docFetched = (Document) sampleCollection.find(searchQuery).first();
 

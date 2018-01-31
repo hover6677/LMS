@@ -82,7 +82,7 @@ public class ProcessDAO extends AbstractDAO {
             String tid = processDoc.getString(ProcessKeyEnum.TID.toString());
 
             searchQuery.put(ProcessKeyEnum.Active.toString(), active);
-            searchQuery.put(ProcessKeyEnum.SID.toString(), Pattern.compile(sid , Pattern.CASE_INSENSITIVE));
+            searchQuery.put(ProcessKeyEnum.SID.toString(), Pattern.compile("^"+sid.trim()+"$" , Pattern.CASE_INSENSITIVE));
             if(tid!=null)
             	searchQuery.put(ProcessKeyEnum.TID.toString(), tid);
 
