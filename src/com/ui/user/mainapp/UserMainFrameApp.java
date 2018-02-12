@@ -5,10 +5,12 @@
  */
 package com.ui.user.mainapp;
 
+import com.db.mongodb.DAO.EquipmentDAO;
 import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
+import com.db.mongodb.user.helper.EquipmentDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.Document;
 import org.fileRW.FileRW;
 import org.json.JSONObject;
 
@@ -50,8 +53,26 @@ public class UserMainFrameApp {
     private static FileRW fileRW;
 
     private static TemplateDAOHelper templateDAO = new TemplateDAOHelper();
-
     private static TemplateDAOHelper storageTemplateDAO = new TemplateDAOHelper();
+    private static EquipmentDAOHelper equipmentDAO = new EquipmentDAOHelper();
+    
+    private static Document paraDoc = new Document();
+
+    public static Document getParaDoc() {
+        return paraDoc;
+    }
+
+    public static void setParaDoc(Document paraDoc) {
+        UserMainFrameApp.paraDoc = paraDoc;
+    }
+
+    public static EquipmentDAOHelper getEquipmentDAO() {
+        return equipmentDAO;
+    }
+
+    public static void setEquipmentDAO(EquipmentDAOHelper EquipmentDAO) {
+        UserMainFrameApp.equipmentDAO = EquipmentDAO;
+    }
 
     public static TemplateDAOHelper getTemplateDAO() {
         return templateDAO;
@@ -79,20 +100,7 @@ public class UserMainFrameApp {
 
     public static void MainFrameApp() {
         UserMainFrameApp.fileRW = new FileRW();
-        /*if (dirExist(configDir)) {
-            dirList = new ArrayList<String>(Arrays.asList(configDir + "\\Mailing.txt",
-                    configDir + "\\Identity.txt"));
-        } else {
-            dirList = new ArrayList<String>(Arrays.asList(desktopPath + "\\Mailing.txt",
-                    desktopPath + "\\Identity.txt"));
-            System.out.println("dir NOT exsists");
-        }
-        MainFrameApp.recordList = new ArrayList();
-        MainFrameApp.templateList = new ArrayList();
-
-        for (int i = 0; i < tabCount; i++) {
-            templateList.add(new ArrayList());
-        }*/
+       
         if (MaterialDAO.getInstance().connDAO()) {
             MaterialDAO.getInstance().setCollection();
         }
@@ -105,6 +113,9 @@ public class UserMainFrameApp {
         }
         if (TemplateDAO.getInstance().connDAO()) {
             TemplateDAO.getInstance().setCollection();
+        }
+        if (EquipmentDAO.getInstance().connDAO()) {
+            EquipmentDAO.getInstance().setCollection();
         }
 
         labelList = new ArrayList();
@@ -121,6 +132,7 @@ public class UserMainFrameApp {
         ProcessDAO.getInstance().closeDBConn();
         SampleDAO.getInstance().closeDBConn();
         TemplateDAO.getInstance().closeDBConn();
+        EquipmentDAO.getInstance().closeDBConn();
         System.out.println("DB closed");
     }
 

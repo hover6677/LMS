@@ -15,13 +15,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import org.bson.Document;
 
 public class AdminMainFrame extends JFrame{
 	/**
 	 * 
 	 */
 	UMUI umui = new UMUI();
-	public AdminMainFrame() {
+	public AdminMainFrame(Document paraDoc) {
 		setResizable(false);
 		setTitle("LIMS");
 		setSize(759,612);
@@ -88,6 +89,7 @@ public class AdminMainFrame extends JFrame{
 		setVisible(true);
                 
 	}
+        /*
 	public static void main(String args[])
 	{
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -100,7 +102,7 @@ public class AdminMainFrame extends JFrame{
 		            break;
 		        }
 		    }
-			AdminMainFrame frame = new AdminMainFrame();
+			AdminMainFrame frame = new AdminMainFrame(paraDoc);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,5 +120,5 @@ public class AdminMainFrame extends JFrame{
 	
             }
 	});
-	}
+	}*/
 }

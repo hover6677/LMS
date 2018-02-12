@@ -48,7 +48,7 @@ public class Printer implements Printable {
 
         return Printable.PAGE_EXISTS;
     }
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
     	AdminMainFrame yourComponent = new AdminMainFrame();
     	PrinterJob pjob = PrinterJob.getPrinterJob();
     	PageFormat preformat = pjob.defaultPage();
@@ -67,5 +67,5 @@ public class Printer implements Printable {
 				}
     	    }
     	}
-    }
+    }*/
 }

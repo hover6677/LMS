@@ -90,6 +90,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import com.db.mongodb.admin.helper.TableColumnAdjuster;
+import java.util.Arrays;
 
 public class UserMainFrame extends javax.swing.JFrame {
 
@@ -103,13 +104,17 @@ public class UserMainFrame extends javax.swing.JFrame {
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
     }
 
-    public UserMainFrame(Document userDoc) {
+    public UserMainFrame(Document userDoc, Document paraDoc) {
         UserMainFrameApp.MainFrameApp();
         initComponents();
         this.setLocationRelativeTo(null);
+        ArrayList l = (ArrayList) paraDoc.get("Unit");
+        String s[] = {};
+        this.jComboBoxTags1.setModel(new javax.swing.DefaultComboBoxModel(l.toArray(s)));
         displayUserView(userDoc);
         UserMainFrameApp.setUserName(userDoc.getString(UserManagementEnum.User.toString()));
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
+        UserMainFrameApp.setParaDoc(paraDoc);
     }
 
     private void displayUserView(Document userDoc) {
@@ -311,7 +316,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         jLabel9.setText("Type");
         jLabel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jComboBoxTags1.setModel(new javax.swing.DefaultComboBoxModel(UnitEnum.names()));
         jComboBoxTags1.setMinimumSize(new java.awt.Dimension(120, 25));
         jComboBoxTags1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -506,6 +510,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jPanel8.setBackground(java.awt.SystemColor.controlHighlight);
         jPanel8.setMaximumSize(new java.awt.Dimension(32767, 230));
+        jPanel8.setName("process"); // NOI18N
         jPanel8.setPreferredSize(new java.awt.Dimension(970, 230));
 
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
@@ -927,7 +932,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages,String unit) {
+    private void drawCheckBoxTextDlist(JPanel jPanel, ArrayList tags, Document storages, String unit) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
         UserMainFrameApp.deltaTextFiledList.clear();
@@ -983,9 +988,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 jTextFieldD.setText(((Document) storages.get(jRadioButton.getText().trim())).getDouble(SampleKeyEnum.Quantity.toString()).toString());
                 jComboBox.setSelectedItem(((Document) storages.get(jRadioButton.getText().trim())).get(SampleKeyEnum.Unit.toString()));
                 jComboBox.setEnabled(false);
-            }
-            else
-            {
+            } else {
                 jComboBox.setSelectedItem(unit);
                 jComboBox.setEnabled(false);
             }
@@ -1043,10 +1046,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel.updateUI();
     }
 
-    private void drawLabelText(JPanel jPanel, ArrayList tags, JScrollPane sPanel,
+    private void drawLabelRadioText(JPanel jPanel, ArrayList tags, JScrollPane sPanel, ArrayList<Document> eqDocs,
             int xoffset, int yoffset, int labelWidth, int align, int textWidth, int height) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
+        UserMainFrameApp.radioLabelList.clear();
 
         int xinit = 2;
         int yinit = 1;
@@ -1075,6 +1079,30 @@ public class UserMainFrame extends javax.swing.JFrame {
             UserMainFrameApp.textFiledList.add(jTextFieldD);
 
             yfinal = y + (i + 1) * yoffset;
+        }
+        if (null != eqDocs) {
+            int x = xinit + labelWidth + xoffset + textWidth + xoffset*2;
+            for (int i = 0; i < eqDocs.size(); i++) {
+                int y = yinit;
+                if ("process".equals(jPanel.getName())) {
+                    JRadioButton jRadioButton = new javax.swing.JRadioButton();
+                    jRadioButton.setBounds(x, y + i * yoffset, labelWidth, height);
+                    jRadioButton.setText(eqDocs.get(i).getString(EquipmentEnum.EID.toString()));
+                    if (eqDocs.get(i).getInteger(EquipmentEnum.Status.toString()) > 0) {
+                        jRadioButton.setEnabled(true);
+                        jRadioButton.setSelected(false);
+                    } else {
+                        if (UserMainFrameApp.getUserName().equals(eqDocs.get(i).getString(EquipmentEnum.User.toString()))) {
+                            jRadioButton.setEnabled(true);
+                            jRadioButton.setSelected(true);
+                        } else {
+                            jRadioButton.setSelected(false);
+                            jRadioButton.setEnabled(false);
+                        }
+                    }
+                    UserMainFrameApp.radioLabelList.add(jRadioButton);
+                }
+            }
         }
         jPanel.setPreferredSize(new Dimension(970, yfinal));
         sPanel.setPreferredSize(new Dimension((int) jPanel.getPreferredSize().getWidth(),
@@ -1147,7 +1175,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     this.resetBtnActionPerformed();
                     break;
                 case Report:
-                    
+
                     this.resetBtnActionPerformed();
                     break;
                 default:
@@ -1166,8 +1194,10 @@ public class UserMainFrame extends javax.swing.JFrame {
             UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = new ArrayList();
             tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags2.getSelectedIndex());
+            ArrayList<Document> eqDocs = new ArrayList();
+            eqDocs = UserMainFrameApp.getEquipmentDAO().fetchAllEQDoc();
             if (null != tags && !tags.isEmpty()) {
-                drawLabelText(jPanel8, tags, this.jScrollPane2, 100, 40, 100, javax.swing.SwingConstants.LEFT, 280, 30);
+                drawLabelRadioText(jPanel8, tags, this.jScrollPane2, eqDocs, 100, 40, 100, javax.swing.SwingConstants.LEFT, 280, 30);
                 /*
         xoffset = 165;
         yoffset = 40;
@@ -1190,8 +1220,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     private void searchBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtn2ActionPerformed
         this.msgLabel.setText("");
         String materialID = this.jTextField3.getText().replaceAll(" ", "");
-        if(materialID.length()==0)
-        {
+        if (materialID.length() == 0) {
             resetBtnActionPerformed();
             this.msgLabel.setText(MessageEnum.MaterialNotFound.getMsg());
             return;
@@ -1240,7 +1269,6 @@ public class UserMainFrame extends javax.swing.JFrame {
             return;
         }
 
-        
         if (!SampleDAOHelper.fetchSampleBySID(this.jTextField2.getText().trim())) {
             JOptionPane.showMessageDialog(this, "SID Not Found");
             return;
@@ -1276,8 +1304,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         this.msgLabel.setText("");
         String sampleID = this.jTextField10.getText().replaceAll(" ", "");
-        if(sampleID.length() == 0)
-        {
+        if (sampleID.length() == 0) {
             resetBtnActionPerformed();
             return;
         }
@@ -1298,7 +1325,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(0);
             String unit = SampleDAOHelper.getUnitByMid(SampleDAOHelper.getMidBySample());
             if (null != tags) {
-                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages(),unit);
+                drawCheckBoxTextDlist(jPanel9, tags, SampleDAOHelper.getStorages(), unit);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1337,7 +1364,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = new ArrayList();
             tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
-                drawLabelText(jPanel6, tags, this.jScrollPane1, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
+                drawLabelRadioText(jPanel6, tags, this.jScrollPane1, null, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
             }
             this.jButton6.setVisible(true);
         }
@@ -1787,14 +1814,11 @@ public class UserMainFrame extends javax.swing.JFrame {
                 objS.append(((JRadioButton) UserMainFrameApp.labelList.get(i)).getText().trim(), subObj);
 
                 double delta = getDeltaQuatity(((JTextField) UserMainFrameApp.deltaTextFiledList.get(i)).getText().trim(), inFlag);
-                if(delta<0)
-                {
+                if (delta < 0) {
                     SampleDAOHelper.setSample(null);
                     break;
-                }
-                else
-                {
-                    deltaQuantity+=delta;
+                } else {
+                    deltaQuantity += delta;
                 }
             }
         }
@@ -1803,21 +1827,17 @@ public class UserMainFrame extends javax.swing.JFrame {
         this.msgLabel.setText(prepareStorage.getMsg());
         return SampleDAOHelper.getSample();
     }
-    
-    private double getDeltaQuatity(String delta, boolean inFlag)
-    {
+
+    private double getDeltaQuatity(String delta, boolean inFlag) {
         double parseDouble = 0.0;
-        if ("".equals(delta))
-        {
+        if ("".equals(delta)) {
             return parseDouble;
         }
         try {
-             parseDouble = inFlag? Double.parseDouble(delta):0.0;
+            parseDouble = inFlag ? Double.parseDouble(delta) : 0.0;
         } catch (NumberFormatException numberFormatException) {
             parseDouble = -1.0;
-        }
-        finally
-        {
+        } finally {
             return parseDouble;
         }
     }

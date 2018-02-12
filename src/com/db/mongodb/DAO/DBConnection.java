@@ -10,8 +10,14 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bson.Document;
+import org.fileRW.FileRW;
 
 /**
  *
@@ -20,14 +26,18 @@ import org.bson.Document;
 public class DBConnection {
 
     private static String IPString = "localhost";
-    private static int port = 27017;
+    private final static int port = 27017;
     private final static String dbName = "LIMS";
+    private final static String config = "src/config/config.txt";
 
     private MongoClient mongoClient = null;
     private MongoDatabase db = null;
 
     public boolean dbConnection() {
+
+        String ip = readIPFromFile();
         for (int i = 0; i < 1; i++) {
+            setIPString(ip);
             if (this.setMongoClient()) {
                 if (this.setDb()) {
                     break;
@@ -39,6 +49,27 @@ public class DBConnection {
             }
         }
         return true;
+    }
+
+    private String readIPFromFile() {
+        String l = "LOCALHOST";
+        FileRW file = new FileRW();
+        try {
+            file.readFile(config);
+            BufferedReader buf_r = file.getBuf_r();
+
+            while (null != (l = buf_r.readLine())) {
+                l = l.split("=")[1].trim();
+                break;
+            }
+
+        } catch (FileNotFoundException fileNotFoundException) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, fileNotFoundException);
+        } catch (IOException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return l;
+        }
     }
 
     public static String getDbName() {
@@ -57,10 +88,6 @@ public class DBConnection {
         return port;
     }
 
-    public static void setPort(int port) {
-        DBConnection.port = port;
-    }
-
     public MongoClient getMongoClient() {
         return mongoClient;
     }
@@ -68,7 +95,7 @@ public class DBConnection {
     public boolean setMongoClient() {
 
         Builder o = MongoClientOptions.builder().serverSelectionTimeout(1000);
-        this.mongoClient = new MongoClient(new ServerAddress(IPString, port),o.build());
+        this.mongoClient = new MongoClient(new ServerAddress(IPString, port), o.build());
 
         try {
             this.mongoClient.getAddress();
