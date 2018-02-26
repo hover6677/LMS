@@ -90,6 +90,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import com.db.mongodb.admin.helper.TableColumnAdjuster;
+import com.db.mongodb.user.helper.EquipmentDAOHelper;
 import java.util.Arrays;
 
 public class UserMainFrame extends javax.swing.JFrame {
@@ -108,9 +109,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         UserMainFrameApp.MainFrameApp();
         initComponents();
         this.setLocationRelativeTo(null);
-        ArrayList l = (ArrayList) paraDoc.get("Unit");
-        String s[] = {};
-        this.jComboBoxTags1.setModel(new javax.swing.DefaultComboBoxModel(l.toArray(s)));
+        this.jComboBoxTags1.setModel(new javax.swing.DefaultComboBoxModel((Object[]) paraDoc.get("Unit")));
         displayUserView(userDoc);
         UserMainFrameApp.setUserName(userDoc.getString(UserManagementEnum.User.toString()));
         UserMainFrameApp.setTabCount(this.jTabbedPane1.getTabCount());
@@ -551,6 +550,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         });
 
         jButton5.setText("Print Process Label");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -685,6 +689,11 @@ public class UserMainFrame extends javax.swing.JFrame {
         });
 
         jButton3.setText("Print Storage Lable");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1081,7 +1090,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             yfinal = y + (i + 1) * yoffset;
         }
         if (null != eqDocs) {
-            int x = xinit + labelWidth + xoffset + textWidth + xoffset*2;
+            int x = xinit + labelWidth + xoffset + textWidth + xoffset;
             for (int i = 0; i < eqDocs.size(); i++) {
                 int y = yinit;
                 if ("process".equals(jPanel.getName())) {
@@ -1100,6 +1109,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                             jRadioButton.setEnabled(false);
                         }
                     }
+                    jPanel.add(jRadioButton);
                     UserMainFrameApp.radioLabelList.add(jRadioButton);
                 }
             }
@@ -1382,6 +1392,14 @@ public class UserMainFrame extends javax.swing.JFrame {
             this.jPanel6.updateUI();
         }
     }//GEN-LAST:event_jComboBoxTagsItemStateChanged
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /*private void clearCountLabel() {
         JLabel selectedCountLabel = getSelectedCountLabel();
@@ -1714,6 +1732,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                     doc.append(SampleKeyEnum.MID.toString(), mid);
                     SampleDAO.getInstance().addOrUpdate(doc);
                     updateMaterialDoc(doc);
+                    blockEQByUser();
                 }
                 break;
             case Storage:
@@ -1728,6 +1747,19 @@ public class UserMainFrame extends javax.swing.JFrame {
                 break;
         }
         return flag;
+    }
+
+    private boolean blockEQByUser() {
+        for (int i = 0; i < UserMainFrameApp.radioLabelList.size(); i++) {
+            JRadioButton jb = (JRadioButton) UserMainFrameApp.radioLabelList.get(i);
+            if (!jb.isEnabled()) {
+                continue;
+            } else {
+                int Status = jb.isSelected() ? 0 : 1;
+                UserMainFrameApp.getEquipmentDAO().updateEQStatusByUser(UserMainFrameApp.getUserName(), Status, jb.getText());
+            }
+        }
+        return true;
     }
 
     private Document prepareReceiveDoc() {

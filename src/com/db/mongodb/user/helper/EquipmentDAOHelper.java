@@ -18,15 +18,13 @@ import org.bson.Document;
  */
 public class EquipmentDAOHelper {
 
-    
     public ArrayList eqList = new ArrayList();
 
     public EquipmentDAOHelper() {
-        
+
         ((EquipmentDAO) EquipmentDAO.getInstance()).connDAO();
     }
 
-    
     public void fetchEQListByUser(String user) {
         eqList.clear();
         eqList = ((EquipmentDAO) EquipmentDAO.getInstance()).fetchEQByUser(user);
@@ -34,6 +32,7 @@ public class EquipmentDAOHelper {
 
     public ArrayList fetchAllEQDoc() {
         eqList.clear();
+        EquipmentDAO.getInstance().setCollection();
         eqList = ((EquipmentDAO) EquipmentDAO.getInstance()).fetchAllEQ();
         return eqList;
     }
@@ -41,11 +40,11 @@ public class EquipmentDAOHelper {
     private ArrayList initEquipByPara(Document para) {
         ArrayList alist = new ArrayList();
         if (para.containsKey(EquipmentEnum.Equipment.toString())) {
-            for (int i=0;i<alist.size();i++) 
-            {
+            String[] list = (String[]) para.get(EquipmentEnum.Equipment.toString());
+            for (int i = 0; i < list.length; i++) {
                 Document doc = new Document();
                 doc.append(EquipmentEnum.Active.toString(), 1);
-                doc.append(EquipmentEnum.EID.toString(), alist.get(i));
+                doc.append(EquipmentEnum.EID.toString(), list[i]);
                 doc.append(EquipmentEnum.Status.toString(), 1);
                 doc.append(EquipmentEnum.DateTime.toString(), new Date());
                 doc.append(EquipmentEnum.User.toString(), UserManagementEnum.admin.toString());
@@ -55,29 +54,42 @@ public class EquipmentDAOHelper {
         return alist;
     }
 
-    public boolean updateEQListByPara(Document para) {
-        if (para.getString(UserManagementEnum.User) != UserManagementEnum.admin.toString()) {
-            return false;
-        } else {
+    public void updateEQStatusByUser(String user, int status,String eid) {
+        Document doc = new Document();
+        doc.append(EquipmentEnum.Active.toString(),1);
+        doc.append(EquipmentEnum.DateTime.toString(), new Date());
+        doc.append(EquipmentEnum.EID.toString(), eid);
+        doc.append(EquipmentEnum.Status.toString(), status);
+        doc.append(EquipmentEnum.User.toString(), user);
+        ((EquipmentDAO) EquipmentDAO.getInstance()).addOrUpdate(doc);
+    }
 
-            ArrayList<Document> newList = initEquipByPara(para);
-            ArrayList<Document> fetchedList = fetchAllEQDoc();
+    public boolean updateEQListByPara(Document para) {
+
+        ArrayList<Document> newList = initEquipByPara(para);
+        ArrayList<Document> fetchedList = fetchAllEQDoc();
+
+        if (fetchedList.size() == 0) {
+            for (int i = 0; i < newList.size(); i++) {
+                ((EquipmentDAO) EquipmentDAO.getInstance()).addOrUpdate(newList.get(i));
+            }
+            return true;
+        } else {
             for (int i = 0; i < newList.size(); i++) {
                 for (int j = 0; j < fetchedList.size(); j++) {
-                    if (newList.get(i).getString(EquipmentEnum.EID) == fetchedList.get(j).getString(EquipmentEnum.EID)) {
+                    if (newList.get(i).getString(EquipmentEnum.EID.toString()).equals(fetchedList.get(j).getString(EquipmentEnum.EID.toString()))) {
                         break;
                     } else if (j == fetchedList.size() - 1) {
                         fetchedList.add(newList.get(i));
-                         ((EquipmentDAO) EquipmentDAO.getInstance()).addOrUpdate(newList.get(i));
+                        ((EquipmentDAO) EquipmentDAO.getInstance()).addOrUpdate(newList.get(i));
                         break;
                     } else {
                         continue;
                     }
                 }
-
             }
-            return true;
         }
+        return true;
     }
 
 }

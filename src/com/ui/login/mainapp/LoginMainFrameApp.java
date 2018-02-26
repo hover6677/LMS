@@ -109,8 +109,9 @@ public class LoginMainFrameApp {
     public static void displayView() {
         String uid = userLogined.getString(UserManagementEnum.User.toString());
         readParaFromFile();
-        refreshEquipment();
+        
         if (uid.equals(UserManagementEnum.admin.toString())) {
+            refreshEquipment();
             uiFrame = new AdminMainFrame(Parameters);
             uiFrame.setVisible(true);
         } else {

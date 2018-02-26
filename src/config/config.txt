@@ -1,4 +1,4 @@
 IP=localhost
 Unit=kg,g,mg,l,ml,pack
 AttachmentDIR=C:\attachemnts\
-Equipment=EQ1,EQ2,EQ3
+Equipment=EQ1,EQ2,EQ3,EQ4
