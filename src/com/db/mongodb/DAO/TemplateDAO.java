@@ -111,7 +111,7 @@ public class TemplateDAO extends AbstractDAO {
         Document searchQuery = new Document();
         Document docFetched = null;
         try {
-            int active = templateDoc.getInteger(TemplateKeyEnum.Active.toString(), 0);
+            int active = templateDoc.getInteger(TemplateKeyEnum.Active.toString(), 1);
             String user = templateDoc.getString(TemplateKeyEnum.User.toString());
             String type = templateDoc.getString(TemplateKeyEnum.Type.toString());
             String tid = templateDoc.getString(TemplateKeyEnum.TID.toString());
