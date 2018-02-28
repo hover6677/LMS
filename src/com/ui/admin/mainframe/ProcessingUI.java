@@ -16,6 +16,7 @@ import org.bson.Document;
 
 import com.db.mongodb.admin.helper.InsertAction;
 import com.db.mongodb.DAO.TemplateDAO;
+import com.document.enumeration.AttachmentKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
 import com.document.enumeration.TemplateKeyEnum;
 import com.document.enumeration.TemplateTypeEnum;
@@ -29,6 +30,7 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.Color;
 
 public class ProcessingUI extends AbstractUI {
@@ -52,7 +54,8 @@ public class ProcessingUI extends AbstractUI {
 
     private int totNum;
     private SpinnerListModel listModelLeft;
-    private JPanel panel_1;
+    private ArrayList<File> arrayOfFiles;
+    //private JPanel panel_1;
 
     public ProcessingUI() {
         super("Process(Admin)", "Process Name", "No. of Steps", "Labels", "Save", false);
@@ -77,6 +80,7 @@ public class ProcessingUI extends AbstractUI {
         } else {
 
             ArrayList<String> value = new ArrayList<String>();
+            ArrayList<String> fileValue = new ArrayList<String>();
             System.out.println(arrayOfTxtBox.get(0).getText());
             for (int i = 0; i < arrayOfTxtBox.size(); i++) {
                 if (arrayOfTxtBox.get(i).getText() == null || arrayOfTxtBox.get(i).getText().equals("")) {
@@ -86,20 +90,83 @@ public class ProcessingUI extends AbstractUI {
                 value.add(arrayOfTxtBox.get(i).getText());
 
             }
+            for (int i = 0; i < arrayOfFiles.size(); i++) {
+            	if(arrayOfFiles.get(i)!=null) {
+            		
+            		
+            	}
+
+            }
             Document processDoc = new Document();
-            processDoc.append(TemplateKeyEnum.Active.toString(), 1);
-            processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
-            processDoc.append(TemplateKeyEnum.User.toString(), super.user);
-            processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
-            processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
-            processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
-            processDoc.append(TemplateKeyEnum.Tags.toString(), value);
+            processDoc.append(ProcessKeyEnum.Active.toString(), 1);
+            processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
+            processDoc.append(ProcessKeyEnum.User.toString(), super.user);
+            processDoc.append(ProcessKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
+            processDoc.append(ProcessKeyEnum.TID.toString(), tidText.getText());
+            processDoc.append(ProcessKeyEnum.Count.toString(), value.size());
+            processDoc.append(ProcessKeyEnum.Tags.toString(), value);
             InsertAction ia = new InsertAction("com.db.mongodb.DAO.TemplateDAO", processDoc);
             ia.action(TemplateDAO.getInstance(), this);
             cleanAll(arrayOfTxtBox);
         }
 
     }
+    @Override
+    protected void addTxtBox(int numOfTxtBox){
+    	final JFileChooser fc = new JFileChooser();
+    	fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int xinit = 12;
+		int yinit = 40;
+		int xoffsetLabel = 55;
+		int xoffset = 95;
+		int yoffset = 45;
+		int x = xinit;
+		int y = yinit;
+		int width = 90;
+		int height = 25;
+		int buttonWidth=20;
+				
+		panel_1.removeAll();
+		arrayOfTxtBox  = new ArrayList<JTextField>();
+		arrayOfFiles = new ArrayList<File>();
+		for(int i =0; i<numOfTxtBox;i++)
+		{	
+//			JLabel label;
+//			if(i<9)
+//			label = new JLabel("Label0"+(i+1));
+//			else label = new JLabel("Label"+(i+1));
+//			label.setBounds(x, y, width, height);
+			x+=xoffsetLabel;
+			JTextField txtBox = new JTextField();
+			txtBox.setBounds(x, y, width, height);
+			txtBox.setColumns(6);
+			txtBox.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
+			y=y+height+10;
+			File file;
+			JTextField filetxt = new JTextField();
+			filetxt.setBounds(x, y, width-buttonWidth, height);
+			filetxt.setColumns(6);
+			filetxt.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
+			JButton fileBut = new JButton("...");
+			fileBut.setBounds(x+width-buttonWidth, y, buttonWidth, height);
+			FCActionListener fcal= new FCActionListener(filetxt,fc,fileBut);
+			fileBut.addActionListener(fcal);
+			x+=xoffset;
+			if(x>=550) {
+				x= xinit;
+				y+=yoffset;
+			}
+			txtBox.setToolTipText("Label"+(i+1));
+			arrayOfTxtBox.add(txtBox);
+			arrayOfFiles.add(fcal.getFile());
+			//panel_1.add(label);
+			panel_1.add(txtBox);
+			panel_1.add(filetxt);
+			panel_1.add(fileBut);
+		}
+		panel_1.updateUI();
+		return;
+	}
 
 //	public static void main(String args[])
 //	{
@@ -131,4 +198,34 @@ public class ProcessingUI extends AbstractUI {
 //		
 //		
 //	}
+}
+class FCActionListener implements ActionListener{
+
+	private JTextField txt;
+	private JFileChooser fc;
+	private JButton button;
+	private File file;
+	public FCActionListener(JTextField t,JFileChooser f,JButton b) {
+		txt= t;
+		fc= f;
+		button = b;
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource()==button) {
+			int returnVal = fc.showOpenDialog(((JButton)e.getSource()).getParent());
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				file = fc.getSelectedFile();
+				txt.setText(file.getAbsolutePath());
+			}
+		}
+		
+	}
+	public File getFile() {
+		return file;
+	}
+	
+	
 }

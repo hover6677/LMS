@@ -46,7 +46,7 @@ public abstract class AbstractUI extends JPanel{
 	
 	private int totNum;
 	private SpinnerListModel listModelLeft;
-	private JPanel panel_1;
+	protected JPanel panel_1;
 	protected ArrayList<JTextField> arrayOfTxtBox;
 	
 	

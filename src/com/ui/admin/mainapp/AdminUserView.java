@@ -9,7 +9,7 @@ import com.ui.user.mainframe.UserMainFrame;
 
 public class AdminUserView {
 
-	/*public static void main(String args[])
+	public static void main(String args[])
 	{
 		java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -21,8 +21,8 @@ public class AdminUserView {
 		            break;
 		        }
 		    }
-			AdminMainFrame frame = new AdminMainFrame();
-			new UserMainFrame().setVisible(true);
+			AdminMainFrame frame = new AdminMainFrame(null);
+			//new UserMainFrame().setVisible(true);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,5 +40,5 @@ public class AdminUserView {
 	
             }
 	});
-	}*/
+	}
 }
