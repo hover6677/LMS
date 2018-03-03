@@ -1055,7 +1055,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel.updateUI();
     }
 
-    private void drawLabelRadioText(JPanel jPanel, ArrayList tags, JScrollPane sPanel, ArrayList<Document> eqDocs,
+    private void drawLabelRadioText(JPanel jPanel, ArrayList tags,String tid, JScrollPane sPanel, ArrayList<Document> eqDocs,
             int xoffset, int yoffset, int labelWidth, int align, int textWidth, int height) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
@@ -1078,19 +1078,32 @@ public class UserMainFrame extends javax.swing.JFrame {
             jLabelD.setText(tags.get(i).toString());
             jLabelD.setBounds(x, y + i * yoffset, labelWidth, height);
             jPanel.add(jLabelD);
+            x += labelWidth;
 
-            x += xoffset;
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
             jPanel.add(jTextFieldD);
+            x += textWidth;
 
             UserMainFrameApp.labelList.add(jLabelD);
             UserMainFrameApp.textFiledList.add(jTextFieldD);
 
+            if(tid != null)
+            {
+                x += xoffset; 
+                Document fetchAttach = UserMainFrameApp.getAttachmentDAO().fetchAttach(tid, tags.get(i).toString());
+                JButton attachBtn = new JButton();
+                attachBtn.setBounds(x, y + i * yoffset, labelWidth, height);
+                attachBtn.setText("Open");
+                attachBtn.setName(fetchAttach.getString(AttachmentKeyEnum.DIR.toString())+fetchAttach.getString(AttachmentKeyEnum.FileName.toString()));
+                jPanel.add(attachBtn);
+                UserMainFrameApp.attachList.add(attachBtn);
+            }
+            
             yfinal = y + (i + 1) * yoffset;
         }
         if (null != eqDocs) {
-            int x = xinit + labelWidth + xoffset + textWidth + xoffset;
+            int x = xinit + labelWidth + xoffset + textWidth + xoffset+labelWidth+xoffset*8;
             for (int i = 0; i < eqDocs.size(); i++) {
                 int y = yinit;
                 if ("process".equals(jPanel.getName())) {
@@ -1121,6 +1134,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         sPanel.setBorder(BorderFactory.createEmptyBorder());
         sPanel.updateUI();
     }
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         UserMainFrameApp.MainFrameAppClose();
@@ -1204,17 +1218,12 @@ public class UserMainFrame extends javax.swing.JFrame {
             UserMainFrameApp.getTemplateDAO().getTemplateListByType(UserMainFrameApp.AdminName, TemplateTypeEnum.values()[this.jTabbedPane1.getSelectedIndex()].toString());
             ArrayList tags = new ArrayList();
             tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags2.getSelectedIndex());
+            String tid = UserMainFrameApp.getTemplateDAO().fetchTemplateID(this.jComboBoxTags2.getSelectedIndex());
+
             ArrayList<Document> eqDocs = new ArrayList();
             eqDocs = UserMainFrameApp.getEquipmentDAO().fetchAllEQDoc();
             if (null != tags && !tags.isEmpty()) {
-                drawLabelRadioText(jPanel8, tags, this.jScrollPane2, eqDocs, 100, 40, 100, javax.swing.SwingConstants.LEFT, 280, 30);
-                /*
-        xoffset = 165;
-        yoffset = 40;
-        labelWidth = 130;
-        textWidth = 230;
-        height = 30;
-                 */
+                drawLabelRadioText(jPanel8, tags,tid, this.jScrollPane2, eqDocs, 20, 40, 100, javax.swing.SwingConstants.LEFT, 280, 30);
             }
         }
     }//GEN-LAST:event_jComboBoxTags2ActionPerformed
@@ -1374,7 +1383,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = new ArrayList();
             tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
-                drawLabelRadioText(jPanel6, tags, this.jScrollPane1, null, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
+                drawLabelRadioText(jPanel6, tags,null, this.jScrollPane1, null, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
             }
             this.jButton6.setVisible(true);
         }

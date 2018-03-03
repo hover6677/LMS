@@ -10,6 +10,7 @@ import com.db.mongodb.DAO.MaterialDAO;
 import com.db.mongodb.DAO.ProcessDAO;
 import com.db.mongodb.DAO.SampleDAO;
 import com.db.mongodb.DAO.TemplateDAO;
+import com.db.mongodb.user.helper.AttachmentDAOHelper;
 import com.db.mongodb.user.helper.EquipmentDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.MessageEnum;
@@ -45,6 +46,7 @@ public class UserMainFrameApp {
     public static ArrayList radioLabelList;
     public static ArrayList radioTextList;
     public static ArrayList textFiledList;
+    public static ArrayList attachList;
     public static ArrayList deltaTextFiledList;
     public static ArrayList dropDownList;
 
@@ -55,6 +57,7 @@ public class UserMainFrameApp {
     private static TemplateDAOHelper templateDAO = new TemplateDAOHelper();
     private static TemplateDAOHelper storageTemplateDAO = new TemplateDAOHelper();
     private static EquipmentDAOHelper equipmentDAO = new EquipmentDAOHelper();
+    private static AttachmentDAOHelper attachmentDAO = new AttachmentDAOHelper();
     
     private static Document paraDoc = new Document();
 
@@ -70,6 +73,14 @@ public class UserMainFrameApp {
         return equipmentDAO;
     }
 
+    public static AttachmentDAOHelper getAttachmentDAO() {
+        return attachmentDAO;
+    }
+
+    public static void setAttachmentDAO(AttachmentDAOHelper attachmentDAO) {
+        UserMainFrameApp.attachmentDAO = attachmentDAO;
+    }
+    
     public static void setEquipmentDAO(EquipmentDAOHelper EquipmentDAO) {
         UserMainFrameApp.equipmentDAO = EquipmentDAO;
     }
@@ -124,6 +135,7 @@ public class UserMainFrameApp {
         dropDownList = new ArrayList();
         radioLabelList = new ArrayList();
         radioTextList = new ArrayList();
+        attachList = new ArrayList();
 
     }
 
@@ -264,5 +276,6 @@ public class UserMainFrameApp {
         textFiledList.clear();
         radioLabelList.clear();
         radioTextList.clear();
+        attachList.clear();
     }
 }

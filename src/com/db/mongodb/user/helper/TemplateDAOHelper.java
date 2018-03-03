@@ -45,5 +45,10 @@ public class TemplateDAOHelper {
         ArrayList tagList = (ArrayList) doc.get(TemplateKeyEnum.Tags.toString());
         return tagList;
     }
+    public String fetchTemplateID(int index)
+    {
+        Document doc = (Document) this.templateList.get(index);
+        return doc.getString(TemplateKeyEnum.TID.toString());
+    }
         
 }

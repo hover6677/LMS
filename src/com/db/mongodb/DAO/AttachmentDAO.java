@@ -152,6 +152,11 @@ public class AttachmentDAO extends AbstractDAO {
         attachDoc.put(AttachmentKeyEnum.Active.toString(), 1);
         return fetch(attachDoc);
     }
+    
+    public Document fetchFirstAttachment(Document attachDoc) {
+        attachDoc.put(AttachmentKeyEnum.Active.toString(), 1);
+        return (Document) attachmentCollection.find(attachDoc).first();
+    }
 
     @Override
     public boolean update(Document found, Document doc) {
