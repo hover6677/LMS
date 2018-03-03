@@ -47,6 +47,7 @@ public abstract class AbstractUI extends JPanel{
 	private int totNum;
 	private SpinnerListModel listModelLeft;
 	protected JPanel panel_1;
+	protected JButton btnSave;
 	protected ArrayList<JTextField> arrayOfTxtBox;
 	
 	
@@ -75,12 +76,18 @@ public abstract class AbstractUI extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		
+
+		
 		panel_1 = new JPanel();
 		panel_1.setBounds(6, 111, 701, 189);
 		panel_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), label3));
 		add(panel_1);
 		panel_1.setLayout(null);
-
+		//JScrollPane scrollPane = new JScrollPane(panel_1);
+		//scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//scrollPane.setBounds(6, 111, 701, 189);
+		//add(scrollPane);
 		
 		JLabel lblNewLabel = new JLabel(label1);
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
@@ -131,7 +138,7 @@ public abstract class AbstractUI extends JPanel{
 		});
 		panel.add(spinner);
 		
-		JButton btnSave = new JButton(button1);
+		btnSave = new JButton(button1);
 		btnSave.setBounds(530, 300, 117, 25);
 		btnSave.addActionListener(new ActionListener(){
 

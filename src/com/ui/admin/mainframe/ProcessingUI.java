@@ -13,8 +13,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.bson.Document;
+import org.fileRW.FileRW;
 
 import com.db.mongodb.admin.helper.InsertAction;
+import com.db.mongodb.DAO.AttachmentDAO;
+import com.db.mongodb.DAO.DBConnection;
 import com.db.mongodb.DAO.TemplateDAO;
 import com.document.enumeration.AttachmentKeyEnum;
 import com.document.enumeration.ProcessKeyEnum;
@@ -24,14 +27,20 @@ import com.document.enumeration.TemplateTypeEnum;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.awt.Color;
+import org.apache.commons.io.*;
 
 public class ProcessingUI extends AbstractUI {
 
@@ -54,12 +63,16 @@ public class ProcessingUI extends AbstractUI {
 
     private int totNum;
     private SpinnerListModel listModelLeft;
-    private ArrayList<File> arrayOfFiles;
+    private HashMap<JTextField,JTextField> mapOfFiles;
+    private final static String config = "config/config.txt";
+    private final static String attachmentDIR = "AttachmentDIR";
+    private final static String IP = "IP";
     //private JPanel panel_1;
 
     public ProcessingUI() {
         super("Process(Admin)", "Process Name", "No. of Steps", "Labels", "Save", false);
-
+        panel_1.setBounds(6, 111, 701, 300);
+        btnSave.setBounds(530, 415, 117, 25);
     }
 
     // this function is to get totNum from database
@@ -80,7 +93,7 @@ public class ProcessingUI extends AbstractUI {
         } else {
 
             ArrayList<String> value = new ArrayList<String>();
-            ArrayList<String> fileValue = new ArrayList<String>();
+            
             System.out.println(arrayOfTxtBox.get(0).getText());
             for (int i = 0; i < arrayOfTxtBox.size(); i++) {
                 if (arrayOfTxtBox.get(i).getText() == null || arrayOfTxtBox.get(i).getText().equals("")) {
@@ -90,24 +103,45 @@ public class ProcessingUI extends AbstractUI {
                 value.add(arrayOfTxtBox.get(i).getText());
 
             }
-            for (int i = 0; i < arrayOfFiles.size(); i++) {
-            	if(arrayOfFiles.get(i)!=null) {
+            for (JTextField fTxt:mapOfFiles.keySet()) {
+            	if(fTxt.getText()!=null &&fTxt.getText()!="") {
+            		
+            		File srcFile =new File(fTxt.getText());
+            		File destDir=readDIRFromFile();
+            		File destFile=new File(destDir.getAbsolutePath()+"/"+srcFile.getName());
+            		try {
+            			FileUtils.copyFile(srcFile, destFile);
+            		}catch (IOException e) {
+            		    e.printStackTrace();
+            		}
+            		Document attachmentDoc = new Document();
+            		attachmentDoc.append(AttachmentKeyEnum.DIR.toString(), destDir.getAbsolutePath());
+            		attachmentDoc.append(AttachmentKeyEnum.IP.toString(), readIPFromFile());
+            		attachmentDoc.append(AttachmentKeyEnum.FileName.toString(), destFile.getName());
+            		attachmentDoc.append(AttachmentKeyEnum.User.toString(), "admin");
+            		attachmentDoc.append(AttachmentKeyEnum.TID.toString(), tidText.getText());
+            		attachmentDoc.append(AttachmentKeyEnum.Tag.toString(), mapOfFiles.get(fTxt).getText());
+            		attachmentDoc.append(AttachmentKeyEnum.Active.toString(), 1);
+            		attachmentDoc.append(AttachmentKeyEnum.DateTime.toString(), new Date());
+            		InsertAction ia = new InsertAction("com.db.mongodb.DAO.AttachmentDAO",attachmentDoc);
+            		ia.action(AttachmentDAO.getInstance(), this);
             		
             		
             	}
 
             }
             Document processDoc = new Document();
-            processDoc.append(ProcessKeyEnum.Active.toString(), 1);
-            processDoc.append(ProcessKeyEnum.DateTime.toString(), new Date());
-            processDoc.append(ProcessKeyEnum.User.toString(), super.user);
-            processDoc.append(ProcessKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
-            processDoc.append(ProcessKeyEnum.TID.toString(), tidText.getText());
-            processDoc.append(ProcessKeyEnum.Count.toString(), value.size());
-            processDoc.append(ProcessKeyEnum.Tags.toString(), value);
+            processDoc.append(TemplateKeyEnum.Active.toString(), 1);
+            processDoc.append(TemplateKeyEnum.DateTime.toString(), new Date());
+            processDoc.append(TemplateKeyEnum.User.toString(), super.user);
+            processDoc.append(TemplateKeyEnum.Type.toString(), TemplateTypeEnum.Process.toString());
+            processDoc.append(TemplateKeyEnum.TID.toString(), tidText.getText());
+            processDoc.append(TemplateKeyEnum.Count.toString(), value.size());
+            processDoc.append(TemplateKeyEnum.Tags.toString(), value);
             InsertAction ia = new InsertAction("com.db.mongodb.DAO.TemplateDAO", processDoc);
             ia.action(TemplateDAO.getInstance(), this);
             cleanAll(arrayOfTxtBox);
+            mapOfFiles=null;
         }
 
     }
@@ -119,16 +153,17 @@ public class ProcessingUI extends AbstractUI {
 		int yinit = 40;
 		int xoffsetLabel = 55;
 		int xoffset = 95;
-		int yoffset = 45;
+		int yoffset = 90;
 		int x = xinit;
 		int y = yinit;
+		int y2=y;
 		int width = 90;
 		int height = 25;
 		int buttonWidth=20;
 				
 		panel_1.removeAll();
 		arrayOfTxtBox  = new ArrayList<JTextField>();
-		arrayOfFiles = new ArrayList<File>();
+		mapOfFiles = new HashMap<JTextField,JTextField>();
 		for(int i =0; i<numOfTxtBox;i++)
 		{	
 //			JLabel label;
@@ -141,14 +176,15 @@ public class ProcessingUI extends AbstractUI {
 			txtBox.setBounds(x, y, width, height);
 			txtBox.setColumns(6);
 			txtBox.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
-			y=y+height+10;
+			y2=y+height+10;
 			File file;
 			JTextField filetxt = new JTextField();
-			filetxt.setBounds(x, y, width-buttonWidth, height);
+			filetxt.setEditable(false);
+			filetxt.setBounds(x, y2, width-buttonWidth, height);
 			filetxt.setColumns(6);
 			filetxt.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
 			JButton fileBut = new JButton("...");
-			fileBut.setBounds(x+width-buttonWidth, y, buttonWidth, height);
+			fileBut.setBounds(x+width-buttonWidth, y2, buttonWidth, height);
 			FCActionListener fcal= new FCActionListener(filetxt,fc,fileBut);
 			fileBut.addActionListener(fcal);
 			x+=xoffset;
@@ -158,7 +194,7 @@ public class ProcessingUI extends AbstractUI {
 			}
 			txtBox.setToolTipText("Label"+(i+1));
 			arrayOfTxtBox.add(txtBox);
-			arrayOfFiles.add(fcal.getFile());
+			mapOfFiles.put(filetxt, txtBox);
 			//panel_1.add(label);
 			panel_1.add(txtBox);
 			panel_1.add(filetxt);
@@ -198,6 +234,46 @@ public class ProcessingUI extends AbstractUI {
 //		
 //		
 //	}
+    private static File readDIRFromFile() {
+        FileRW file = new FileRW();
+        String l = "";
+        try {
+            file.readFile(config);
+            BufferedReader buf_r = file.getBuf_r();
+
+            while (null != (l = buf_r.readLine())) {
+                String[] key = l.split("=");
+                if(attachmentDIR.equals(key[0]))
+                	return new File(key[1]);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+        return null;
+    }
+    private static String readIPFromFile() {
+        FileRW file = new FileRW();
+        String l = "";
+        try {
+            file.readFile(config);
+            BufferedReader buf_r = file.getBuf_r();
+
+            while (null != (l = buf_r.readLine())) {
+                String[] key = l.split("=");
+                if(IP.equals(key[0]))
+                	return key[1];
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+        return null;
+    }
 }
 class FCActionListener implements ActionListener{
 
