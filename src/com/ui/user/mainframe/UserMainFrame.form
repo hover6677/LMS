@@ -132,11 +132,8 @@
               </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="" toolTip="">
-                    <Property name="tabTitle" type="java.lang.String" value=""/>
-                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/resources/Rtab.png"/>
-                    </Property>
+                  <JTabbedPaneConstraints tabName="Receiving" toolTip="">
+                    <Property name="tabTitle" type="java.lang.String" value="Receiving"/>
                     <Property name="tabToolTip" type="java.lang.String" value=""/>
                   </JTabbedPaneConstraints>
                 </Constraint>
@@ -533,11 +530,8 @@
               </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="">
-                    <Property name="tabTitle" type="java.lang.String" value=""/>
-                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/resources/Processing.png"/>
-                    </Property>
+                  <JTabbedPaneConstraints tabName="Processing">
+                    <Property name="tabTitle" type="java.lang.String" value="Processing"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -841,11 +835,8 @@
               </AccessibilityProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="">
-                    <Property name="tabTitle" type="java.lang.String" value=""/>
-                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/resources/Storage.png"/>
-                    </Property>
+                  <JTabbedPaneConstraints tabName="Storage">
+                    <Property name="tabTitle" type="java.lang.String" value="Storage"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -909,7 +900,7 @@
                               <Component id="jScrollPane6" min="-2" pref="61" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="43" max="32767" attributes="0"/>
+                          <EmptySpace pref="200" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1056,11 +1047,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="">
-                    <Property name="tabTitle" type="java.lang.String" value=""/>
-                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/resources/Report.png"/>
-                    </Property>
+                  <JTabbedPaneConstraints tabName="Report">
+                    <Property name="tabTitle" type="java.lang.String" value="Report"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -1124,7 +1112,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="excelBtn" linkSize="2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane7" pref="308" max="32767" attributes="0"/>
+                          <Component id="jScrollPane7" pref="465" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

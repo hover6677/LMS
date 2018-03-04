@@ -446,7 +446,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jComboBoxTags.getAccessibleContext().setAccessibleName("Select a Template");
         jComboBoxTags.getAccessibleContext().setAccessibleDescription("Select a Template");
 
-        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Rtab.png")), jPanel2, ""); // NOI18N
+        jTabbedPane1.addTab("Receiving", null, jPanel2, "");
         jPanel2.getAccessibleContext().setAccessibleName("Receive");
 
         jPanel4.setBackground(java.awt.SystemColor.controlHighlight);
@@ -619,7 +619,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jPanel4Layout.linkSize(new java.awt.Component[] {jComboBoxTags2, jLabel6, jLabel7, jLabel8, jTextField3, jTextField5, searchBtn2}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Processing.png")), jPanel4); // NOI18N
+        jTabbedPane1.addTab("Processing", jPanel4);
         jPanel4.getAccessibleContext().setAccessibleName("Process");
 
         jPanel3.setBackground(java.awt.SystemColor.controlHighlight);
@@ -745,10 +745,10 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Storage.png")), jPanel3); // NOI18N
+        jTabbedPane1.addTab("Storage", jPanel3);
         jPanel3.getAccessibleContext().setAccessibleName("Storage");
 
         jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
@@ -861,7 +861,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(excelBtn)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);
@@ -870,7 +870,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jLabel12, jXDatePicker1}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/resources/Report.png")), jPanel1); // NOI18N
+        jTabbedPane1.addTab("Report", jPanel1);
 
         clearBtn.setText("Reset All");
         clearBtn.setMaximumSize(new java.awt.Dimension(75, 30));
@@ -982,7 +982,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
             x += xoffset2;
             operator.setBounds(x, y + i * yoffset, height, height);
-            operator.setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag ? UserMainFrameApp.plusIcon : UserMainFrameApp.minusIcon)));
+            operator.setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag ? UserMainFrameApp.PlusIcon : UserMainFrameApp.MinusIcon)));
             x += xoffset2 / 2 + height / 2;
 
             jTextFieldDelta.setBounds(x, y + i * yoffset, textWidth, height);
@@ -1096,6 +1096,13 @@ public class UserMainFrame extends javax.swing.JFrame {
                 attachBtn.setBounds(x, y + i * yoffset, labelWidth, height);
                 attachBtn.setText("Open");
                 attachBtn.setName(fetchAttach.getString(AttachmentKeyEnum.DIR.toString())+fetchAttach.getString(AttachmentKeyEnum.FileName.toString()));
+                attachBtn.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+                            // TODO Auto-generated method stub
+                            boolean opened = UserMainFrameApp.openAttachFile((JButton)e.getSource());
+			}
+		});
                 jPanel.add(attachBtn);
                 UserMainFrameApp.attachList.add(attachBtn);
             }
@@ -1103,7 +1110,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             yfinal = y + (i + 1) * yoffset;
         }
         if (null != eqDocs) {
-            int x = xinit + labelWidth + xoffset + textWidth + xoffset+labelWidth+xoffset*8;
+            int x = xinit + labelWidth + xoffset + textWidth + xoffset+labelWidth+xoffset*7;
             for (int i = 0; i < eqDocs.size(); i++) {
                 int y = yinit;
                 if ("process".equals(jPanel.getName())) {
@@ -1480,7 +1487,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         for (int i = 0; i < components.length; i++) {
             if (components[i].getClass().isInstance(new JLabel())) {
-                ((JLabel) components[i]).setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag ? UserMainFrameApp.plusIcon : UserMainFrameApp.minusIcon)));
+                ((JLabel) components[i]).setIcon(new ImageIcon(UserMainFrame.class.getResource(inFlag ? UserMainFrameApp.PlusIcon : UserMainFrameApp.MinusIcon)));
                 ((JLabel) components[i]).repaint();
             }
         }

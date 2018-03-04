@@ -15,12 +15,15 @@ import com.db.mongodb.user.helper.EquipmentDAOHelper;
 import com.db.mongodb.user.helper.TemplateDAOHelper;
 import com.document.enumeration.MessageEnum;
 import com.mongodb.client.MongoCollection;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import org.bson.Document;
 import org.fileRW.FileRW;
 import org.json.JSONObject;
@@ -34,10 +37,10 @@ public class UserMainFrameApp {
     private static int tabCount = 4;
     private static ArrayList recordList;
     private static ArrayList<ArrayList> templateList;
-    private static final String desktopPath = System.getProperty("user.home") + "\\" + "Desktop";
-    private static final String configDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
-    public static final String plusIcon = "/resources/plus.png";
-    public static final String minusIcon = "/resources/minus.png";
+    private static final String DesktopPath = System.getProperty("user.home") + "\\" + "Desktop";
+    //private static final String ConfigDir = "C:\\Customer accounts\\Sentinal demo\\Input folder";
+    public static final String PlusIcon = "/resources/plus.png";
+    public static final String MinusIcon = "/resources/minus.png";
 
     public static final String AdminName = "admin";
     private static String userName = "user";
@@ -58,7 +61,7 @@ public class UserMainFrameApp {
     private static TemplateDAOHelper storageTemplateDAO = new TemplateDAOHelper();
     private static EquipmentDAOHelper equipmentDAO = new EquipmentDAOHelper();
     private static AttachmentDAOHelper attachmentDAO = new AttachmentDAOHelper();
-    
+
     private static Document paraDoc = new Document();
 
     public static Document getParaDoc() {
@@ -80,7 +83,7 @@ public class UserMainFrameApp {
     public static void setAttachmentDAO(AttachmentDAOHelper attachmentDAO) {
         UserMainFrameApp.attachmentDAO = attachmentDAO;
     }
-    
+
     public static void setEquipmentDAO(EquipmentDAOHelper EquipmentDAO) {
         UserMainFrameApp.equipmentDAO = EquipmentDAO;
     }
@@ -111,7 +114,7 @@ public class UserMainFrameApp {
 
     public static void MainFrameApp() {
         UserMainFrameApp.fileRW = new FileRW();
-       
+
         if (MaterialDAO.getInstance().connDAO()) {
             MaterialDAO.getInstance().setCollection();
         }
@@ -277,5 +280,18 @@ public class UserMainFrameApp {
         radioLabelList.clear();
         radioTextList.clear();
         attachList.clear();
+    }
+
+    public static boolean openAttachFile(JButton button) {
+        System.out.println(button.getName());
+        File file = new File(button.getName());
+        try {
+            //Open the file using Desktop class
+            Desktop.getDesktop().open(file);
+        } catch (IOException exception) {
+            System.out.println("file doesn't exist");
+            return false;
+        }
+        return true;
     }
 }
