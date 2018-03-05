@@ -8,13 +8,17 @@ package com.ui.login.mainapp;
 import com.db.mongodb.DAO.DBConnection;
 import com.db.mongodb.DAO.UserManagementDAO;
 import com.db.mongodb.user.helper.EquipmentDAOHelper;
+import com.document.enumeration.ParameterKeyEnum;
 import com.document.enumeration.UserManagementEnum;
 import com.ui.admin.mainframe.AdminMainFrame;
 import com.ui.login.mainframe.LoginMainFrame;
 import com.ui.user.mainframe.UserMainFrame;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -101,27 +105,53 @@ public class LoginMainFrameApp {
                 return false;
             }
         } else {
-            errorLog = "DB Coonection lost. Please check DB configuration.";
+            errorLog = "DB Conection lost. Please check DB configuration.";
             return false;
         }
+    }
+
+    private static boolean checkAttachDir() {
+        File f = new File(ParameterKeyEnum.AttachmentDIR.toString());
+        if (f.exists() && f.isDirectory()) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private static boolean createAttachDir()
+    {
+        File f = new File(ParameterKeyEnum.AttachmentDIR.toString());
+        try {
+            f.mkdir();
+        } catch (Exception e) {
+            System.out.println("Attachment DIR cannot be accessed");
+            return false;
+        }
+        return true;
     }
 
     public static void displayView() {
         String uid = userLogined.getString(UserManagementEnum.User.toString());
         readParaFromFile();
-        
+
         if (uid.equals(UserManagementEnum.admin.toString())) {
+            if(!checkAttachDir())
+            {
+                createAttachDir();
+            }
+            
             refreshEquipment();
             uiFrame = new AdminMainFrame(Parameters);
             uiFrame.setVisible(true);
         } else {
-            userMainFrame = new UserMainFrame(userLogined,Parameters);
+            userMainFrame = new UserMainFrame(userLogined, Parameters);
             userMainFrame.setVisible(true);
         }
-
     }
-    private static boolean refreshEquipment()
-    {
+
+    private static boolean refreshEquipment() {
         EquipmentDAOHelper eq = new EquipmentDAOHelper();
         return eq.updateEQListByPara(Parameters);
     }

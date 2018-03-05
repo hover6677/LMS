@@ -64,7 +64,7 @@ public class ProcessingUI extends AbstractUI {
     private int totNum;
     private SpinnerListModel listModelLeft;
     private HashMap<JTextField,JTextField> mapOfFiles;
-    private final static String config = "config/config.txt";
+    private final static String config = "src/config/config.txt";
     private final static String attachmentDIR = "AttachmentDIR";
     private final static String IP = "IP";
     //private JPanel panel_1;
@@ -115,7 +115,7 @@ public class ProcessingUI extends AbstractUI {
             		    e.printStackTrace();
             		}
             		Document attachmentDoc = new Document();
-            		attachmentDoc.append(AttachmentKeyEnum.DIR.toString(), destDir.getAbsolutePath());
+            		attachmentDoc.append(AttachmentKeyEnum.DIR.toString(), destDir.getAbsolutePath()+"/");
             		attachmentDoc.append(AttachmentKeyEnum.IP.toString(), readIPFromFile());
             		attachmentDoc.append(AttachmentKeyEnum.FileName.toString(), destFile.getName());
             		attachmentDoc.append(AttachmentKeyEnum.User.toString(), "admin");
@@ -125,7 +125,6 @@ public class ProcessingUI extends AbstractUI {
             		attachmentDoc.append(AttachmentKeyEnum.DateTime.toString(), new Date());
             		InsertAction ia = new InsertAction("com.db.mongodb.DAO.AttachmentDAO",attachmentDoc);
             		ia.action(AttachmentDAO.getInstance(), this);
-            		
             		
             	}
 
