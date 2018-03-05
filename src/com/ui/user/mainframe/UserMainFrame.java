@@ -216,7 +216,6 @@ public class UserMainFrame extends javax.swing.JFrame {
         setTitle("LMS");
         setLocation(new java.awt.Point(320, 200));
         setMinimumSize(new java.awt.Dimension(742, 650));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -1558,6 +1557,9 @@ public class UserMainFrame extends javax.swing.JFrame {
     private boolean isAllFilled() {
         ArrayList selectedJTextField = getAllJTextFieldOnTab();
 
+        if(this.jTabbedPane1.getSelectedComponent().getName()=="Process")
+            return true;
+        
         for (int i = 0; i < selectedJTextField.size(); i++) {
             if (((JTextField) selectedJTextField.get(i)).getText() == null
                     || "".equals(((JTextField) selectedJTextField.get(i)).getText())) {
@@ -1738,7 +1740,11 @@ public class UserMainFrame extends javax.swing.JFrame {
                 MaterialDAO.getInstance().addOrUpdate(doc);
                 break;
             case Process:
-                if (null != ((SampleDAO) SampleDAO.getInstance()).isSampleFound(this.jTextField5.getText().replaceAll(" ", ""))) {
+                if("".equals(this.jTextField5.getText().replaceAll(" ", "")))
+                {
+                     blockEQByUser();
+                }
+                else if (null != ((SampleDAO) SampleDAO.getInstance()).isSampleFound(this.jTextField5.getText().replaceAll(" ", ""))) {
                     this.msgLabel.setText(MessageEnum.SampleDuplFound.getMsg());
                     flag = false;
                 } else {

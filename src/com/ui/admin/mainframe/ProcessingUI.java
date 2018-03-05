@@ -237,7 +237,16 @@ public class ProcessingUI extends AbstractUI {
         FileRW file = new FileRW();
         String l = "";
         try {
-            file.readFile(config);
+            File f = new File(config);
+            if(f.exists())
+            {
+                file.readFile(config);
+            }
+            else
+            {
+                file.readFile(config.substring(4));
+            }
+            
             BufferedReader buf_r = file.getBuf_r();
 
             while (null != (l = buf_r.readLine())) {
@@ -257,7 +266,15 @@ public class ProcessingUI extends AbstractUI {
         FileRW file = new FileRW();
         String l = "";
         try {
-            file.readFile(config);
+            File f = new File(config);
+            if(f.exists())
+            {
+                file.readFile(config);
+            }
+            else
+            {
+                file.readFile(config.substring(4));
+            }
             BufferedReader buf_r = file.getBuf_r();
 
             while (null != (l = buf_r.readLine())) {
