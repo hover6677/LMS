@@ -1,4 +1,5 @@
 /build/
 /nbproject/private/
 /dist/
-/vcpp/vcpp/Debug
+/Integration/vcpp/vcpp/Debug
+/Integration/vcpp/vcpp/Release
