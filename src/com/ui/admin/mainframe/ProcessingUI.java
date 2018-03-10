@@ -16,6 +16,7 @@ import org.bson.Document;
 import org.fileRW.FileRW;
 
 import com.db.mongodb.admin.helper.InsertAction;
+import com.db.mongodb.admin.helper.LMSUtils;
 import com.db.mongodb.DAO.AttachmentDAO;
 import com.db.mongodb.DAO.DBConnection;
 import com.db.mongodb.DAO.TemplateDAO;
@@ -64,7 +65,7 @@ public class ProcessingUI extends AbstractUI {
     private int totNum;
     private SpinnerListModel listModelLeft;
     private HashMap<JTextField,JTextField> mapOfFiles;
-    private final static String config = "src/config/config.txt";
+    private final static String config = LMSUtils.getConfigFolderPath()+"/config.txt";
     private final static String attachmentDIR = "AttachmentDIR";
     private final static String IP = "IP";
     //private JPanel panel_1;

@@ -5,6 +5,7 @@
  */
 package com.db.mongodb.DAO;
 
+import com.db.mongodb.admin.helper.LMSUtils;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientOptions.Builder;
@@ -28,7 +29,7 @@ public class DBConnection {
     private static String IPString = "localhost";
     private final static int port = 27017;
     private final static String dbName = "LIMS";
-    private final static String config = "src/config/config.txt";
+    private final static String config = LMSUtils.getConfigFolderPath()+"/config.txt";
 
     private MongoClient mongoClient = null;
     private MongoDatabase db = null;

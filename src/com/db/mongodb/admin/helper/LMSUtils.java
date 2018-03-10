@@ -14,4 +14,13 @@ public class LMSUtils {
 		return false;
 		
 	}
+	public static String getConfigFolderPath()
+	{
+		String path = System.getProperty("user.dir");
+		if (path.matches("(.*)src$")) {
+			return "config";
+		}
+		else return "src/config";
+	}
+
 }
