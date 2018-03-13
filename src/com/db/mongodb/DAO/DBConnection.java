@@ -29,7 +29,8 @@ public class DBConnection {
     private static String IPString = "localhost";
     private final static int port = 27017;
     private final static String dbName = "LIMS";
-    private final static String config = LMSUtils.getConfigFolderPath()+"/config.txt";
+    //private final static String config = LMSUtils.getConfigFolderPath()+"/config.txt";
+    private final static String config = "config/config.txt";
 
     private MongoClient mongoClient = null;
     private MongoDatabase db = null;

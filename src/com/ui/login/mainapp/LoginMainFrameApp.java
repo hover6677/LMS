@@ -11,16 +11,9 @@ import com.db.mongodb.user.helper.EquipmentDAOHelper;
 import com.document.enumeration.ParameterKeyEnum;
 import com.document.enumeration.UserManagementEnum;
 import com.ui.admin.mainframe.AdminMainFrame;
-import com.ui.login.mainframe.LoginMainFrame;
 import com.ui.user.mainframe.UserMainFrame;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.Document;
@@ -37,7 +30,7 @@ public class LoginMainFrameApp {
     private static UserMainFrame userMainFrame;
     private static AdminMainFrame uiFrame;
     private static Document Parameters = new Document();
-    private final static String config = "src/config/config.txt";
+    private final static String config = "config/config.txt";
 
     public static UserMainFrame getUserMainFrame() {
         return userMainFrame;
@@ -111,18 +104,18 @@ public class LoginMainFrameApp {
     }
 
     private static boolean checkAttachDir() {
-        File f = new File(ParameterKeyEnum.AttachmentDIR.toString());
+        String file = (String) Parameters.get(ParameterKeyEnum.AttachmentDIR.toString());
+        
+        File f = new File(file);
         if (f.exists() && f.isDirectory()) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-    private static boolean createAttachDir()
-    {
-        File f = new File(ParameterKeyEnum.AttachmentDIR.toString());
+
+    private static boolean createAttachDir() {
+        File f = new File(Parameters.getString(ParameterKeyEnum.AttachmentDIR.toString()));
         try {
             f.mkdir();
         } catch (Exception e) {
@@ -137,11 +130,10 @@ public class LoginMainFrameApp {
         readParaFromFile();
 
         if (uid.equals(UserManagementEnum.admin.toString())) {
-            if(!checkAttachDir())
-            {
+            /*if (!checkAttachDir()) {
                 createAttachDir();
-            }
-            
+            }*/
+
             refreshEquipment();
             uiFrame = new AdminMainFrame(Parameters);
             uiFrame.setVisible(true);

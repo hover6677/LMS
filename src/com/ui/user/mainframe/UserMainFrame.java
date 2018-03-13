@@ -226,7 +226,7 @@ public class UserMainFrame extends javax.swing.JFrame {
         jPanel7.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
 
         jTabbedPane1.setBackground(java.awt.SystemColor.controlHighlight);
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTabbedPane1.setName("Tabs"); // NOI18N
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -745,10 +745,10 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Storage", jPanel3);
+        jTabbedPane1.addTab(" Storage ", jPanel3);
         jPanel3.getAccessibleContext().setAccessibleName("Storage");
 
         jPanel1.setBackground(java.awt.SystemColor.controlHighlight);
@@ -861,7 +861,7 @@ public class UserMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(excelBtn)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                .add(jScrollPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jButton2, jLabel11, jTextField2}, org.jdesktop.layout.GroupLayout.VERTICAL);
@@ -870,7 +870,7 @@ public class UserMainFrame extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(new java.awt.Component[] {jLabel12, jXDatePicker1}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
-        jTabbedPane1.addTab("Report", jPanel1);
+        jTabbedPane1.addTab("  Report  ", jPanel1);
 
         clearBtn.setText("Reset All");
         clearBtn.setMaximumSize(new java.awt.Dimension(75, 30));
@@ -1056,7 +1056,7 @@ public class UserMainFrame extends javax.swing.JFrame {
     }
 
     private void drawLabelRadioText(JPanel jPanel, ArrayList tags,String tid, JScrollPane sPanel, ArrayList<Document> eqDocs,
-            int xoffset, int yoffset, int labelWidth, int align, int textWidth, int height) {
+            int xoffset, int yoffset,int gap, int labelWidth, int align, int textWidth, int height) {
         UserMainFrameApp.labelList.clear();
         UserMainFrameApp.textFiledList.clear();
         UserMainFrameApp.radioLabelList.clear();
@@ -1078,7 +1078,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             jLabelD.setText(tags.get(i).toString());
             jLabelD.setBounds(x, y + i * yoffset, labelWidth, height);
             jPanel.add(jLabelD);
-            x += labelWidth;
+            x += labelWidth+gap;
 
             jTextFieldD.setBounds(x, y + i * yoffset, textWidth, height);
             jTextFieldD.setBorder(BorderFactory.createSoftBevelBorder(SoftBevelBorder.LOWERED));
@@ -1092,8 +1092,12 @@ public class UserMainFrame extends javax.swing.JFrame {
             {
                 x += xoffset; 
                 Document fetchAttach = UserMainFrameApp.getAttachmentDAO().fetchAttach(tid, tags.get(i).toString());
+                if(fetchAttach==null)
+                {
+                    continue;
+                }
                 JButton attachBtn = new JButton();
-                attachBtn.setBounds(x, y + i * yoffset, labelWidth, height);
+                attachBtn.setBounds(x, y + i * yoffset, 80, height);
                 attachBtn.setText("Open");
                 attachBtn.setName(fetchAttach.getString(AttachmentKeyEnum.DIR.toString())+fetchAttach.getString(AttachmentKeyEnum.FileName.toString()));
                 attachBtn.addActionListener(new ActionListener(){
@@ -1110,7 +1114,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             yfinal = y + (i + 1) * yoffset;
         }
         if (null != eqDocs) {
-            int x = xinit + labelWidth + xoffset + textWidth + xoffset+labelWidth+xoffset*7;
+            int x = xinit + labelWidth + xoffset + textWidth + xoffset+80+xoffset*7;
             for (int i = 0; i < eqDocs.size(); i++) {
                 int y = yinit;
                 if ("process".equals(jPanel.getName())) {
@@ -1230,7 +1234,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList<Document> eqDocs = new ArrayList();
             eqDocs = UserMainFrameApp.getEquipmentDAO().fetchAllEQDoc();
             if (null != tags && !tags.isEmpty()) {
-                drawLabelRadioText(jPanel8, tags,tid, this.jScrollPane2, eqDocs, 20, 40, 100, javax.swing.SwingConstants.LEFT, 280, 30);
+                drawLabelRadioText(jPanel8, tags,tid, this.jScrollPane2, eqDocs, 20, 40,0 ,100, javax.swing.SwingConstants.LEFT, 280, 30);
             }
         }
     }//GEN-LAST:event_jComboBoxTags2ActionPerformed
@@ -1390,7 +1394,7 @@ public class UserMainFrame extends javax.swing.JFrame {
             ArrayList tags = new ArrayList();
             tags = UserMainFrameApp.getTemplateDAO().fetchTagListByTID(this.jComboBoxTags.getSelectedIndex());
             if (null != tags && !tags.isEmpty()) {
-                drawLabelRadioText(jPanel6, tags,null, this.jScrollPane1, null, 165, 40, 130, javax.swing.SwingConstants.RIGHT, 230, 30);
+                drawLabelRadioText(jPanel6, tags,null, this.jScrollPane1, null, 165, 40,30,130, javax.swing.SwingConstants.RIGHT, 230, 30);
             }
             this.jButton6.setVisible(true);
         }
